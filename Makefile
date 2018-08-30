@@ -1,10 +1,18 @@
- DIRS=devicecode hostcode
-EXE=testprogram test_timing
-DLIB=devicecode/libdevice.a
-HLIB=hostcode/libhost.a
-EXE=testprogram test_timing bfss_host_serial bfss_device_serial
+
 DEPENDALL=staticparameters.f90
 include Makefile.inc
+
+ifeq ($(NODEVICE),1)
+ DIRS=hostcode
+ DLIB=
+ HLIB=hostcode/libhost.a
+ EXE=bfss_host_serial
+else
+ DIRS=devicecode hostcode
+ DLIB=devicecode/libdevice.a
+ HLIB=hostcode/libhost.a
+ EXE=testprogram test_timing bfss_host_serial bfss_device_serial
+endif
 
 all: $(EXE)
 
@@ -15,13 +23,13 @@ ${DLIB}: force_look
 ${HLIB}: force_look
 	echo looking into hostcode : $(MAKE) $(MFLAGS)
 	cd hostcode; $(MAKE) $(MFLAGS)
-	
+
 compare_host_device.mod: compare_host_device.f90
 	${FC} -c ${FCFLAGS} $<
-	
-bfss_host_serial: ${HLIB} ${DLIB} main_host_serial.o 
-	${FC} ${FCFLAGS} main_host_serial.o ${HLIB} ${DLIB}  -o $@
-	
+
+bfss_host_serial: ${HLIB} main_host_serial.o 
+	${FC} ${FCFLAGS} main_host_serial.o ${HLIB} -o $@
+
 bfss_device_serial: ${HLIB} ${DLIB} main_device_serial.o 
 	${FC} ${FCFLAGS} main_device_serial.o ${DLIB} ${HLIB}  -o $@
 

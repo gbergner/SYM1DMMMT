@@ -1,16 +1,21 @@
 FC=pgfortran
+#FC=gfortran
 # Add source folder here
 SOURCEDIR=THESOURCE
 # Default flags, please adapt
 FCFLAGS=-acc -ta=nvidia -mcmodel=medium -I$(SOURCEDIR)/hostcode/  -I$(SOURCEDIR)/devicecode/
+# FLAGS for gfortran
+#FCFLAGS=-mcmodel=medium -I$(SOURCEDIR)/hostcode/  -I$(SOURCEDIR)/devicecode/
 
 AR=ar
 RM=rm
 ARFLAGS=cr
 RANLIB=ranlib
 DIRS=devicecode hostcode
+# add -Mcuda in this case
 USECUDA=0
-
+# set this to 1 if you want to use gfortran
+NODEVICE=0
 
 %.o: %.f90 $(DEPENDALL)
 	${FC} -c ${FCFLAGS} $<

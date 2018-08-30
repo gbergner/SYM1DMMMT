@@ -27,7 +27,7 @@ outputstreamnumbers.mod: outputstreamnumbers.f90 ../unit_number.inc
 ifeq ($(USECUDA),1)
 cublasinterface.mod: cuda/cublasinterface.f90
 	${FC} -c ${FCFLAGS} $<
-	
+
 cublasinterface.o: cuda/cublasinterface.f90
 	${FC} -c ${FCFLAGS} $<
 else
