@@ -1,0 +1,32 @@
+'conN4S4T20M10_apbc_1.dat'		!input_config
+'conN4S4T20M10_apbc_1.dat'	!output_config
+'outN4S4T20M10_apbc_1.txt'	!data_output
+'iconN4S4T20M10_apbc_1.dat'	!intermediate_config
+'acc_N4S4T20M10_apbc.dat'		!acc_input
+'acc_N4S4T20M10_apbc_1.dat'       !acc_output
+'CG_N4S4T20M10_apbc_1.dat'       !CG_log
+1	!nbc; 0 -> pbc, 1 -> apbc
+1	!nbmn; 0 -> BFSS, 1 -> BMN
+1	!init; 0 -> old config, 1 -> new config, 2-> fuzzy sphere
+1	!iaccelerate; 0 -> read from acc_input, 1-> naive 
+1	!isave; 0 -> save intermediate config, 1-> do not save
+1.0d0	!temperature
+1.0d0	!flux parameter mu; used only when nbmn=1
+10000	!ntraj(total number of sweeps)
+1	!nskip
+0	!nsave
+8	!ntau   (# of step for pseudo fermion part)
+3	!nratio (ntau*(2*nratio+1) = # of step for bosonic part)
+0.04d0	!Dtau for xmat
+0.04d0	!Dtau for alpha
+1d3	!upper_approx; the largest eigenvalue of (M^¥dagger M)must be smaller than this. 
+1d-10 	!max_err; stopping condition for CG solver
+1000	!max_iteration; maximum number of CG-iteration
+10000d0	!g_alpha; coefficient for constraint term of alpha
+100d0	!g_R; coefficient for constraint term of R
+4.3	!RCUT; cutoff for TrX^2
+0	!neig_max; neig_max>0 -> calculate the largest eig of (D^dag*D). 
+0	!neig_min; neig_min>0 -> calculate the smallest eig of (D^dag*D). 
+1	!nfuzzy; number of fuzzy spheres. Used only when init=2. mod(nmat,nfuzzy) must be zero.
+4357    !mersenne_seed; seed for mersenne twistor, when init is not zero.
+0	!imetropolis; 1 -> no Metropolis test (For thermalization)

@@ -1,0 +1,8 @@
+*.[oa]
+*~
+*.mod
+test_timing
+testprogram
+bfss_device_serial
+bfss_host_serial
+Makefile.inc
