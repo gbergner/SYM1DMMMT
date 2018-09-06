@@ -11,6 +11,7 @@ program BFSS_DEVICE
   use outputstreamnumbers
   use RHMC_Updater
   use timer
+  use utils_measurements
   implicit none
   
 

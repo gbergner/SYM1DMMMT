@@ -40,5 +40,6 @@ integer,parameter :: solver_verbose=0
 integer,parameter :: rhmc_verbose=0
 integer,parameter :: check_host_metropolis=0
 integer,parameter :: cublasmult=0
+integer,parameter :: havecublas=1
 integer,parameter :: usetimer=1
 

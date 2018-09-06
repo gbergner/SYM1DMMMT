@@ -2,7 +2,7 @@ ALLSOURCE=$(wildcard *.f90)
 LIBDEVICE_OBJ=$(patsubst %.f90,%.o,$(ALLSOURCE))
 # be careful with the order of the module files
 BASEMODFILES=compiletimeconstants.mod outputstreamnumbers.mod gammamatrix.mod cublasinterface.mod
-MODFILES=${BASEMODFILES} timer.mod dirac_operator.mod cgm_solver.mod fourier_transform.mod rand_fermion_fields.mod  utils_measurements.mod lattice_action.mod hmc_hamiltonean.mod hmc_force.mod hmc_molecular_dynamics.mod
+MODFILES=timer.mod dirac_operator.mod cgm_solver.mod fourier_transform.mod rand_fermion_fields.mod  utils_measurements.mod lattice_action.mod hmc_hamiltonean.mod hmc_force.mod hmc_molecular_dynamics.mod rhmc_updater.mod
 DEPENDALL=${BASEMODFILES}
 include ../Makefile.inc
 
@@ -10,7 +10,7 @@ ifeq ($(USECUDA),1)
   LIBDEVICE_OBJ += cublasinterface.o
 endif
 
-libdevice.a: ${MODFILES} ${LIBDEVICE_OBJ}
+libdevice.a: ${BASEMODFILES} ${MODFILES}
 	${AR} ${ARFLAGS} $@ ${LIBDEVICE_OBJ}
 	${RANLIB} $@
 
@@ -63,6 +63,9 @@ rand_fermion_fields.mod: rand_fermion_fields.f90 ${BASEMODFILES}
 	${FC} -c ${FCFLAGS} $<
 
 utils_measurements.mod: utils_measurements.f90 ${BASEMODFILES}
+	${FC} -c ${FCFLAGS} $<
+
+rhmc_updater.mod: rhmc_updater.f90 ${BASEMODFILES}
 	${FC} -c ${FCFLAGS} $<
 
 clean:
