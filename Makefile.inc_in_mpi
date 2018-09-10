@@ -1,0 +1,22 @@
+FC=mpif90.mpich
+# Add source folder here
+SOURCEDIR=THESOURCE
+# Default flags, please adapt
+# FLAGS for mpif90
+FCFLAGS= -I$(SOURCEDIR)/matrix_parallel/
+
+AR=ar
+RM=rm
+ARFLAGS=cr
+RANLIB=ranlib
+# add -Mcuda in this case
+USECUDA=1
+# set this to 1 if you want to use gfortran
+# set both to 1 if you want to use mpifortran
+NODEVICE=1
+MPARALLEL=1
+
+%.o: %.f90 $(DEPENDALL)
+	${FC} -c ${FCFLAGS} $<
+
+

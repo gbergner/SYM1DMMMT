@@ -51,7 +51,7 @@ test_timing: main_time.o ${HLIB} ${DLIB}
 
 bfss_mparallel: ${HLIB} main_parallel.o
 	${FC} ${FCFLAGS} main_parallel.o ${DLIB} ${HLIB}  -o $@
-	
+
 .PHONY: clean
 
 clean:
