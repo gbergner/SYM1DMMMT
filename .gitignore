@@ -5,6 +5,7 @@ test_timing
 testprogram
 bfss_device_serial
 bfss_host_serial
+bfss_mparallel
 Makefile.inc
 .cproject
 .project

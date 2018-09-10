@@ -174,7 +174,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
             end do
             !$acc end kernels
         end do
-       elseif(var==7) then
+    elseif(var==7) then
         do countr=1,144
             ispin=gamispin(countr)
             jspin=gamjspin(countr)
@@ -184,7 +184,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
                 call callZgemmBatched(pf2,xmat,pf1,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
             endif
         end do
-      elseif(var==8) then
+    elseif(var==8) then
         do countr=1,144
             ispin=gamispin(countr)
             jspin=gamjspin(countr)
@@ -200,7 +200,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
     end if
 END SUBROUTINE Test_Multiply_Dirac_dagger_device
 
-SUBROUTINE reorder_fields_xmat(xmatin,xmatout)
+SUBROUTINE reorder_fields_xmat1(xmatin,xmatout)
     use compiletimeconstants
     use gammamatrix
     implicit none
@@ -219,9 +219,9 @@ SUBROUTINE reorder_fields_xmat(xmatin,xmatout)
         end do
     end do
 !$acc end kernels
-END SUBROUTINE reorder_fields_xmat
+END SUBROUTINE reorder_fields_xmat1
 
-SUBROUTINE reorder_fields_pf(pfin,pfout)
+SUBROUTINE reorder_fields_pf1(pfin,pfout)
     use compiletimeconstants
     use gammamatrix
     implicit none
@@ -240,9 +240,9 @@ SUBROUTINE reorder_fields_pf(pfin,pfout)
         end do
     end do
 !$acc end kernels
-END SUBROUTINE reorder_fields_pf
+END SUBROUTINE reorder_fields_pf1
 
-SUBROUTINE inv_reorder_fields_pf(pfin,pfout)
+SUBROUTINE inv_reorder_fields_pf1(pfin,pfout)
     use compiletimeconstants
     use gammamatrix
     implicit none
@@ -261,9 +261,72 @@ SUBROUTINE inv_reorder_fields_pf(pfin,pfout)
         end do
     end do
 !$acc end kernels
-END SUBROUTINE inv_reorder_fields_pf
+END SUBROUTINE inv_reorder_fields_pf1
 
-SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg(xmat,pf1,pf2)
+SUBROUTINE reorder_fields_xmat2(xmatin,xmatout)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+    double complex,intent(in) :: xmatin(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+    double complex,intent(out) :: xmatout(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:ndim)
+    !$acc declare present(xmatin,xmatout)
+    integer :: imat,jmat,idim, isite
+    !$acc kernels
+    do isite=-(nmargin-1),nsite+nmargin
+        do idim=1,ndim
+            do imat=1,nmat
+                do jmat=1,nmat
+                    xmatout(isite,imat,jmat,idim)=xmatin(imat,jmat,idim,isite)
+                end do
+            end do
+        end do
+    end do
+!$acc end kernels
+END SUBROUTINE reorder_fields_xmat2
+
+SUBROUTINE reorder_fields_pf2(pfin,pfout)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+    double complex,intent(in):: pfin(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex,intent(out) :: pfout(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
+        !$acc declare present(pfin,pfout)
+    integer :: imat,jmat,idim, isite
+    !$acc kernels
+    do isite=-(nmargin-1),nsite+nmargin
+        do idim=1,nspin
+            do imat=1,nmat
+                do jmat=1,nmat
+                    pfout(isite,imat,jmat,idim)=pfin(imat,jmat,idim,isite)
+                end do
+            end do
+        end do
+    end do
+!$acc end kernels
+END SUBROUTINE reorder_fields_pf2
+
+SUBROUTINE inv_reorder_fields_pf2(pfin,pfout)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+    double complex,intent(out):: pfout(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex,intent(in) :: pfin(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
+        !$acc declare present(pfin,pfout)
+    integer :: imat,jmat,idim, isite
+    !$acc kernels
+    do isite=-(nmargin-1),nsite+nmargin
+        do idim=1,nspin
+            do imat=1,nmat
+                do jmat=1,nmat
+                    pfout(imat,jmat,idim,isite)=pfin(isite,imat,jmat,idim)
+                end do
+            end do
+        end do
+    end do
+!$acc end kernels
+END SUBROUTINE inv_reorder_fields_pf2
+
+SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg1(xmat,pf1,pf2)
     use compiletimeconstants
     use gammamatrix
     implicit none
@@ -305,7 +368,53 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg(xmat,pf1,pf2)
        !$acc end kernels
     end do
 
-END SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg
+END SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg1
+
+SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg2(xmat,pf1,pf2)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+
+    double complex :: gamtmp,tmp
+
+    double complex,intent(in) :: xmat(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:ndim)
+    double complex,intent(in) :: pf1(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
+    double complex,intent(out) :: pf2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
+    !******************
+    integer :: imat,jmat,kmat
+    integer :: idim
+    integer :: ispin,jspin,kspin
+    integer :: isite
+    integer :: countr
+    !$acc declare present(xmat,pf1,pf2)
+
+    !$acc kernels
+    pf2=(0d0,0d0)
+    !$acc end kernels
+
+    do countr=1,144
+        ispin=gamispin(countr)
+        jspin=gamjspin(countr)
+        idim=gamidim(countr)
+        gamtmp=dconjg(gamgam(countr))
+        !$acc parallel
+        !$acc loop seq
+        do kmat=1,nmat
+        !$acc loop independent collapse(3)
+        do imat=1,nmat
+            do jmat=1,nmat
+                    do isite=1,nsite
+                         pf2(isite,imat,jmat,ispin)=pf2(isite,imat,jmat,ispin)-gamtmp&
+                            *(xmat(isite,imat,kmat,idim)*pf1(isite,kmat,jmat,jspin)&
+                            -xmat(isite,kmat,jmat,idim)*pf1(isite,imat,kmat,jspin))
+                    end do
+                end do
+            end do
+        end do
+       !$acc end parallel
+    end do
+
+END SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg2
 
 
 ! These memory reduced parts are currently in a test status.
@@ -584,14 +693,18 @@ program timing_mult
   
     double complex :: testvect_d0(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
     double complex :: testvect_d2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
-    double complex :: testvect_d0_reorg(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
-    double complex :: testvect_d2_reorg(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
+    double complex :: testvect_d0_reorg1(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
+    double complex :: testvect_d2_reorg1(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
+    double complex :: testvect_d0_reorg2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
+    double complex :: testvect_d2_reorg2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
     !$acc declare device_resident(testvect_d0,testvect_d2)
-    !$acc declare device_resident(testvect_d0_reorg,testvect_d2_reorg)
+    !$acc declare device_resident(testvect_d0_reorg1,testvect_d2_reorg1)
+    !$acc declare device_resident(testvect_d0_reorg2,testvect_d2_reorg2)
 
     double complex :: xmatreduced(1:(nmat*(nmat+1)/2),1:ndim,-(nmargin-1):nsite+nmargin)
     double complex :: xmatexpand(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
-    double complex :: xmatreorg(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:ndim)
+    double complex :: xmatreorg1(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:ndim)
+    double complex :: xmatreorg2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:ndim)
 
     real :: start_time,stop_time,time1,time2
     integer :: counter,isite,idim,imat,jmat,ivar
@@ -631,7 +744,7 @@ program timing_mult
     !        end do
     !    end do
     !$acc data &
-    !$acc copyin(testvect0,temperature,xmat,alpha,GAMMA10d,nbmn,flux,nbc,xmatreduced,xmatexpand,xmatreorg)
+    !$acc copyin(testvect0,temperature,xmat,alpha,GAMMA10d,nbmn,flux,nbc,xmatreduced,xmatexpand,xmatreorg1,xmatreorg2)
     !$acc kernels
     testvect_d0=testvect0
     !$acc end kernels
@@ -738,23 +851,43 @@ program timing_mult
         print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
     end do
 
-    print *, "Memory reorganized variant "
-    call reorder_fields_xmat(xmat,xmatreorg)
-    !$acc update host(xmatreorg)
-    call reorder_fields_pf(testvect_d0,testvect_d0_reorg)
+    print *, "Memory reorganized variant 1"
+    call reorder_fields_xmat1(xmat,xmatreorg1)
+    !$acc update host(xmatreorg1)
+    call reorder_fields_pf1(testvect_d0,testvect_d0_reorg1)
     call cpu_time(start_time)
     do counter=1,runnumber
-        call Test_Multiply_Dirac_dagger_device_reorg(xmatreorg,testvect_d0_reorg,testvect_d2_reorg)
+        call Test_Multiply_Dirac_dagger_device_reorg1(xmatreorg1,testvect_d0_reorg1,testvect_d2_reorg1)
     end do
     call cpu_time(stop_time)
     time2=stop_time - start_time
     print *, "Device time:", &
         time2, "seconds", flopspermult/time2, "Flops"
     print *,"relative timing",time1/time2
-    call inv_reorder_fields_pf(testvect_d2_reorg,testvect_d2)
+    call inv_reorder_fields_pf1(testvect_d2_reorg1,testvect_d2)
     !$acc kernels
     testvect2=testvect_d2
-    tmp=Sum(abs(testvect_d2_reorg))
+    tmp=Sum(abs(testvect_d2_reorg1))
+    !$acc end kernels
+    print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
+
+        print *, "Memory reorganized variant 2"
+    call reorder_fields_xmat2(xmat,xmatreorg2)
+    !$acc update host(xmatreorg2)
+    call reorder_fields_pf2(testvect_d0,testvect_d0_reorg2)
+    call cpu_time(start_time)
+    do counter=1,runnumber
+        call Test_Multiply_Dirac_dagger_device_reorg2(xmatreorg2,testvect_d0_reorg2,testvect_d2_reorg2)
+    end do
+    call cpu_time(stop_time)
+    time2=stop_time - start_time
+    print *, "Device time:", &
+        time2, "seconds", flopspermult/time2, "Flops"
+    print *,"relative timing",time1/time2
+    call inv_reorder_fields_pf2(testvect_d2_reorg2,testvect_d2)
+    !$acc kernels
+    testvect2=testvect_d2
+    tmp=Sum(abs(testvect_d2_reorg2))
     !$acc end kernels
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
 

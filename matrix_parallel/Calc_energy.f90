@@ -14,6 +14,8 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
   double precision alpha(1:nmat_block*nblock)
   double precision acoeff_md(0:nremez_md),bcoeff_md(1:nremez_md)
   double precision acoeff_pf(0:nremez_pf),bcoeff_pf(1:nremez_pf)
+  integer nbc,max_iteration
+  double precision max_err
   !***** output *****
   double precision energy
   !******************
@@ -35,23 +37,21 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
        trx123,trx132
   double precision trx2_123,trx2_456789
 
-  integer iblock,jblock,isublat
-  integer info,info_pf
-  double complex pf(1:nmat_block,1:nmat_block,&
-       1:nspin,-(nmargin-1):nsite_local+nmargin)
-  double complex Chi(1:nremez_md,1:nmat_block,1:nmat_block,&
-       1:nspin,-(nmargin-1):nsite_local+nmargin)
-  double complex Mchi(1:nremez_md,1:nmat_block,1:nmat_block,&
-       &1:nspin,1:nsite_local)
   
+  integer i,kblock_send,kblock_rcv,ishift,iblock,jblock,isublat,info
   double precision sum_pf
+  
+  
   double complex Gamma10d(1:ndim,1:nspin,1:nspin),gam123(1:nspin,1:nspin),gam12(1:nspin,1:nspin)
   integer ispin,jspin,kspin
   integer iremez
-  integer nbc,max_iteration,iteration
-  double precision max_err
-  !***** For MPI *****
-  integer IERR
+  integer iteration
+  !***** For MPI *****                             
+  double complex mat_send(1:nmat_block,1:nmat_block,1:nspin,1:nsite_local)
+  double complex mat_rcv(1:nmat_block,1:nmat_block,1:nspin,1:nsite_local)
+  integer IERR,IREQ,send_rank,receive_rank,tag
+  integer STATUS(MPI_STATUS_SIZE)
+
 
   call who_am_i(myrank,isublat,iblock,jblock)
   !move i-th row and j-th row of xmat to (i,j)-th node.
@@ -97,7 +97,6 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
   !*** Plane wave deformation ***
   !******************************
   potential_BMN=0d0
-  sum_pf=0d0
   if(nbmn.EQ.1)then
      !*****************
      !*** mass term ***
@@ -152,93 +151,17 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
      potential_BMN=potential_BMN&
           &+dble((0d0,7.5d0)*(trx123-trx132))*flux*lattice_spacing&
           &*dble(nmat_block*nblock)
+  end if
 
-!!$
-!!$     
-!!$     call MakeGamma(Gamma10d)
-!!$     call generate_pseudo_fermion_SUN(nbc,acoeff_pf,bcoeff_pf,temperature,&
-!!$          &xmat,alpha,pf,GAMMA10d,max_err,max_iteration,iteration,myrank,&
-!!$          &nbmn,flux,info_pf)
-!!$     !info_pf=0 -> OK (CG solver converged)
-!!$     !info_pf=1 -> error (CG solver did not converge)
-!!$     !Calculate Chi_k = (D+bcoeff_md(k))^{-1}*pf by using multi-mass CG-solver
-!!$     call solver_biCGm(nbc,nremez_md,bcoeff_md,temperature,&
-!!$          &xmat,alpha,pf,chi,GAMMA10d,max_err,max_iteration,iteration,myrank,&
-!!$          &nbmn,flux,info)
-!!$
-!!$     !Multiply (-i)*M
-!!$     call Multiply_Dirac_to_chi(temperature,xmat_row,xmat_column,alpha,&
-!!$          chi,mchi,GAMMA10d,nbmn,flux,myrank)
-!!$
-!!$     !Gamma10d is actually (-i)*gamma
-!!$     !gam123 is actually (-i)^3*gamma_{123}
-!!$     gam12=(0d0,0d0)
-!!$     do ispin=1,nspin
-!!$        do jspin=1,nspin
-!!$           do kspin=1,nspin
-!!$              gam12(ispin,jspin)=gam12(ispin,jspin)&
-!!$                   &+Gamma10d(1,ispin,kspin)*Gamma10d(2,kspin,jspin)
-!!$           end do
-!!$        end do
-!!$     end do
-!!$     gam123=(0d0,0d0)
-!!$     do ispin=1,nspin
-!!$        do jspin=1,nspin
-!!$           do kspin=1,nspin
-!!$              gam123(ispin,jspin)=gam123(ispin,jspin)&
-!!$                   &+gam12(ispin,kspin)*Gamma10d(3,kspin,jspin)
-!!$           end do
-!!$        end do
-!!$     end do
-!!$    
-!!$     do iremez=1,nremez_md
-!!$        do ispin=1,nspin        
-!!$           do jspin=1,nspin
-!!$              do imat=1,nmat_block
-!!$                 do jmat=1,nmat_block
-!!$                    do isite=1,nsite_local
-!!$                       sum_pf=sum_pf+&
-!!$                            &acoeff_md(iremez)&
-!!$                            &*dble(dconjg(Chi(iremez,imat,jmat,ispin,isite))&
-!!$                            &*gam123(ispin,jspin)&
-!!$                            &*mchi(iremez,imat,jmat,jspin,isite)*(0d0,1d0))
-!!$                    end do
-!!$                 end do
-!!$              end do
-!!$           end do
-!!$        end do
-!!$     end do
-!!$     !sum_pf=sum_pf*(-1.5d0*dble(nmat_block*nblock)*flux*temperature)
-!!$     !Be careful about the normalization of pseudo fermion.
-!!$     sum_pf=sum_pf*(-1.5d0*flux*temperature)*lattice_spacing
-!!$     
-     end if
-!!$  !The gauge fixing term is not needed when we calculate the energy.
-!!$  action=kinetic+potential+potential_BMN
-!!$
-!!$  energy_local=-3d0*temperature*action&
-!!$       &/dble(nmat_block*nmat_block*nblock*nblock)&
-!!$       &+1.5d0*temperature*dble(ndim*nsite_local)/dble(nblock*nblock)
-!!$
-!!$  !**************************************
-!!$  !******** The sign was wrong!!  *******
-!!$  sum_pf=-sum_pf
-!!$  !**************************************
-!!$  !**************************************
-!!$  
+  call calc_energy_fermion(temperature,xmat,xmat_row,xmat_column,&
+       &alpha,GAMMA10d,nbmn,flux,myrank,sum_pf,max_err,max_iteration,nbc)
   
-  energy_local=energy_local+sum_pf/dble(nmat_block*nmat_block*nblock*nblock)
+  energy_local=(potential+potential_BMN)/dble(nmat_block*nmat_block*nblock*nblock)*temperature+sum_pf
+
 
   call MPI_Reduce(energy_local,energy,1,MPI_DOUBLE_PRECISION,&
        MPI_SUM,0,MPI_COMM_WORLD,IERR)
 
-  !after summing up contributions from all ranks, 
-  !we must subtract the U(1) part, 1.5d0*temperature*dble(ndim)/dble(nmat*nmat)
-  if(myrank.EQ.0)then
-
-     energy=energy-1.5d0*temperature*dble(ndim)&
-          /dble(nmat_block*nmat_block*nblock*nblock)
-  end if
 
   return
 
