@@ -154,6 +154,30 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
             jspin=gamjspin(countr)
             idim=gamidim(countr)
             gamtmp=dconjg(gamgam(countr))
+            !$acc kernels&
+            !$acc async(ispin+5)
+            do isite=1,nsite
+                do kmat=1,nmat
+                    do imat=1,nmat
+                        do jmat=1,nmat
+                            pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)-gamtmp&
+                                *(xmat(imat,kmat,idim,isite)*pf1(kmat,jmat,jspin,isite)&
+                                -xmat(kmat,jmat,idim,isite)*pf1(imat,kmat,jspin,isite))
+                        end do
+                    end do
+                end do
+            end do
+           !$acc end kernels
+        end do
+        do ispin=1,nspin
+          !$acc wait(ispin+5)
+        end do
+    elseif(var==7) then
+        do countr=1,144
+            ispin=gamispin(countr)
+            jspin=gamjspin(countr)
+            idim=gamidim(countr)
+            gamtmp=dconjg(gamgam(countr))
             !$acc kernels
             do isite=1,nsite
                 do kmat=1,nmat
@@ -174,7 +198,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
             end do
             !$acc end kernels
         end do
-    elseif(var==7) then
+    elseif(var==8) then
         do countr=1,144
             ispin=gamispin(countr)
             jspin=gamjspin(countr)
@@ -184,7 +208,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
                 call callZgemmBatched(pf2,xmat,pf1,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
             endif
         end do
-    elseif(var==8) then
+    elseif(var==9) then
         do countr=1,144
             ispin=gamispin(countr)
             jspin=gamjspin(countr)
@@ -397,21 +421,21 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg2(xmat,pf1,pf2)
         jspin=gamjspin(countr)
         idim=gamidim(countr)
         gamtmp=dconjg(gamgam(countr))
-        !$acc parallel
-        !$acc loop seq
         do kmat=1,nmat
-        !$acc loop independent collapse(3)
-        do imat=1,nmat
-            do jmat=1,nmat
+            !$acc parallel loop independent collapse(2)
+            do imat=1,nmat
+                do jmat=1,nmat
+                    !$acc loop vector
                     do isite=1,nsite
-                         pf2(isite,imat,jmat,ispin)=pf2(isite,imat,jmat,ispin)-gamtmp&
+                        pf2(isite,imat,jmat,ispin)=pf2(isite,imat,jmat,ispin)-gamtmp&
                             *(xmat(isite,imat,kmat,idim)*pf1(isite,kmat,jmat,jspin)&
                             -xmat(isite,kmat,jmat,idim)*pf1(isite,imat,kmat,jspin))
                     end do
                 end do
             end do
+          !$acc end parallel
         end do
-       !$acc end parallel
+
     end do
 
 END SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg2
@@ -655,12 +679,58 @@ SUBROUTINE Multiply_Dirac_device_memred(xmat,pf1,pf2,var)
 
 END SUBROUTINE Multiply_Dirac_device_memred
 
+SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas(xmat,pf1,pf2,xptr_d,pf1ptr_d,pf2ptr_d)
+    !********************************(needed for cublas version)
+    use cublasinterface
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+
+    double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+    double complex, intent(in) :: pf1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex, intent(out) :: pf2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex :: gamtmp,tmp
+
+    double complex :: xmat2(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:ndim)
+    double complex :: pf12(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
+    double complex :: pf22(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
+    !******************
+    integer :: imat,jmat,kmat
+    integer :: idim
+    integer :: ispin,jspin,kspin
+    integer :: isite
+    integer :: countr
+    !$acc declare present(xmat,pf1,pf2)
+    type(c_devptr), device :: xptr_d(nsite,ndim)
+    type(c_devptr), device :: pf1ptr_d(nsite,nspin)
+    type(c_devptr), device :: pf2ptr_d(nsite,nspin)
+
+    !$acc kernels
+    pf2=(0d0,0d0)
+    !$acc end kernels
+
+    do countr=1,144
+        ispin=gamispin(countr)
+        jspin=gamjspin(countr)
+        idim=gamidim(countr)
+        gamtmp=dconjg(gamgam(countr))
+        if (havecublas.NE.0) then
+            !callZgemmBatched(pf2,xmat,pf1,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+            call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+        endif
+    end do
+
+END SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas
+
 
 program timing_mult
     use compiletimeconstants
     use dirac_operator
     use outputstreamnumbers
     use mtmod !Mersenne twistor
+    use cublasinterface
+    use cublas
+    use iso_c_binding
     implicit none
   
     double complex :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
@@ -676,9 +746,9 @@ program timing_mult
     ! Run parameters
     integer, parameter :: testhost=1 !switch of on slow systems
     integer, parameter :: runnumber=10
-    integer, parameter :: numvar=8
+    integer, parameter :: numvar=9
     ! This estimate has to be checked.
-    integer, parameter :: flopspermult=(6+1)*2*144*nsite*nmat*nmat*nmat*runnumber
+    double precision, parameter :: flopspermult=(6+1)*2*144*nsite*nmat*nmat*nmat*runnumber
 
     integer :: nbc !boundary condition for fermions; 0 -> pbc, 1 -> apbc
     integer:: nbmn ! 0 -> BFSS, 1 -> BMN
@@ -709,6 +779,10 @@ program timing_mult
     real :: start_time,stop_time,time1,time2
     integer :: counter,isite,idim,imat,jmat,ivar
     double complex :: tmp
+
+    type(c_devptr), device :: xptr_d(nsite,ndim)
+    type(c_devptr), device :: pf1ptr_d(nsite,nspin)
+    type(c_devptr), device :: pf2ptr_d(nsite,nspin)
 
     nbc=1 !boundary condition for fermions; 0 -> pbc, 1 -> apbc
     nbmn=0 ! 0 -> BFSS, 1 -> BMN
@@ -827,6 +901,26 @@ program timing_mult
         endif
     end do
 
+    call setup_cublas()
+    call setup_cublas_pointers_xmat(xmat,xptr_d)
+    call setup_cublas_pointers_pf(testvect_d0,pf1ptr_d)
+    call setup_cublas_pointers_pf(testvect_d2,pf2ptr_d)
+    call cpu_time(start_time)
+    do counter=1,runnumber
+        call Test_Multiply_Dirac_dagger_device_cublas(xmat,testvect_d0,testvect_d2,xptr_d,pf1ptr_d,pf2ptr_d)
+    end do
+    call cpu_time(stop_time)
+    time2=stop_time - start_time
+    print *, "Device time:", &
+        time2, "seconds", flopspermult/time2, "Flops"
+    print *,"relative timing",time1/time2
+    !$acc kernels
+    testvect2=testvect_d2
+    !$acc end kernels
+    print *,"diff to var1 ",Sum(abs(testvect2-testvect1))
+    call finish_cublas()
+
+
 
     print *, "Memory reduced variant "
     call reduce_mem_xmat(xmat,xmatreduced)
@@ -871,7 +965,7 @@ program timing_mult
     !$acc end kernels
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
 
-        print *, "Memory reorganized variant 2"
+    print *, "Memory reorganized variant 2"
     call reorder_fields_xmat2(xmat,xmatreorg2)
     !$acc update host(xmatreorg2)
     call reorder_fields_pf2(testvect_d0,testvect_d0_reorg2)
@@ -890,6 +984,7 @@ program timing_mult
     tmp=Sum(abs(testvect_d2_reorg2))
     !$acc end kernels
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
+
 
   !End test part
   !deallocate(xmat)

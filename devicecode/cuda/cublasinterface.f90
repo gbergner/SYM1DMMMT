@@ -6,6 +6,10 @@ module cublasinterface
     use cudafor
     use openacc_cublas
     implicit none
+    save
+     type(cublasHandle), value :: cublas_handle
+     integer :: cublas_status
+
     interface
         subroutine zgemm(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc ) &
             bind(c,name='cublasZgemm')
@@ -132,5 +136,85 @@ contains
         if (istat /= CUBLAS_STATUS_SUCCESS) write(*,*) 'cublas failed: ', istat
         istat = cublasDestroy(h1)
         if (istat /= CUBLAS_STATUS_SUCCESS) write(*,*) 'cublasDestroy failed'
+    end subroutine
+
+    subroutine  setup_cublas_pointers_xmat(xmat,xptr_d)
+        use cudafor
+        use cublas
+        use iso_c_binding
+        use compiletimeconstants
+        implicit none
+        double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+        !$acc declare present(xmat)
+
+        type(c_devptr) :: Aptr(nsite)
+        type(c_devptr), device, intent(out) :: xptr_d(nsite,ndim)
+        integer :: isite, idim
+        ! create array of device pointers on host and copy it to device
+        do idim = 1,ndim
+            do isite = 1,nsite
+                Aptr(isite) = c_devloc(xmat(1,1,idim,isite))
+            end do
+            xptr_d(:,idim)=Aptr
+        end do
+    end subroutine
+
+    subroutine  setup_cublas_pointers_pf(pf,pfptr_d)
+        use cudafor
+        use cublas
+        use iso_c_binding
+        use compiletimeconstants
+        implicit none
+        double complex, intent(in) :: pf(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        !$acc declare device_resident(pf)
+        type(c_devptr) :: Aptr(nsite)
+        type(c_devptr), device, intent(out) :: pfptr_d(nsite,nspin)
+        integer :: isite, ispin
+        ! create array of device pointers on host and copy it to device
+        do ispin = 1,nspin
+            do isite = 1,nsite
+                Aptr(isite) = c_devloc(pf(1,1,ispin,isite))
+            end do
+            pfptr_d(:,ispin)=Aptr
+        end do
+    end subroutine
+
+    subroutine setup_cublas()
+      use cublas
+      implicit none
+      cublas_status = cublasCreate(cublas_handle)
+        if (cublas_status /= CUBLAS_STATUS_SUCCESS) write(*,*) 'cublasCreate failed'
+    end subroutine setup_cublas
+
+    subroutine finish_cublas()
+      use cublas
+      implicit none
+      cublas_status = cublasDestroy(cublas_handle)
+        if (cublas_status /= CUBLAS_STATUS_SUCCESS) write(*,*) 'cublasDestroy failed'
+    end subroutine finish_cublas
+
+    subroutine check_cublas()
+      implicit none
+      if (cublas_status /= CUBLAS_STATUS_SUCCESS) write(*,*) 'cublas error'
+    end subroutine check_cublas
+
+    subroutine  multiply_cublas_pointer(Aptr_d,Bptr_d,Cptr_d,alpha,beta,ispin,jspin,idim)
+        use cudafor
+        use cublas
+        use iso_c_binding
+        use compiletimeconstants
+        implicit none
+        integer, intent(in) :: ispin,jspin,idim
+        complex(c_double_complex), value,intent(in) :: alpha, beta
+        type(c_devptr), device :: Aptr_d(nsite,ndim)
+        type(c_devptr), device :: Bptr_d(nsite,nspin)
+        type(c_devptr), device :: Cptr_d(nsite,nspin)
+            !C [ i ] = α op ( A [ i ] ) op ( B [ i ] ) + β C [ i ] ,  for i  ∈ [ 0 , b a t c h C o u n t − 1 ]
+        cublas_status= cublasZgemmBatched(cublas_handle, 'n', 'n', &
+            nmat, nmat, nmat, -alpha, Aptr_d(:,idim), nmat, Bptr_d(:,jspin), nmat, &
+            beta, Cptr_d(:,ispin), nmat, nsite)
+        cublas_status=  cublasZgemmBatched(cublas_handle, 'n', 'n', &
+            nmat, nmat, nmat, alpha, Bptr_d(:,jspin), nmat, Aptr_d(:,idim), nmat, &
+            beta, Cptr_d(:,ispin), nmat, nsite)
     end subroutine
 end module cublasinterface
