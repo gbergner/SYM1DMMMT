@@ -6,10 +6,6 @@ MODFILES=timer.mod dirac_operator.mod cgm_solver.mod fourier_transform.mod rand_
 DEPENDALL=${BASEMODFILES}
 include ../Makefile.inc
 
-ifeq ($(USECUDA),1)
-  LIBDEVICE_OBJ += cublasinterface.o
-endif
-
 libdevice.a: ${BASEMODFILES} ${MODFILES}
 	${AR} ${ARFLAGS} $@ ${LIBDEVICE_OBJ}
 	${RANLIB} $@
@@ -24,16 +20,8 @@ gammamatrix.mod: gammamatrix.f90
 outputstreamnumbers.mod: outputstreamnumbers.f90 ../unit_number.inc
 	${FC} -c ${FCFLAGS} $<
 
-ifeq ($(USECUDA),1)
-cublasinterface.mod: cuda/cublasinterface.f90
+cublasinterface.mod: cublasinterface.f90
 	${FC} -c ${FCFLAGS} $<
-
-cublasinterface.o: cuda/cublasinterface.f90
-	${FC} -c ${FCFLAGS} $<
-else
-cublasinterface.mod: cuda/cublasinterfaceempty.f90
-	${FC} -c ${FCFLAGS} $<
-endif
 
 timer.mod: timer.f90
 	${FC} -c ${FCFLAGS} $<

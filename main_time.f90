@@ -723,6 +723,59 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas(xmat,pf1,pf2,xptr_d,pf1ptr_d
 END SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas
 
 
+SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas_stream(pf2,xptr_d,pf1ptr_d,pf2ptr_d)
+    !********************************(needed for cublas version)
+    use cublasinterface
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+
+    double complex, intent(out) :: pf2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    !$acc declare present(pf2)
+    type(c_devptr), device :: xptr_d(nsite,ndim)
+    type(c_devptr), device :: pf1ptr_d(nsite,nspin)
+    type(c_devptr), device :: pf2ptr_d(nsite,nspin)
+
+    !$acc kernels
+    pf2=(0d0,0d0)
+    !$acc end kernels
+    call multiply_cublas_pointer_streams(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(1.d0))
+
+END SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas_stream
+
+SUBROUTINE diff_vector_test(diff,vect1,vect2)
+    use compiletimeconstants
+    implicit none
+
+    double complex, intent(in) :: vect1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex, intent(in) :: vect2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double precision, intent(out) :: diff
+    integer isite,ispin,imat,jmat
+    !$acc declare device_resident(vect1,vect2)
+    diff=0d0
+    !$acc kernels
+    do isite=1,nsite
+        do ispin=1,nspin
+            do imat=1,nmat
+                do jmat=1,nmat
+                    diff=diff+abs(vect1(jmat,imat,ispin,isite)-vect2(jmat,imat,ispin,isite))
+                end do
+            end do
+        end do
+    end do
+    !$acc end kernels
+end SUBROUTINE
+
+subroutine check_mintime(time)
+  implicit none
+  real time
+  real,save :: mtime=100000000
+  if(time<mtime) then
+    mtime=time
+    print*, "=================> fastest so far"
+  end if
+end subroutine check_mintime
+
 program timing_mult
     use compiletimeconstants
     use dirac_operator
@@ -748,7 +801,7 @@ program timing_mult
     integer, parameter :: runnumber=10
     integer, parameter :: numvar=9
     ! This estimate has to be checked.
-    double precision, parameter :: flopspermult=(6+1)*2*144*nsite*nmat*nmat*nmat*runnumber
+    double precision :: flopspermult
 
     integer :: nbc !boundary condition for fermions; 0 -> pbc, 1 -> apbc
     integer:: nbmn ! 0 -> BFSS, 1 -> BMN
@@ -762,12 +815,13 @@ program timing_mult
     double complex testvect0(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
   
     double complex :: testvect_d0(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex :: testvect_d1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
     double complex :: testvect_d2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
     double complex :: testvect_d0_reorg1(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
     double complex :: testvect_d2_reorg1(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:nspin)
     double complex :: testvect_d0_reorg2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
     double complex :: testvect_d2_reorg2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:nspin)
-    !$acc declare device_resident(testvect_d0,testvect_d2)
+    !$acc declare device_resident(testvect_d0,testvect_d2,testvect_d1)
     !$acc declare device_resident(testvect_d0_reorg1,testvect_d2_reorg1)
     !$acc declare device_resident(testvect_d0_reorg2,testvect_d2_reorg2)
 
@@ -779,6 +833,7 @@ program timing_mult
     real :: start_time,stop_time,time1,time2
     integer :: counter,isite,idim,imat,jmat,ivar
     double complex :: tmp
+    real mintime
 
     type(c_devptr), device :: xptr_d(nsite,ndim)
     type(c_devptr), device :: pf1ptr_d(nsite,nspin)
@@ -789,6 +844,8 @@ program timing_mult
     temperature=1d0*nbc
     flux=0.5d0*temperature
     nfuzzy=1
+        ! This estimate has to be checked.
+    flopspermult=dble((6+1)*2)*dble(144)*dble(nsite)*dble(nmat)*dble(nmat)*dble(nmat)*dble(runnumber)
 
      !allocate(xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin))
 
@@ -817,24 +874,40 @@ program timing_mult
     !            end do
     !        end do
     !    end do
+
     !$acc data &
     !$acc copyin(testvect0,temperature,xmat,alpha,GAMMA10d,nbmn,flux,nbc,xmatreduced,xmatexpand,xmatreorg1,xmatreorg2)
-    !$acc kernels
-    testvect_d0=testvect0
-    !$acc end kernels
-    call  setup_data_device(alpha,flux,GAMMA10d,phase,Gam123,temperature)
+
+    ! do setup of all the data.
+    call setup_cublas()
+    call setup_cublas_pointers_xmat(xmat,xptr_d)
+    call setup_cublas_pointers_pf(testvect_d0,pf1ptr_d)
+    call setup_cublas_pointers_pf(testvect_d2,pf2ptr_d)
+    call setup_data_device(alpha,flux,GAMMA10d,phase,Gam123,temperature)
+    call cudaSetupTimer()
+
+    testvect1=0d0
     if(testhost==1) then
         call cpu_time(start_time)
+        !call cudaTimerStart()
         do counter=1,runnumber
             call Multiply_Dirac_dagger(temperature,xmat,alpha,&
                 testvect0,testvect1,GAMMA10d,nbmn,flux)
         end do
         call cpu_time(stop_time)
+        !call cudaTimerStop(time1)
     endif
     time1=stop_time - start_time
-    print *, "Host time:", &
-        time1, "seconds ", flopspermult/time1, "Flops"
 
+    print *, "Host time:", &
+        time1, "seconds ", dble(flopspermult)/time1, "Flops"
+    call check_mintime(time1)
+    !$acc kernels
+    testvect_d0=testvect0
+    !$acc end kernels
+    !$acc kernels
+    testvect_d1=testvect1
+    !$acc end kernels
     call cpu_time(start_time)
     do counter=1,runnumber
         call Multiply_Dirac_dagger_device(temperature,xmat,phase,Gam123,nbmn,&
@@ -845,17 +918,44 @@ program timing_mult
     print *, "Device time:", &
         time2, "seconds ", flopspermult/time2, "Flops"
     print *,"relative timing",time1/time2
+    call check_mintime(time2)
+    !$acc kernels
+    testvect2=testvect_d2
+    !$acc end kernels
+    !$acc kernels
+    tmp=Sum(abs(testvect_d2))
+    !$acc end kernels
+    print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1)),&
+        abs(tmp-Sum(abs(testvect1)))
+
+    call cpu_time(start_time)
+    do counter=1,runnumber
+        call Multiply_Dirac_dagger_device_cuda(temperature,xmat,phase,Gam123,nbmn,&
+            testvect_d0,testvect_d2,xptr_d,pf1ptr_d,pf2ptr_d)
+    end do
+    call cpu_time(stop_time)
+    time2=stop_time - start_time
+    call check_cublas()
+    print *, "Device time cublas:", &
+        time2, "seconds ", flopspermult/time2, "Flops"
+    print *,"relative timing",time1/time2
     !$acc kernels
     testvect2=testvect_d2
     tmp=Sum(abs(testvect_d2))
     !$acc end kernels
-    print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
-    call cpu_time(start_time)
-    do counter=1,runnumber
-        call Multiply_Dirac(temperature,xmat,alpha,&
-            testvect0,testvect1,GAMMA10d,nbmn,flux)
-    end do
-    call cpu_time(stop_time)
+    print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1)),&
+        abs(tmp-Sum(abs(testvect1)))
+    call check_mintime(time2)
+
+    testvect1=0d0
+    if(testhost==1) then
+        call cpu_time(start_time)
+        do counter=1,runnumber
+            call Multiply_Dirac(temperature,xmat,alpha,&
+                testvect0,testvect1,GAMMA10d,nbmn,flux)
+        end do
+        call cpu_time(stop_time)
+    endif
     time1=stop_time - start_time
     print *, "Host time:", &
         time1, "seconds", flopspermult/time1, "Flops"
@@ -875,9 +975,28 @@ program timing_mult
     tmp=Sum(abs(testvect_d2))
     !$acc end kernels
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
+    call check_mintime(time2)
+
+    call cpu_time(start_time)
+    do counter=1,runnumber
+        call Multiply_Dirac_device_cuda(temperature,xmat,phase,Gam123,nbmn,&
+            testvect_d0,testvect_d2,xptr_d,pf1ptr_d,pf2ptr_d)
+    end do
+    call cpu_time(stop_time)
+    time2=stop_time - start_time
+    call check_cublas()
+    call finish_cublas()
+    print *, "Device time cublas:", &
+        time2, "seconds", flopspermult/time2, "Flops"
+    print *,"relative timing",time1/time2
+    !$acc kernels
+    testvect2=testvect_d2
+    tmp=Sum(abs(testvect_d2))
+    !$acc end kernels
+    print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1)),&
+        abs(tmp-Sum(abs(testvect1)))
+    call check_mintime(time2)
   
-
-
     do ivar=1,numvar
         print *, "Variant ", ivar
         call cpu_time(start_time)
@@ -899,6 +1018,7 @@ program timing_mult
             !$acc end kernels
             print *,"diff to var1 ",Sum(abs(testvect2-testvect1))
         endif
+        call check_mintime(time2)
     end do
 
     call setup_cublas()
@@ -911,13 +1031,31 @@ program timing_mult
     end do
     call cpu_time(stop_time)
     time2=stop_time - start_time
-    print *, "Device time:", &
+    print *, "Device time cublas variant:", &
         time2, "seconds", flopspermult/time2, "Flops"
     print *,"relative timing",time1/time2
-    !$acc kernels
+        !$acc kernels
     testvect2=testvect_d2
+    tmp=Sum(abs(testvect_d2))
     !$acc end kernels
-    print *,"diff to var1 ",Sum(abs(testvect2-testvect1))
+    print *,"vect ",tmp," ", Sum(abs(testvect1)), " diff var 1 ",Sum(abs(testvect2-testvect1))
+
+    call cpu_time(start_time)
+    do counter=1,runnumber
+        call Test_Multiply_Dirac_dagger_device_cublas_stream(testvect_d2,xptr_d,pf1ptr_d,pf2ptr_d)
+    end do
+    call cpu_time(stop_time)
+    time2=stop_time - start_time
+    print *, "Device time cublas variant2:", &
+        time2, "seconds", flopspermult/time2, "Flops"
+    print *,"relative timing",time1/time2
+        !$acc kernels
+    testvect2=testvect_d2
+    tmp=Sum(abs(testvect_d2))
+    !$acc end kernels
+    print *,"vect ",tmp," ", Sum(abs(testvect1)), " diff var 1 ",Sum(abs(testvect2-testvect1))
+
+    call check_mintime(time2)
     call finish_cublas()
 
 
@@ -943,6 +1081,7 @@ program timing_mult
         tmp=Sum(abs(testvect_d2))
         !$acc end kernels
         print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
+        call check_mintime(time2)
     end do
 
     print *, "Memory reorganized variant 1"
@@ -964,6 +1103,7 @@ program timing_mult
     tmp=Sum(abs(testvect_d2_reorg1))
     !$acc end kernels
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
+    call check_mintime(time2)
 
     print *, "Memory reorganized variant 2"
     call reorder_fields_xmat2(xmat,xmatreorg2)
@@ -984,8 +1124,10 @@ program timing_mult
     tmp=Sum(abs(testvect_d2_reorg2))
     !$acc end kernels
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
+    call check_mintime(time2)
 
 
+   call cudaFinishTimer()
   !End test part
   !deallocate(xmat)
       !$acc end data

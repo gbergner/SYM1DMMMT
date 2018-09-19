@@ -146,7 +146,6 @@ contains
         use compiletimeconstants
         use gammamatrix
         implicit none
-        !include 'gamma.inc'
 
         integer, intent(in) :: nbmn
         double precision, intent(in) :: temperature
@@ -241,55 +240,26 @@ contains
         !**************************
         !**************************
         lattice_spacing=1d0/temperature/dble(nsite)
-        if(cublasmult.EQ.0) then
-            do countr=1,144
-                ispin=gamispin(countr)
-                jspin=gamjspin(countr)
-                idim=gamidim(countr)
-                gamtmp=dconjg(gamgam(countr))
-                !$acc parallel &
-                !$acc loop independent &
-                !$acc async(ispin+5)&
-                !$acc collapse(3)  gang worker vector vector_length(128)
-                do isite=1,nsite
-                    do imat=1,nmat
-                        do jmat=1,nmat
-                            !$acc loop seq
-                            do kmat=1,nmat
-                                pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)-dcmplx(lattice_spacing)*gamtmp&
-                                    *(xmat(imat,kmat,idim,isite)*pf1(kmat,jmat,jspin,isite)&
-                                    -xmat(kmat,jmat,idim,isite)*pf1(imat,kmat,jspin,isite))
-                            end do
+
+        do countr=1,144
+            ispin=gamispin(countr)
+            jspin=gamjspin(countr)
+            idim=gamidim(countr)
+            gamtmp=dconjg(gamgam(countr))
+            !$acc kernels
+            do isite=1,nsite
+                do imat=1,nmat
+                    do jmat=1,nmat
+                        do kmat=1,nmat
+                            pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)-dcmplx(lattice_spacing)*gamtmp&
+                                *(xmat(imat,kmat,idim,isite)*pf1(kmat,jmat,jspin,isite)&
+                                -xmat(kmat,jmat,idim,isite)*pf1(imat,kmat,jspin,isite))
                         end do
                     end do
                 end do
-               !$acc end parallel loop
             end do
-            do ispin=1,nspin
-              !$acc wait(ispin+5)
-            end do
-        else if (cublasmult.EQ.2) then
-            do countr=1,144
-                ispin=gamispin(countr)
-                jspin=gamjspin(countr)
-                idim=gamidim(countr)
-                gamtmp=dconjg(gamgam(countr))
-                call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-            end do
-        else
-            !*************************version (optimal for large matrices)
-
-            do countr=1,144
-                ispin=gamispin(countr)
-                jspin=gamjspin(countr)
-                idim=gamidim(countr)
-                gamtmp=dconjg(gamgam(countr))
-                do isite=1,nsite
-                    call  zgemm('n', 'n',nmat,nmat,nmat,-dcmplx(lattice_spacing)*gamtmp,xmat(:,:,idim,isite),nmat,pf1(:,:,jspin,isite),nmat,dcmplx(1.d0),pf2(:,:,ispin,isite),nmat)
-                    call  zgemm('n', 'n',nmat,nmat,nmat,dcmplx(lattice_spacing)*gamtmp,pf1(:,:,jspin,isite),nmat,xmat(:,:,idim,isite),nmat,dcmplx(1.d0),pf2(:,:,ispin,isite),nmat)
-                end do
-            end do
-        end if
+           !$acc end kernels
+        end do
 
         !******************************
         !******************************
@@ -326,7 +296,6 @@ contains
         use compiletimeconstants
         use gammamatrix
         implicit none
-        !include 'gamma.inc'
         integer, intent(in) :: nbmn
         double precision, intent(in) :: temperature
         double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
@@ -423,56 +392,26 @@ contains
         !**************************
         !**************************
         lattice_spacing=1d0/temperature/dble(nsite)
-        if(cublasmult.EQ.0) then
-            do countr=1,144
-                ispin=gamispin(countr)
-                jspin=gamjspin(countr)
-                idim=gamidim(countr)
-                gamtmp=gamgam(countr)
-                !$acc parallel &
-                !$acc loop independent &
-                !$acc async(ispin+5)&
-                !$acc collapse(3)  gang worker vector vector_length(128)
-                do isite=1,nsite
-                    do imat=1,nmat
-                        do jmat=1,nmat
-                            !$acc loop seq
-                            do kmat=1,nmat
-                                pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)-dcmplx(lattice_spacing)*gamtmp&
-                                    *(xmat(imat,kmat,idim,isite)*pf1(kmat,jmat,jspin,isite)&
-                                    -xmat(kmat,jmat,idim,isite)*pf1(imat,kmat,jspin,isite))
-                            end do
+        ! this is not the most efficient variant (see main_time)
+        do countr=1,144
+            ispin=gamispin(countr)
+            jspin=gamjspin(countr)
+            idim=gamidim(countr)
+            gamtmp=gamgam(countr)
+            !$acc kernels
+            do isite=1,nsite
+                do imat=1,nmat
+                    do jmat=1,nmat
+                        do kmat=1,nmat
+                            pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)-dcmplx(lattice_spacing)*gamtmp&
+                                *(xmat(imat,kmat,idim,isite)*pf1(kmat,jmat,jspin,isite)&
+                                -xmat(kmat,jmat,idim,isite)*pf1(imat,kmat,jspin,isite))
                         end do
                     end do
                 end do
-               !$acc end parallel loop
             end do
-            do ispin=1,nspin
-              !$acc wait(ispin+5)
-            end do
-        else if (cublasmult.EQ.2) then
-            do countr=1,144
-                ispin=gamispin(countr)
-                jspin=gamjspin(countr)
-                idim=gamidim(countr)
-                gamtmp=gamgam(countr)
-                call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-            end do
-        else
-            !*************************version (optimal for large matrices)
-
-            do countr=1,144
-                ispin=gamispin(countr)
-                jspin=gamjspin(countr)
-                idim=gamidim(countr)
-                gamtmp=gamgam(countr)
-                do isite=1,nsite
-                   call  zgemm('n', 'n',nmat,nmat,nmat,-dcmplx(lattice_spacing)*gamtmp,xmat(:,:,idim,isite),nmat,pf1(:,:,jspin,isite),nmat,dcmplx(1.d0),pf2(:,:,ispin,isite),nmat)
-                   call  zgemm('n', 'n',nmat,nmat,nmat,dcmplx(lattice_spacing)*gamtmp,pf1(:,:,jspin,isite),nmat,xmat(:,:,idim,isite),nmat,dcmplx(1.d0),pf2(:,:,ispin,isite),nmat)
-                end do
-            end do
-        end if
-
+           !$acc end kernels
+        end do
         !******************************
         !******************************
         !*** Plane wave deformation ***
@@ -501,6 +440,294 @@ contains
         return
 
     END SUBROUTINE Multiply_Dirac_device
+
+    SUBROUTINE Multiply_Dirac_dagger_device_cuda(temperature,xmat,phase,Gam123,nbmn,&
+        pf1,pf2,xptr_d,pf1ptr_d,pf2ptr_d)
+        use cublasinterface
+        use compiletimeconstants
+        use gammamatrix
+        implicit none
+
+        integer, intent(in) :: nbmn
+        double precision, intent(in) :: temperature
+        double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+        double complex, intent(in) :: phase(1:nmat,1:nmat,1:2)
+        double complex, intent(in) :: Gam123(1:nspin,1:nspin)
+        double complex, intent(in) :: pf1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        double complex, intent(out) :: pf2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        double precision :: lattice_spacing
+        double complex :: gamtmp
+        !******************
+        integer :: imat,jmat,kmat
+        integer :: idim
+        integer :: ispin,jspin,kspin
+        integer :: isite
+        integer :: countr
+        !$acc declare present(temperature,xmat,nbmn,phase,Gam123,pf1,pf2)
+
+        type(c_devptr), device :: xptr_d(nsite,ndim)
+        type(c_devptr), device :: pf1ptr_d(nsite,nspin)
+        type(c_devptr), device :: pf2ptr_d(nsite,nspin)
+
+
+        !**********************
+        !**********************
+        !***  kinetic part  ***
+        !**********************
+        !**********************
+        !$acc kernels
+        do isite=1,nsite
+            do ispin=1,nspin
+                do jmat=1,nmat
+                    do imat=1,nmat
+                        pf2(imat,jmat,ispin,isite)=(0d0,0d0)
+                    end do
+                end do
+            end do
+        end do
+        !$acc end kernels
+        !********************
+        !*** Naive Action ***
+        !********************
+        if(nimprove.EQ.0)then
+            !$acc parallel loop &
+            !$acc collapse(4) &
+            !$acc gang vector &
+            !$acc independent
+            do isite=1,nsite
+                do ispin=1,8
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            pf2(imat,jmat,ispin+8,isite)=&
+                                pf2(imat,jmat,ispin+8,isite)&
+                                -(1d0,0d0)*phase(imat,jmat,1)*pf1(imat,jmat,ispin,isite+1)&
+                                +(1d0,0d0)*pf1(imat,jmat,ispin,isite)
+                            pf2(imat,jmat,ispin,isite)=&
+                                pf2(imat,jmat,ispin,isite)&
+                                +(1d0,0d0)*dconjg(phase(imat,jmat,1))*pf1(imat,jmat,ispin+8,isite-1)&
+                                -(1d0,0d0)*pf1(imat,jmat,ispin+8,isite)
+                        end do
+                    end do
+                end do
+            end do
+           !$acc end parallel loop
+           !***********************
+           !*** Improved Action ***
+           !***********************
+        else if(nimprove.EQ.1)then
+            !$acc parallel loop &
+            !$acc collapse(4) &
+            !$acc gang vector &
+            !$acc independent
+            do isite=1,nsite
+                do ispin=1,8
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            pf2(imat,jmat,ispin+8,isite)=&
+                                pf2(imat,jmat,ispin+8,isite)&
+                                +(0.5d0,0d0)*phase(imat,jmat,2)*pf1(imat,jmat,ispin,isite+2)&
+                                -(2d0,0d0)*phase(imat,jmat,1)*pf1(imat,jmat,ispin,isite+1)&
+                                +(1.5d0,0d0)*pf1(imat,jmat,ispin,isite)
+
+                            pf2(imat,jmat,ispin,isite)=&
+                                pf2(imat,jmat,ispin,isite)&
+                                -(0.5d0,0d0)*dconjg(phase(imat,jmat,2))*pf1(imat,jmat,ispin+8,isite-2)&
+                                +(2d0,0d0)*dconjg(phase(imat,jmat,1))*pf1(imat,jmat,ispin+8,isite-1)&
+                                -(1.5d0,0d0)*pf1(imat,jmat,ispin+8,isite)
+                        end do
+                    end do
+                end do
+            end do
+           !$acc end parallel loop
+        end if
+        !**************************
+        !**************************
+        !***  interaction part  ***
+        !**************************
+        !**************************
+        lattice_spacing=1d0/temperature/dble(nsite)
+        do countr=1,144
+            ispin=gamispin(countr)
+            jspin=gamjspin(countr)
+            idim=gamidim(countr)
+            gamtmp=dconjg(gamgam(countr))
+            call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+            !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+            !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+        end do
+
+        !******************************
+        !******************************
+        !*** Plane wave deformation ***
+        !******************************
+        !******************************
+        if(nbmn.EQ.1)then
+            !$acc parallel loop &
+            !$acc collapse(4) &
+            !$acc gang vector &
+            !$acc independent
+            do isite=1,nsite
+                do ispin=1,nspin
+                    do imat=1,nmat
+                        do jmat=1,nmat
+                            !$acc loop seq
+                            do jspin=1,nspin
+                                pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)&
+                                    +dconjg(Gam123(jspin,ispin))*pf1(imat,jmat,jspin,isite)
+                            end do
+                        end do
+                    end do
+                end do
+            end do
+          !$acc end parallel loop
+        end if
+        return
+
+    END SUBROUTINE Multiply_Dirac_dagger_device_cuda
+
+    SUBROUTINE Multiply_Dirac_device_cuda(temperature,xmat,phase,Gam123,nbmn,&
+        pf1,pf2,xptr_d,pf1ptr_d,pf2ptr_d)
+        use cublasinterface
+        use compiletimeconstants
+        use gammamatrix
+        implicit none
+        integer, intent(in) :: nbmn
+        double precision, intent(in) :: temperature
+        double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+        double complex, intent(in) :: phase(1:nmat,1:nmat,1:2)
+        double complex, intent(in) :: Gam123(1:nspin,1:nspin)
+        double complex, intent(in) :: pf1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        double complex, intent(out) :: pf2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        double precision :: lattice_spacing
+        double complex :: gamtmp
+        !******************
+        integer :: imat,jmat,kmat
+        integer :: idim
+        integer :: ispin,jspin,kspin
+        integer :: isite
+        integer :: countr
+
+        !$acc declare present(temperature,xmat,nbmn,phase,Gam123,pf1,pf2)
+
+        type(c_devptr), device :: xptr_d(nsite,ndim)
+        type(c_devptr), device :: pf1ptr_d(nsite,nspin)
+        type(c_devptr), device :: pf2ptr_d(nsite,nspin)
+
+
+
+        !**********************
+        !**********************
+        !***  kinetic part  ***
+        !**********************
+        !**********************
+        !$acc parallel loop &
+        !$acc independent collapse(4) gang vector
+        do isite=1,nsite
+            do ispin=1,nspin
+                do jmat=1,nmat
+                    do imat=1,nmat
+                        pf2(imat,jmat,ispin,isite)=(0d0,0d0)
+                    end do
+                end do
+            end do
+        end do
+        !$acc end parallel loop
+        !********************
+        !*** Naive Action ***
+        !********************
+        if(nimprove.EQ.0)then
+            !$acc parallel loop &
+            !$acc collapse(4) &
+            !$acc gang vector &
+            !$acc independent
+            do isite=1,nsite
+                do ispin=1,8
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            pf2(imat,jmat,ispin+8,isite)=&
+                                pf2(imat,jmat,ispin+8,isite)&
+                                +(1d0,0d0)*phase(imat,jmat,1)*pf1(imat,jmat,ispin,isite+1)&
+                                -(1d0,0d0)*pf1(imat,jmat,ispin,isite)
+                            pf2(imat,jmat,ispin,isite)=&
+                                pf2(imat,jmat,ispin,isite)&
+                                -(1d0,0d0)*dconjg(phase(imat,jmat,1))*pf1(imat,jmat,ispin+8,isite-1)&
+                                +(1d0,0d0)*pf1(imat,jmat,ispin+8,isite)
+                        end do
+                    end do
+                end do
+            end do
+           !$acc end parallel loop
+           !***********************
+           !*** Improved Action ***
+           !***********************
+        else if(nimprove.EQ.1)then
+            !$acc parallel loop &
+            !$acc collapse(4) &
+            !$acc gang vector &
+            !$acc independent
+            do isite=1,nsite
+                do ispin=1,8
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            pf2(imat,jmat,ispin+8,isite)=&
+                                pf2(imat,jmat,ispin+8,isite)&
+                                -(0.5d0,0d0)*phase(imat,jmat,2)*pf1(imat,jmat,ispin,isite+2)&
+                                +(2d0,0d0)*phase(imat,jmat,1)*pf1(imat,jmat,ispin,isite+1)&
+                                -(1.5d0,0d0)*pf1(imat,jmat,ispin,isite)
+
+                            pf2(imat,jmat,ispin,isite)=&
+                                pf2(imat,jmat,ispin,isite)&
+                                +(0.5d0,0d0)*dconjg(phase(imat,jmat,2))*pf1(imat,jmat,ispin+8,isite-2)&
+                                -(2d0,0d0)*dconjg(phase(imat,jmat,1))*pf1(imat,jmat,ispin+8,isite-1)&
+                                +(1.5d0,0d0)*pf1(imat,jmat,ispin+8,isite)
+                        end do
+                    end do
+                end do
+            end do
+           !$acc end parallel loop
+        end if
+        !**************************
+        !**************************
+        !***  interaction part  ***
+        !**************************
+        !**************************
+        lattice_spacing=1d0/temperature/dble(nsite)
+        do countr=1,144
+            ispin=gamispin(countr)
+            jspin=gamjspin(countr)
+            idim=gamidim(countr)
+            gamtmp=gamgam(countr)
+            call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+            !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+        end do
+        !******************************
+        !******************************
+        !*** Plane wave deformation ***
+        !******************************
+        !******************************
+        if(nbmn.EQ.1)then
+            !$acc parallel loop &
+            !$acc collapse(4) &
+            !$acc gang vector &
+            !$acc independent
+            do isite=1,nsite
+                do ispin=1,nspin
+                    do imat=1,nmat
+                        do jmat=1,nmat
+                            !$acc loop seq
+                            do jspin=1,nspin
+                                pf2(imat,jmat,ispin,isite)=pf2(imat,jmat,ispin,isite)&
+                                    +Gam123(ispin,jspin)*pf1(imat,jmat,jspin,isite)
+                            end do
+                        end do
+                    end do
+                end do
+            end do
+          !$acc end parallel loop
+        end if
+        return
+
+    END SUBROUTINE Multiply_Dirac_device_cuda
 
 end module dirac_operator
 

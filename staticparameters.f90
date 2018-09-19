@@ -39,7 +39,8 @@ double precision, parameter :: pi1=2d0*dasin(1d0)
 integer,parameter :: solver_verbose=0
 integer,parameter :: rhmc_verbose=0
 integer,parameter :: check_host_metropolis=0
-integer,parameter :: cublasmult=2
+integer,parameter :: cublasmult=0
+integer,parameter :: cublascgm=1
 integer,parameter :: havecublas=1
 integer,parameter :: usetimer=1
 

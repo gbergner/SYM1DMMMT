@@ -6,9 +6,12 @@ module cublasinterface
     use cudafor
     use openacc_cublas
     implicit none
+
     save
      type(cublasHandle), value :: cublas_handle
      integer :: cublas_status
+     type(cudaEvent) :: startEvent, stopEvent
+     integer :: timer_status
 
     interface
         subroutine zgemm(transa, transb, m, n, k, alpha, a, lda, b, ldb, beta, c, ldc ) &
@@ -92,6 +95,34 @@ module cublasinterface
     end interface
 
 contains
+    subroutine cudaSetupTimer()
+      use cudafor
+      implicit none
+      timer_status = cudaEventCreate(startEvent)
+      timer_status = cudaEventCreate(stopEvent)
+    end subroutine cudaSetupTimer
+
+    subroutine cudaFinishTimer()
+      use cudafor
+      implicit none
+      timer_status = cudaEventDestroy(startEvent)
+      timer_status = cudaEventDestroy(stopEvent)
+    end subroutine cudaFinishTimer
+
+    subroutine cudaTimerStart()
+      use cudafor
+      implicit none
+      timer_status = cudaEventRecord(startEvent, 0)
+    end subroutine cudaTimerStart
+
+    subroutine cudaTimerStop(time)
+          use cudafor
+      implicit none
+      real,intent(out) :: time
+      timer_status = cudaEventRecord(stopEvent, 0)
+      timer_status = cudaEventSynchronize(stopEvent)
+      timer_status = cudaEventElapsedTime(time, startEvent, stopEvent)
+    end subroutine cudaTimerStop
 
     subroutine  callZgemmBatched(pf2,xmat,pf1,alpha,beta,ispin,jspin,idim)
         use cudafor
@@ -216,5 +247,54 @@ contains
         cublas_status=  cublasZgemmBatched(cublas_handle, 'n', 'n', &
             nmat, nmat, nmat, alpha, Bptr_d(:,jspin), nmat, Aptr_d(:,idim), nmat, &
             beta, Cptr_d(:,ispin), nmat, nsite)
+        !cublas_status=cudaDeviceSynchronize()
+    end subroutine
+
+    subroutine  multiply_cublas_pointer_streams(Aptr_d,Bptr_d,Cptr_d,prefact)
+        use cudafor
+        use cublas
+        use iso_c_binding
+        use compiletimeconstants
+        use gammamatrix
+        implicit none
+        complex(c_double_complex), value :: alpha, beta
+        type(c_devptr), device :: Aptr_d(nsite,ndim)
+        type(c_devptr), device :: Bptr_d(nsite,nspin)
+        type(c_devptr), device :: Cptr_d(nsite,nspin)
+        integer(kind=cuda_stream_kind) :: streams(nspin)
+        integer(kind=cuda_stream_kind) :: oldstream
+        double complex :: gamtmp,prefact
+        integer :: imat,jmat,kmat
+        integer :: idim
+        integer :: ispin,jspin,kspin
+        integer :: isite
+        integer :: countr
+        integer :: status
+        status=cublasGetStream(cublas_handle,oldstream)
+        do ispin=1,nspin
+          status = cudaStreamCreate(streams(ispin))
+        end do
+        do countr=1,144
+            ispin=gamispin(countr)
+            jspin=gamjspin(countr)
+            idim=gamidim(countr)
+            gamtmp=dconjg(gamgam(countr))
+            status=cublasSetStream(cublas_handle,streams(ispin))
+            alpha=gamtmp*prefact
+            beta=dcmplx(1.d0)
+           cublas_status= cublasZgemmBatched(cublas_handle, 'n', 'n', &
+            nmat, nmat, nmat, -alpha, Aptr_d(:,idim), nmat, Bptr_d(:,jspin), nmat, &
+            beta, Cptr_d(:,ispin), nmat, nsite)
+           cublas_status=  cublasZgemmBatched(cublas_handle, 'n', 'n', &
+            nmat, nmat, nmat, alpha, Bptr_d(:,jspin), nmat, Aptr_d(:,idim), nmat, &
+            beta, Cptr_d(:,ispin), nmat, nsite)
+        end do
+        do ispin=1,nspin
+           status = cudaStreamSynchronize(streams(ispin))
+        end do
+        do ispin=1,nspin
+          status = cudaStreamDestroy(streams(ispin))
+        end do
+        status = cublasSetStream(cublas_handle,oldstream)
     end subroutine
 end module cublasinterface

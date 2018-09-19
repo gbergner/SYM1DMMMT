@@ -9,8 +9,6 @@ AR=ar
 RM=rm
 ARFLAGS=cr
 RANLIB=ranlib
-# add -Mcuda in this case
-USECUDA=1
 # set this to 1 if you want to use gfortran
 # set both to 1 if you want to use mpifortran
 NODEVICE=1
