@@ -830,7 +830,7 @@ program timing_mult
     double complex :: xmatreorg1(1:nmat,1:nmat,-(nmargin-1):nsite+nmargin,1:ndim)
     double complex :: xmatreorg2(-(nmargin-1):nsite+nmargin,1:nmat,1:nmat,1:ndim)
 
-    real :: start_time,stop_time,time1,time2
+    real :: start_time,stop_time,time1,time2,time1_cud,time2_cud
     integer :: counter,isite,idim,imat,jmat,ivar
     double complex :: tmp
     real mintime
@@ -888,14 +888,14 @@ program timing_mult
 
     testvect1=0d0
     if(testhost==1) then
+        call cudaTimerStart()
         call cpu_time(start_time)
-        !call cudaTimerStart()
         do counter=1,runnumber
             call Multiply_Dirac_dagger(temperature,xmat,alpha,&
                 testvect0,testvect1,GAMMA10d,nbmn,flux)
         end do
         call cpu_time(stop_time)
-        !call cudaTimerStop(time1)
+        call cudaTimerStop(time1_cud)
     endif
     time1=stop_time - start_time
 
@@ -908,16 +908,18 @@ program timing_mult
     !$acc kernels
     testvect_d1=testvect1
     !$acc end kernels
+    call cudaTimerStart()
     call cpu_time(start_time)
     do counter=1,runnumber
         call Multiply_Dirac_dagger_device(temperature,xmat,phase,Gam123,nbmn,&
             testvect_d0,testvect_d2)
     end do
     call cpu_time(stop_time)
+    call cudaTimerStop(time2_cud)
     time2=stop_time - start_time
     print *, "Device time:", &
         time2, "seconds ", flopspermult/time2, "Flops"
-    print *,"relative timing",time1/time2
+    print *,"relative timing",time1/time2," ",time1_cud/time2_cud
     call check_mintime(time2)
     !$acc kernels
     testvect2=testvect_d2
@@ -928,17 +930,19 @@ program timing_mult
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1)),&
         abs(tmp-Sum(abs(testvect1)))
 
+    call cudaTimerStart()
     call cpu_time(start_time)
     do counter=1,runnumber
         call Multiply_Dirac_dagger_device_cuda(temperature,xmat,phase,Gam123,nbmn,&
             testvect_d0,testvect_d2,xptr_d,pf1ptr_d,pf2ptr_d)
     end do
     call cpu_time(stop_time)
+    call cudaTimerStop(time2_cud)
     time2=stop_time - start_time
     call check_cublas()
     print *, "Device time cublas:", &
         time2, "seconds ", flopspermult/time2, "Flops"
-    print *,"relative timing",time1/time2
+    print *,"relative timing",time1/time2," ",time1_cud/time2_cud
     !$acc kernels
     testvect2=testvect_d2
     tmp=Sum(abs(testvect_d2))
@@ -949,27 +953,31 @@ program timing_mult
 
     testvect1=0d0
     if(testhost==1) then
+        call cudaTimerStart()
         call cpu_time(start_time)
         do counter=1,runnumber
             call Multiply_Dirac(temperature,xmat,alpha,&
                 testvect0,testvect1,GAMMA10d,nbmn,flux)
         end do
         call cpu_time(stop_time)
+        call cudaTimerStop(time1_cud)
     endif
     time1=stop_time - start_time
     print *, "Host time:", &
         time1, "seconds", flopspermult/time1, "Flops"
 
+    call cudaTimerStart()
     call cpu_time(start_time)
     do counter=1,runnumber
         call Multiply_Dirac_device(temperature,xmat,phase,Gam123,nbmn,&
             testvect_d0,testvect_d2)
     end do
     call cpu_time(stop_time)
+    call cudaTimerStop(time2_cud)
     time2=stop_time - start_time
     print *, "Device time:", &
         time2, "seconds", flopspermult/time2, "Flops"
-    print *,"relative timing",time1/time2
+    print *,"relative timing",time1/time2," ",time1_cud/time2_cud
     !$acc kernels
     testvect2=testvect_d2
     tmp=Sum(abs(testvect_d2))
@@ -977,18 +985,20 @@ program timing_mult
     print *,"vect ",tmp," ", Sum(abs(testvect1)), " err ",Sum(abs(testvect2-testvect1))
     call check_mintime(time2)
 
+    call cudaTimerStart()
     call cpu_time(start_time)
     do counter=1,runnumber
         call Multiply_Dirac_device_cuda(temperature,xmat,phase,Gam123,nbmn,&
             testvect_d0,testvect_d2,xptr_d,pf1ptr_d,pf2ptr_d)
     end do
     call cpu_time(stop_time)
+    call cudaTimerStop(time2_cud)
     time2=stop_time - start_time
     call check_cublas()
     call finish_cublas()
     print *, "Device time cublas:", &
         time2, "seconds", flopspermult/time2, "Flops"
-    print *,"relative timing",time1/time2
+    print *,"relative timing",time1/time2," ",time1_cud/time2_cud
     !$acc kernels
     testvect2=testvect_d2
     tmp=Sum(abs(testvect_d2))
