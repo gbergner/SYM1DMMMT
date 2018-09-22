@@ -204,9 +204,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
             jspin=gamjspin(countr)
             idim=gamidim(countr)
             gamtmp=dconjg(gamgam(countr))
-            if (havecublas.NE.0) then
                 call callZgemmBatched(pf2,xmat,pf1,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-            endif
         end do
     elseif(var==9) then
         do countr=1,144
@@ -214,12 +212,10 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
             jspin=gamjspin(countr)
             idim=gamidim(countr)
             gamtmp=dconjg(gamgam(countr))
-            if (havecublas.NE.0) then
                 do isite=1,nsite
                     call  zgemm('n', 'n',nmat,nmat,nmat,-gamtmp,xmat(:,:,idim,isite),nmat,pf1(:,:,jspin,isite),nmat,dcmplx(1.d0),pf2(:,:,ispin,isite),nmat)
                     call  zgemm('n', 'n',nmat,nmat,nmat,gamtmp,pf1(:,:,jspin,isite),nmat,xmat(:,:,idim,isite),nmat,dcmplx(1.d0),pf2(:,:,ispin,isite),nmat)
                 end do
-            end if
         end do
     end if
 END SUBROUTINE Test_Multiply_Dirac_dagger_device
@@ -714,11 +710,9 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas(xmat,pf1,pf2,xptr_d,pf1ptr_d
         jspin=gamjspin(countr)
         idim=gamidim(countr)
         gamtmp=dconjg(gamgam(countr))
-        if (havecublas.NE.0) then
             !callZgemmBatched(pf2,xmat,pf1,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
             call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-        endif
-    end do
+       end do
 
 END SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas
 
