@@ -1,4 +1,4 @@
-! Pf2 = D^dagger * Pf1
+! Pf2 = [(-i)*D/N]^dagger * Pf1
 SUBROUTINE Multiply_Dirac_dagger(temperature,xmat_row_2,xmat_column_2,&
      &alpha,pf1,pf2,GAMMA10d,nbmn,flux,myrank)
 

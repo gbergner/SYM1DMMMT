@@ -87,7 +87,7 @@ SUBROUTINE calc_energy_fermion(temperature,xmat,xmat_row_2,xmat_column_2,&
   !********************
   !********************
   !********************
-  sum_pf=0d0
+!  sum_pf=0d0
   !****************************************************
   !****************************************************
   !*** Firstly we make Gaussian complex matrix Phi. ***
@@ -115,6 +115,14 @@ SUBROUTINE calc_energy_fermion(temperature,xmat,xmat_row_2,xmat_column_2,&
         end do
      end do
   end do
+
+  if(myrank.LT.nsublat*nblock*nblock-1)then
+     !throw away some random numbers in order to avoid the communication
+     do i=1,nmat_block*nmat_block*nspin*nsite_local*&
+          (nsublat*nblock*nblock-1-myrank)
+        call BoxMuller(r1,r2)
+     end do
+  end if
   !****************************
   !*** traceless projection ***
   !****************************
@@ -426,7 +434,9 @@ SUBROUTINE calc_energy_fermion(temperature,xmat,xmat_row_2,xmat_column_2,&
   !********************************
   !*** Adjust the normalization ***
   !********************************
-  sum_pf=sum_pf/dble(nmat_block*nblock)*temperature*lattice_spacing*0.5d0
+  sum_pf=sum_pf/dble(nmat_block*nblock*nmat_block*nblock)&
+       &*temperature*lattice_spacing&
+       &*0.5d0
 
 
   !****************************

@@ -20,7 +20,7 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
   double precision energy
   !******************
   double precision action,kinetic,potential,potential_BMN,energy_local
-  double precision lattice_spacing
+  !double precision lattice_spacing
 
   double complex commutator(1:nmat_block,1:nmat_block)
   double complex uxumx(1:nmat_block,1:nmat_block)
@@ -58,7 +58,6 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
   call mpi_xmat_row(xmat,xmat_row,myrank)
   call mpi_xmat_column(xmat,xmat_column,myrank)
   !nprocs=nsublat*nmat_block*nmat_block
-  lattice_spacing=1d0/temperature/dble(nsite_local*nsublat)
   !**********************
   !*** potential term ***
   !**********************
@@ -67,9 +66,7 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
      !isite=0, nsite_local+1 are considered at neighboring nodes.
      do idim=1,ndim-1
         do jdim=idim+1,ndim
-           commutator=(0d0,0d0)
-!$omp parallel
-!$omp do           
+           commutator=(0d0,0d0)  
            do imat=1,nmat_block
               do jmat=1,nmat_block
                  do kmat=1,nmat_block*nblock
@@ -81,8 +78,6 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
                  end do
               end do
            end do
-!$omp end do
-!$omp end parallel
            do imat=1,nmat_block
               do jmat=1,nmat_block
                  potential=potential&
@@ -92,7 +87,8 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
         end do
      end do
   end do
-  potential=potential*0.75d0*dble(nmat_block*nblock)*lattice_spacing
+  !note that we took some over idim<jdim only. So the coefficient is 0.75*2=1.5.
+  potential=potential*1.5d0
   !******************************  
   !*** Plane wave deformation ***
   !******************************
@@ -119,8 +115,7 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
            end do
         end do
      end do
-     potential_BMN=potential_BMN+flux*flux*(trx2_123+0.25d0*trx2_456789)&
-          *lattice_spacing*dble(nmat_block*nblock)
+     potential_BMN=potential_BMN+flux*flux*(trx2_123+0.25d0*trx2_456789)
      !******************
      !*** cubic term ***
      !******************
@@ -148,16 +143,14 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
            end do
         end do
      end do
-     potential_BMN=potential_BMN&
-          &+dble((0d0,7.5d0)*(trx123-trx132))*flux*lattice_spacing&
-          &*dble(nmat_block*nblock)
+     potential_BMN=potential_BMN+dble((0d0,7.5d0)*(trx123-trx132))*flux
   end if
 
   call calc_energy_fermion(temperature,xmat,xmat_row,xmat_column,&
        &alpha,GAMMA10d,nbmn,flux,myrank,sum_pf,max_err,max_iteration,nbc)
   
-  energy_local=(potential+potential_BMN)/dble(nmat_block*nmat_block*nblock*nblock)*temperature+sum_pf
-
+  energy_local=(potential+potential_BMN)/dble(nmat_block*nblock)/dble(nsite_local*nsublat)&
+       &+sum_pf
 
   call MPI_Reduce(energy_local,energy,1,MPI_DOUBLE_PRECISION,&
        MPI_SUM,0,MPI_COMM_WORLD,IERR)

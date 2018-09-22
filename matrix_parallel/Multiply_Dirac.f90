@@ -1,5 +1,5 @@
-! pf2 = (-i)*D * Pf1
-!Please be careful about the overall factor (-i). 
+! pf2 = (-i) * D/N * Pf1
+!Please be careful about the overall factor (-i)*(lattice spacing). 
 SUBROUTINE Multiply_Dirac(temperature,xmat_row_2,xmat_column_2,&
      &alpha,pf1,pf2,GAMMA10d,nbmn,flux,myrank)
 
