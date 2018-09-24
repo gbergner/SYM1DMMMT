@@ -1,5 +1,5 @@
-'conN4S4T20M10_apbc_1.dat'		!input_config
-'conN4S4T20M10_apbc_1.dat'	!output_config
+'conout.dat'		!input_config
+'conout.dat'	!output_config
 'outN4S4T20M10_apbc_1.txt'	!data_output
 'iconN4S4T20M10_apbc_1.dat'	!intermediate_config
 'acc_N4S4T20M10_apbc.dat'		!acc_input
@@ -7,14 +7,14 @@
 'CG_N4S4T20M10_apbc_1.dat'       !CG_log
 1	!nbc; 0 -> pbc, 1 -> apbc
 1	!nbmn; 0 -> BFSS, 1 -> BMN
-1	!init; 0 -> old config, 1 -> new config, 2-> fuzzy sphere
+0	!init; 0 -> old config, 1 -> new config, 2-> fuzzy sphere
 1	!iaccelerate; 0 -> read from acc_input, 1-> naive 
-1	!isave; 0 -> save intermediate config, 1-> do not save
+0	!isave; 0 -> save intermediate config, 1-> do not save
 1.0d0	!temperature
 1.0d0	!flux parameter mu; used only when nbmn=1
 10000	!ntraj(total number of sweeps)
 1	!nskip
-0	!nsave
+1	!nsave
 8	!ntau   (# of step for pseudo fermion part)
 3	!nratio (ntau*(2*nratio+1) = # of step for bosonic part)
 0.04d0	!Dtau for xmat

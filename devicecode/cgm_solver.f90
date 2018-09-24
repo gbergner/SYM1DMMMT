@@ -411,4 +411,191 @@ contains
 
     END SUBROUTINE cgm_solver_device
 
+    SUBROUTINE cg_solver_device(nbmn,nbc,temperature,&
+        max_err,max_iteration,xmat,phase,Gam123,pf_input,pf_sol,info,iteration)
+        use compiletimeconstants
+        use dirac_operator
+        use cublasinterface
+        implicit none
+
+        integer, intent(in) :: nbmn,nbc
+        double precision, intent(in) :: temperature
+        integer, intent(in) :: max_iteration
+        double precision, intent(in) :: max_err
+        double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+        double complex, intent(in) :: phase(1:nmat,1:nmat,1:2)
+        double complex, intent(in) :: Gam123(1:nspin,1:nspin)
+        integer, intent(out) :: info
+
+        double complex, intent(in) :: pf_input(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        double complex, intent(out) :: pf_sol(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        !$acc declare present(nbmn,nbc,temperature,xmat)
+        !$acc declare device_resident(phase,Gam123,pf_input,pf_sol)
+
+        double complex :: r(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin),&
+            p(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin),&
+            mp1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin),&
+            mp2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+        !$acc declare device_resident(r,p,mp1,mp2)
+
+        integer imat,jmat
+        integer ispin
+        integer isite
+        integer,intent(out):: iteration
+        double precision :: normPF2,NormR
+        double precision :: numerator,denominator
+        double precision :: a,aold
+        double precision :: bc
+        double precision :: error
+
+        type(c_devptr), device :: xptr_d(nsite,ndim)
+        type(c_devptr), device :: pptr_d(nsite,nspin)
+        type(c_devptr), device :: mp1ptr_d(nsite,nspin)
+        type(c_devptr), device :: mp2ptr_d(nsite,nspin)
+
+
+        if(cublascgm==1) then
+            call setup_cublas()
+            call setup_cublas_pointers_xmat(xmat,xptr_d)
+            call setup_cublas_pointers_pf(p,pptr_d)
+            call setup_cublas_pointers_pf(mp1,mp1ptr_d)
+            call setup_cublas_pointers_pf(mp2,mp2ptr_d)
+        end if
+
+        call norm_vect_device(normPF2,pf_input)
+        normPF2=dsqrt(normPF2)
+        if(solver_verbose.EQ.3) then
+            write(*,*) "norm device input vector ",normPF2
+        end if
+        !initial condition
+        !$acc kernels
+        pf_sol=(0d0,0d0)
+        p=pf_input
+        r=pf_input
+        !$acc end kernels
+        aold=(1d0,0d0)
+        bc=(1d0,0d0)
+        !loop
+        iteration=1
+        info=1
+        call norm_vect_device(numerator,r)
+
+        !$acc data copyin(a,aold,bc,error)
+        do while((iteration.LT.max_iteration).AND.(info.EQ.1))
+            call set_boundary_device(nbc,p)
+            if(cublascgm==1) then
+                call Multiply_Dirac_device_cuda(temperature,xmat,phase,Gam123,nbmn,p,mp1,xptr_d,pptr_d,mp1ptr_d)
+            else
+                call Multiply_Dirac_device(temperature,xmat,phase,Gam123,nbmn,p,mp1)
+            end if
+            call norm_vect_device(denominator,mp1)
+
+            a=numerator/denominator
+            !$acc update device(a)
+
+            call set_boundary_device(nbc,mp1)
+            if(cublascgm==1) then
+                call Multiply_Dirac_dagger_device_cuda(temperature,xmat,phase,Gam123,nbmn,mp1,mp2,xptr_d,mp1ptr_d,mp2ptr_d)
+            else
+                call Multiply_Dirac_dagger_device(temperature,xmat,phase,Gam123,nbmn,mp1,mp2)
+            end if
+
+            denominator=numerator
+            numerator=(0d0,0d0)
+            !$acc kernels
+            do isite=1,nsite
+                do ispin=1,nspin
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            pf_sol(imat,jmat,ispin,isite)=pf_sol(imat,jmat,ispin,isite)+a*p(imat,jmat,ispin,isite)
+                            r(imat,jmat,ispin,isite)=r(imat,jmat,ispin,isite)-a*mp2(imat,jmat,ispin,isite)
+                            numerator=numerator&
+                                +real(r(imat,jmat,ispin,isite)&
+                                *dconjg(r(imat,jmat,ispin,isite)))
+                        end do
+                    end do
+                end do
+            end do
+            !$acc end kernels
+
+            bc=numerator/denominator
+            !$acc update device(bc)
+
+            NormR=dsqrt(numerator)
+
+            error=NormR/normPF2
+            if((error.LT.max_err))then
+                info=0
+            end if
+
+
+            !$acc kernels
+            do isite=1,nsite
+                do ispin=1,nspin
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            p(imat,jmat,ispin,isite)=r(imat,jmat,ispin,isite)+bc*p(imat,jmat,ispin,isite)
+                        end do
+                    end do
+                end do
+            end do
+            !$acc end kernels
+
+            if(solver_verbose.EQ.3) then
+                write(*,*)  "iteration",iteration," nromR ",NormR
+                write(*,*)  "iteration",iteration," errorfull",Error
+                NormR=0.0
+                !$acc kernels
+                do isite=1,nsite
+                    do ispin=1,nspin
+                        do jmat=1,nmat
+                            do imat=1,nmat
+                                NormR=NormR+pf_sol(imat,jmat,ispin,isite)
+                            end do
+                        end do
+                    end do
+                end do
+                !$acc end kernels
+
+                write(*,*) "xsnorm device",NormR
+            end if
+            iteration=iteration+1
+            aold=a
+            !$acc update  device(aold)
+        end do !loop iteration
+
+            !$acc end data
+        call set_boundary_device(nbc,pf_sol)
+          !boundary condition
+
+        if(solver_verbose.EQ.2) then
+            write(*,*)  "error after inversion=",error
+        end if
+
+        if(solver_verbose.EQ.1) then
+            write(*,*)  "check after iteration=",iteration
+            call Multiply_Dirac_device(temperature,xmat,phase,Gam123,nbmn,pf_sol,mp1)
+            call set_boundary_device(nbc,mp1)
+            call Multiply_Dirac_dagger_device(temperature,xmat,phase,Gam123,nbmn,mp1,mp2)
+            error=0.0d0
+            !$acc kernels
+            do isite=1,nsite
+                do ispin=1,nspin
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            error=error+abs(mp2(imat,jmat,ispin,isite)-pf_input(imat,jmat,ispin,isite))
+                        end do
+                    end do
+                end do
+            end do
+            !$acc end kernels
+            write (*,*) "Error for is ",error
+        end if
+        if(cublascgm==1) then
+            call finish_cublas()
+        end if
+        return
+
+    END SUBROUTINE cg_solver_device
+
 end module cgm_solver

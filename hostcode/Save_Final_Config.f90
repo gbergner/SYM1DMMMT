@@ -22,6 +22,7 @@ SUBROUTINE Save_Final_Config(xmat,alpha,itraj,output_config)
   write(unit_output_config,*) itraj
   write(unit_output_config,*) xmat
   write(unit_output_config,*) alpha
+  flush(unit_output_config)
   close(unit_output_config)
 
   return

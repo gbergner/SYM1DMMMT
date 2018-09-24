@@ -79,7 +79,7 @@ program BFSS_DEVICE
     integer nskip !measurement is performed every nskiptrajectories
     integer nacceptance !number of acceptance
     integer ntrial !number of trial
-    character(1000) input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log
+    character(1000) input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log,checkpointn
     !character,dimension(:),allocatable :: input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log
     ! For MPI
     !integer IERR,NPROCS,MYRANK
@@ -109,7 +109,7 @@ program BFSS_DEVICE
 
 
 
-
+     checkpointn="chp.dat"
     !---------------------------------
   
     !*************************
@@ -252,6 +252,7 @@ program BFSS_DEVICE
         !**** measurements etc ****
         !**************************
         if(MOD(itraj,nskip).EQ.0)then
+            call print_time_step("start measurements")
             !keep the hermiticity with a good precision.
             !Not really needed but just in case.
             if(rhmc_verbose.EQ.1) then
@@ -264,9 +265,13 @@ program BFSS_DEVICE
             if(rhmc_verbose.EQ.1) then
                 print*, "calling measurements"
             end if
-            call measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
+            ! These are the measurements on hostcode and device code
+            call measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
                 &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
-                iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance)
+                iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,phase,Gam123)
+           !call measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
+            !    &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
+             !   iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance)
             !optimization of the Fourier acceleration parameters.
             !call Fourier_transform_xmat(xmat,&
             !     xmat_mom,x2p)
@@ -276,15 +281,20 @@ program BFSS_DEVICE
             if(rhmc_verbose.EQ.1) then
                 print*, "measurements done"
             end if
+            call print_time_step("finished measurements")
         end if
         if((isave.EQ.0).AND.(nsave.GT.0))then
             if(MOD(itraj,nsave).EQ.0)then
+                call print_time_step("start config writeout")
                 !$acc update self(xmat)
                 !$acc update self(alpha)
                 if(rhmc_verbose.EQ.1) then
                     print*, "calling save config"
                 end if
                 call Save_Intermediate_Config(xmat,alpha,itraj)
+                ! I have added this line in order to ensure that there are checkpoints.
+                call Save_Final_Config(xmat,alpha,itraj+1,checkpointn)
+                call print_time_step("finished configwriteout")
             end if
         end if
         call print_timestamp("trajectory finished")
@@ -307,9 +317,11 @@ program BFSS_DEVICE
     !*************************************
     !*** Save the final configuration ****
     !*************************************
+    call print_time_step("start config writeout")
     !$acc update self(xmat)
     !$acc update self(alpha)
     call Save_Final_Config(xmat,alpha,itraj,output_config)
+    call print_time_step("finished configwriteout")
     !$acc end data
 
     deallocate(acoeff_pf)

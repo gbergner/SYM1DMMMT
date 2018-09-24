@@ -1,11 +1,11 @@
 !----------------------------------------
 !     Number of sites along t-direction
 integer nsite
-parameter(nsite=10)
+parameter(nsite=4)
 !----------------------------------------
 !     Size of matrices
 integer nmat
-parameter(nmat=64)
+parameter(nmat=4)
 !----------------------------------------
 !     Number of pseudo fermions
 integer npf !(1,2 at this moment)
@@ -40,6 +40,6 @@ integer,parameter :: solver_verbose=0
 integer,parameter :: rhmc_verbose=0
 integer,parameter :: check_host_metropolis=0
 integer,parameter :: cublasmult=0
-integer,parameter :: cublascgm=0
-integer,parameter :: usetimer=0
+integer,parameter :: cublascgm=1
+integer,parameter :: usetimer=1
 

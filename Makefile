@@ -40,8 +40,8 @@ compare_host_device.mod: compare_host_device.f90
 bfss_host_serial: ${HLIB} main_host_serial.o 
 	${FC} ${FCFLAGS} main_host_serial.o ${HLIB} -o $@
 
-bfss_device_serial: ${HLIB} ${DLIB} main_device_serial.o 
-	${FC} ${FCFLAGS} main_device_serial.o ${DLIB} ${HLIB}  -o $@
+bfss_device_serial: ${HLIB} ${DLIB} measure_host_device.o main_device_serial.o 
+	${FC} ${FCFLAGS} main_device_serial.o measure_host_device.o ${DLIB} ${HLIB}  -o $@
 
 testprogram:  ${HLIB} ${DLIB} compare_host_device.mod main_testprogram.o compare_host_device.o
 	${FC} ${FCFLAGS}  main_testprogram.o compare_host_device.o ${HLIB} ${DLIB}  -o $@
