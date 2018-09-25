@@ -185,7 +185,9 @@ program BFSS_DEVICE
     !*************************************
     call initial_configuration(xmat,alpha,acceleration,itraj,init,&
         &iaccelerate,nfuzzy,input_config,acc_input,flux,mersenne_seed)
-
+     if(init.EQ.4) then
+      call read_checkpoint(xmat,alpha,itraj)
+     end if
     !***********************************
     !******  Make the output file ******
     !***********************************
@@ -293,7 +295,8 @@ program BFSS_DEVICE
                 end if
                 call Save_Intermediate_Config(xmat,alpha,itraj)
                 ! I have added this line in order to ensure that there are checkpoints.
-                call Save_Final_Config(xmat,alpha,itraj+1,checkpointn)
+                !call Save_Final_Config(xmat,alpha,itraj+1,checkpointn)
+                call save_checkpoint(xmat,alpha,itraj+1)
                 call print_time_step("finished configwriteout")
             end if
         end if

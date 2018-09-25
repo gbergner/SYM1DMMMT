@@ -315,7 +315,7 @@ contains
             !*** phi1 -> phi2=(D^dag*D)^{-1}*phi1 -> phi1=phi2 ***
             !*****************************************************
             call cg_solver_device(nbmn,nbc,temperature,&
-        max_err,max_iteration,xmat,phase,Gam123,phi1,phi2,info,iteration)
+                max_err,max_iteration,xmat,phase,Gam123,phi1,phi2,info,iteration)
 
             do imat=1,nmat
                 do jmat=1,nmat
@@ -375,5 +375,67 @@ contains
 
     END SUBROUTINE Smallest_eigenvalue_device
 
+    SUBROUTINE save_checkpoint(xmat,alpha,itraj)
+        use compiletimeconstants
+        use mtmod !Mersenne twistor
+        implicit none
+
+        double precision alpha(1:nmat)
+        double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+        integer itraj,isite,idim,imat,jmat
+        open(UNIT=42, File = "chp.dat", STATUS = "REPLACE", ACTION = "WRITE")
+        call mtsaveu(42)
+        write(42,*) itraj
+        flush(42)
+!        close(42)
+!        open(UNIT=42, File = "chp.dat", STATUS = "REPLACE", ACTION = "WRITE",ACCESS='direct',recl=)
+        do isite=1,nsite
+             do idim=1,ndim
+                 do jmat=1,nmat
+                     do imat=1,nmat
+                       write(42,'(E22.16)') xmat(imat,jmat,idim,isite)%re
+                       write(42,'(E22.16)') xmat(imat,jmat,idim,isite)%im
+                 end do
+               end do
+            end do
+        end do
+        do imat=1,nmat
+          write(42,'(E22.16)') alpha(imat)
+        end do
+        flush(42)
+        close(42)
+        return
+    END SUBROUTINE save_checkpoint
+
+    SUBROUTINE read_checkpoint(xmat,alpha,itraj)
+        use compiletimeconstants
+        use mtmod !Mersenne twistor
+        implicit none
+        !****** output ******
+        double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+        double precision alpha(1:nmat)
+        double precision tmp1,tmp2
+        integer itraj,isite,idim,imat,jmat
+        integer stat
+        open(UNIT=42, File = "chp.dat", STATUS = "OLD", ACTION = "READ")
+        call mtgetu(42)
+        read(42,*) itraj
+        do isite=1,nsite
+             do idim=1,ndim
+                 do jmat=1,nmat
+                     do imat=1,nmat
+                       read(42,'(E22.16)') tmp1
+                       read(42,'(E22.16)') tmp2
+                       xmat(imat,jmat,idim,isite)=CMPLX(tmp1,tmp2)
+                 end do
+               end do
+            end do
+        end do
+        do imat=1,nmat
+          read(42,'(E22.16)') alpha(imat)
+        end do
+        close(42)
+
+    END SUBROUTINE read_checkpoint
 
 end module utils_measurements
