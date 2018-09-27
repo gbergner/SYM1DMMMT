@@ -40,7 +40,7 @@
 !######            ver.5  minor improvements.                         #########
 !##############################################################################
 !Mersenne twister.
-include 'mt19937.f90'
+!include 'mt19937.f90'
 
 program BFSS
   
