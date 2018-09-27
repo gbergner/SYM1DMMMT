@@ -462,8 +462,8 @@ contains
         call cpu_time(stop_time)
         time1=stop_time-start_time
         call cpu_time(start_time)
-        call Calc_Force_bosonic_device(delh_xmat_d,delh_alpha_d,xmat_d,alpha_d,Chi_d,&
-            GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+        call Calc_Force_bosonic_device(delh_xmat_d,delh_alpha_d,xmat_d,alpha_d,&
+            &g_alpha,g_R,RCUT,nbmn,flux,temperature)
         call cpu_time(stop_time)
         time2=stop_time-start_time
         !$acc kernels

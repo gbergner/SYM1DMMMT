@@ -252,11 +252,18 @@ contains
         !        &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,nbc,nremez_md,gamma10d,bcoeff_md,max_err,max_iteration,iteration,ham_init,gam123,phase)
         ! end if
         !Molecular Evolution
-        call Molecular_Dynamics_device(nbc,temperature,&
-            &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
-            &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
-            &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+        if(imetropolis.EQ.2) then
+            call Molecular_Dynamics_device_SW(nbc,temperature,&
+                &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
+                &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
+                &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
 
+        else
+            call Molecular_Dynamics_device(nbc,temperature,&
+                &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
+                &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
+                &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+        end if
         !info_mol=0 -> OK (CG solver converged)
         !info_mol=1 -> error (CG solver did not converge)
         if(info_mol.EQ.0)then
@@ -270,7 +277,6 @@ contains
             !info_CG_fin=1 -> error (CG solver did not converge)
      
             !Take CG_log
-            write(unit_CG_log,*)"ham_fin",iteration
      
            !call Calc_Ham_device(temperature,xmat,alpha,P_xmat,P_alpha,ham_fin,&
            !     &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,phase)
@@ -320,6 +326,7 @@ contains
         if(imetropolis.EQ.1)then
             !No Metropolis test
             metropolis=-1d0 !Then, it is always accepted.
+            print*, "no metropolis test"
         end if
      
         !####################################
@@ -365,6 +372,7 @@ contains
         if(rhmc_verbose.EQ.1) then
             print*,"RHMC ev finished accepted ",info_accept," ",info_alpha," ",metropolis, " ", info," ", dexp(ham_init-ham_fin),"\n"
         end if
+        write(unit_CG_log,*)"ham_fin",iteration, " ", ham_init-ham_fin," ",ham_init," ",ham_fin," ",info_accept," ",info
         return
 
     END SUBROUTINE RHMC_evolution_device

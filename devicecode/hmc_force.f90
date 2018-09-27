@@ -15,8 +15,7 @@
 module hmc_force
     implicit none
 contains
-    SUBROUTINE Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,chi,&
-        GAMMA10d,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+    SUBROUTINE Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature)
 
         use compiletimeconstants
         implicit none
@@ -26,15 +25,10 @@ contains
         integer, intent(in) :: nbmn
         double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
         double precision, intent(in) :: alpha(1:nmat)
-        double complex, intent(in) :: Chi(1:nremez_md,1:nmat,1:nmat,1:nspin,&
-            &-(nmargin-1):nsite+nmargin,1:npf)
         double precision, intent(in) :: gcoeff_alpha
         double precision, intent(in) :: g_R,RCUT
         double precision, intent(in) :: temperature,flux
-        double precision, intent(in) :: acoeff_md(0:nremez_md)
-        double complex, intent(in) :: GAMMA10d(1:ndim,1:nspin,1:nspin)
-        !$acc declare present(g_R,RCUT,temperature,flux,acoeff_md,GAMMA10d,gcoeff_alpha)
-        !$acc declare device_resident(Chi)
+        !$acc declare present(g_R,RCUT,temperature,flux,gcoeff_alpha)
         !***** output *****
         double complex, intent(out) :: delh_xmat(1:nmat,1:nmat,1:ndim,1:nsite)
         double precision, intent(out) :: delh_alpha(1:nmat)

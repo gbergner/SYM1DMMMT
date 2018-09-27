@@ -72,7 +72,7 @@ program BFSS_DEVICE
     !number of trajectories
     integer ntraj     !total number of trajectories at the end of the run
     integer itraj
-
+    integer swintegrateor
     double precision ham_init,ham_fin
 
     !measurements
