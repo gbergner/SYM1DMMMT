@@ -21,7 +21,7 @@ else
  DIRS=devicecode hostcode
  DLIB=devicecode/libdevice.a
  HLIB=hostcode/libhost.a
- EXE=testprogram test_timing bfss_host_serial bfss_device_serial
+ EXE=testprogram test_timing bfss_host_serial bfss_device_serial test_timing_inverter
 endif
 
 all: $(EXE)
@@ -48,6 +48,9 @@ testprogram:  ${HLIB} ${DLIB} compare_host_device.mod main_testprogram.o compare
 
 test_timing: main_time.o ${HLIB} ${DLIB}  
 	${FC} ${FCFLAGS} main_time.o  ${HLIB} ${DLIB} -o $@
+
+test_timing_inverter: main_time_inverter.o ${HLIB} ${DLIB}  
+	${FC} ${FCFLAGS} main_time_inverter.o  ${HLIB} ${DLIB} -o $@
 
 bfss_mparallel: ${HLIB} main_parallel.o
 	${FC} ${FCFLAGS} main_parallel.o ${DLIB} ${HLIB}  -o $@

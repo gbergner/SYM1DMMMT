@@ -733,7 +733,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas_stream(pf2,xptr_d,pf1ptr_d,p
     !$acc kernels
     pf2=(0d0,0d0)
     !$acc end kernels
-    call multiply_cublas_pointer_streams(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(1.d0))
+    call multiply_cublas_pointer_streams(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(1.d0),.TRUE.)
 
 END SUBROUTINE Test_Multiply_Dirac_dagger_device_cublas_stream
 

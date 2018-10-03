@@ -15,7 +15,6 @@ contains
         implicit none
         double complex,intent(inout) :: pf(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
         integer, intent(in) :: nbc
-        !$acc declare present(nbc)
         !$acc declare device_resident(pf)
         integer :: ispin,imat,jmat,isite
         if(nbc.EQ.0)then!pbc
@@ -162,7 +161,7 @@ contains
         integer :: ispin,jspin,kspin
         integer :: isite
         integer :: countr
-        !$acc declare present(temperature,xmat,nbmn,phase,Gam123,pf1,pf2)
+        !$acc declare present(temperature,xmat,phase,Gam123,pf1,pf2)
 
         !**********************
         !**********************
@@ -312,7 +311,7 @@ contains
         integer :: isite
         integer :: countr
 
-        !$acc declare present(temperature,xmat,nbmn,phase,Gam123,pf1,pf2)
+        !$acc declare present(temperature,xmat,phase,Gam123,pf1,pf2)
 
 
         !**********************
@@ -463,7 +462,7 @@ contains
         integer :: ispin,jspin,kspin
         integer :: isite
         integer :: countr
-        !$acc declare present(temperature,xmat,nbmn,phase,Gam123,pf1,pf2)
+        !$acc declare present(temperature,xmat,phase,Gam123,pf1,pf2)
 
         type(c_devptr), device :: xptr_d(nsite,ndim)
         type(c_devptr), device :: pf1ptr_d(nsite,nspin)
@@ -546,16 +545,19 @@ contains
         !**************************
         !**************************
         lattice_spacing=1d0/temperature/dble(nsite)
-        do countr=1,144
-            ispin=gamispin(countr)
-            jspin=gamjspin(countr)
-            idim=gamidim(countr)
-            gamtmp=dconjg(gamgam(countr))
-            call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-            !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-            !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-        end do
-
+        if(cublasstream.EQ.1) then
+            call multiply_cublas_pointer_streams(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing),.TRUE.)
+        else
+            do countr=1,144
+                ispin=gamispin(countr)
+                jspin=gamjspin(countr)
+                idim=gamidim(countr)
+                gamtmp=dconjg(gamgam(countr))
+                call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+                !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+                !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+            end do
+        end if
         !******************************
         !******************************
         !*** Plane wave deformation ***
@@ -607,7 +609,7 @@ contains
         integer :: isite
         integer :: countr
 
-        !$acc declare present(temperature,xmat,nbmn,phase,Gam123,pf1,pf2)
+        !$acc declare present(temperature,xmat,phase,Gam123,pf1,pf2)
 
         type(c_devptr), device :: xptr_d(nsite,ndim)
         type(c_devptr), device :: pf1ptr_d(nsite,nspin)
@@ -692,14 +694,18 @@ contains
         !**************************
         !**************************
         lattice_spacing=1d0/temperature/dble(nsite)
-        do countr=1,144
-            ispin=gamispin(countr)
-            jspin=gamjspin(countr)
-            idim=gamidim(countr)
-            gamtmp=gamgam(countr)
-            call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-            !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
-        end do
+        if(cublasstream.EQ.1) then
+            call multiply_cublas_pointer_streams(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing),.FALSE.)
+        else
+            do countr=1,144
+                ispin=gamispin(countr)
+                jspin=gamjspin(countr)
+                idim=gamidim(countr)
+                gamtmp=gamgam(countr)
+                call multiply_cublas_pointer(xptr_d,pf1ptr_d,pf2ptr_d,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+                !call callZgemmBatched(pf2,xmat,pf1,dcmplx(lattice_spacing)*gamtmp,dcmplx(1.d0),ispin,jspin,idim)
+            end do
+        end if
         !******************************
         !******************************
         !*** Plane wave deformation ***

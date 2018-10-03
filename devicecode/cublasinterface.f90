@@ -250,7 +250,7 @@ contains
         !cublas_status=cudaDeviceSynchronize()
     end subroutine
 
-    subroutine  multiply_cublas_pointer_streams(Aptr_d,Bptr_d,Cptr_d,prefact)
+    subroutine  multiply_cublas_pointer_streams(Aptr_d,Bptr_d,Cptr_d,prefact,dag)
         use cudafor
         use cublas
         use iso_c_binding
@@ -270,6 +270,7 @@ contains
         integer :: isite
         integer :: countr
         integer :: status
+        logical,intent(in) :: dag
         status=cublasGetStream(cublas_handle,oldstream)
         do ispin=1,nspin
           status = cudaStreamCreate(streams(ispin))
@@ -278,7 +279,11 @@ contains
             ispin=gamispin(countr)
             jspin=gamjspin(countr)
             idim=gamidim(countr)
-            gamtmp=dconjg(gamgam(countr))
+            if(dag) then
+             gamtmp=dconjg(gamgam(countr))
+            else
+             gamtmp=gamgam(countr)
+            end if
             status=cublasSetStream(cublas_handle,streams(ispin))
             alpha=gamtmp*prefact
             beta=dcmplx(1.d0)

@@ -47,7 +47,7 @@ contains
         double complex, intent(in) :: Gam123(1:nspin,1:nspin)
         double complex, intent(in) :: pf_input(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin,1:npf)
         double complex, intent(in) :: chi(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin,1:nremez,1:npf)
-        !$acc declare present(nbmn,nbc,bcoeff,temperature,xmat)
+        !$acc declare present(bcoeff,temperature,xmat)
         !$acc declare device_resident(phase,Gam123,pf_input,chi)
         double complex ::  mp1(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin),&
             mp2(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
@@ -126,7 +126,7 @@ contains
     
         double complex, intent(in) :: pf_input(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin,1:npf)
         double complex, intent(out) :: chi(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin,1:nremez,1:npf)
-        !$acc declare present(nbmn,nbc,bcoeff,temperature,xmat)
+        !$acc declare present(bcoeff,temperature,xmat)
         !$acc declare device_resident(phase,Gam123,pf_input,chi)
 
         double complex ::  ps(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin,1:nremez),&
@@ -429,7 +429,7 @@ contains
 
         double complex, intent(in) :: pf_input(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
         double complex, intent(out) :: pf_sol(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
-        !$acc declare present(nbmn,nbc,temperature,xmat)
+        !$acc declare present(temperature,xmat)
         !$acc declare device_resident(phase,Gam123,pf_input,pf_sol)
 
         double complex :: r(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin),&
