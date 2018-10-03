@@ -1,11 +1,11 @@
 !----------------------------------------
 !     Number of sites along t-direction
 integer nsite
-parameter(nsite=16)
+parameter(nsite=4)
 !----------------------------------------
 !     Size of matrices
 integer nmat
-parameter(nmat=16)
+parameter(nmat=4)
 !----------------------------------------
 !     Number of pseudo fermions
 integer npf !(1,2 at this moment)
