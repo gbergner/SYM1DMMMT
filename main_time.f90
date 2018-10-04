@@ -9,6 +9,7 @@ SUBROUTINE Test_Multiply_Dirac_dagger_device(xmat,pf1,pf2,var)
     use cublasinterface
     use compiletimeconstants
     use gammamatrix
+    use cublas
     implicit none
 
     integer, intent(in) :: var
