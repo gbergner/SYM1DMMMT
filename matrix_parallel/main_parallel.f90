@@ -42,6 +42,8 @@
 !######            ver.10.2 Smearing has been introduced. Probably useless. ###
 !######            ver.10.3 Both gauged and ungauged can be studied.  #########
 !######                     Measurements for BMN added.               #########
+!######            ver.10.4 Some bugs in the BMN part removed,        #########
+!######                      some measurements added.                 #########
 !##############################################################################
 !Mersenne twister
 include 'mt19937.f90'

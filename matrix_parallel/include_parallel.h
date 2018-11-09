@@ -72,4 +72,3 @@ integer IERR,NPROCS,MYRANK
 double precision g_alpha
 !coefficient for potential for Tr(x^2)
 double precision g_R,RCUT
-

@@ -1,7 +1,6 @@
   !*************************************************************************
   !******  Open the output file (for measurements) and set the header ******
   !*************************************************************************
-
 SUBROUTINE output_header(myrank,data_output,temperature,flux,&
      ntau,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
      &init,input_config,output_config,iaccelerate,acc_input,acc_output,&

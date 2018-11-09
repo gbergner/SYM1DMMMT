@@ -23,7 +23,6 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
        &energy,ham_fin,ham_init
   double complex xmat_smeared(1:nmat_block,1:nmat_block,1:ndim,&
        &-(nmargin-1):nsite_local+nmargin)
-
   double precision acoeff_md(0:nremez_md),bcoeff_md(1:nremez_md)
   double precision acoeff_pf(0:nremez_pf),bcoeff_pf(1:nremez_pf)
 
