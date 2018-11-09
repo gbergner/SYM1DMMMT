@@ -5,7 +5,7 @@
 SUBROUTINE output_header(myrank,data_output,temperature,flux,&
      ntau,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
      &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
-     &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
+     &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,Pol_phase,&
      &isave,nsave,intermediate_config,imetropolis)
 
   implicit none
@@ -13,7 +13,7 @@ SUBROUTINE output_header(myrank,data_output,temperature,flux,&
   include 'unit_number.inc'
   integer isave,nsave
   character(1000) data_output,input_config,output_config,&
-       &acc_input,acc_output,intermediate_config,CG_log
+       &acc_input,acc_output,intermediate_config,CG_log,Pol_phase
   character(100)input_config_short,output_config_short,&
        &acc_input_short,acc_output_short,intermediate_config_short,CG_log_short
   double precision temperature
@@ -119,21 +119,21 @@ SUBROUTINE output_header(myrank,data_output,temperature,flux,&
         write(unit_measurement,*) "# traj,ham_fin-ham_init, &
              &number of constraint violation,&
              &number of CG-err,CG-iteration,energy, &
-             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2,acceptance"    
+             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, cubic term, acceptance"    
      else  if((neig_max.GT.0).AND.(neig_min.EQ.0))then
         write(unit_measurement,*)"# iteration for evaluating largest eig=",&
              &neig_max
         write(unit_measurement,*) "# traj,ham_fin-ham_init, &
              &number of constraint violation,&
              &number of CG-err,CG-iteration,energy, &
-             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, largest eig, acceptance"    
+             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, cubic term, largest eig, acceptance"    
      else  if((neig_max.EQ.0).AND.(neig_min.GT.0))then
         write(unit_measurement,*)"# iteration for evaluating smallest eig=",&
              &neig_min
         write(unit_measurement,*) "# traj,ham_fin-ham_init, &
              &number of constraint violation,&
              &number of CG-err,CG-iteration,energy, &
-             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, smallest eig, acceptance"  
+             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, cubic term, smallest eig, acceptance"  
         
      else  if((neig_max.GT.0).AND.(neig_min.GT.0))then
         write(unit_measurement,*)"# iteration for evaluating largest eig=",&
@@ -143,7 +143,7 @@ SUBROUTINE output_header(myrank,data_output,temperature,flux,&
         write(unit_measurement,*) "# traj,ham_fin-ham_init, &
              &number of constraint violation,&
              &number of CG-err,CG-iteration,energy, &
-             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, largest eig,&
+             &|Pol.|, trX^2(total; 1, 2, ..., 9), tr[X,Y]^2, cubic term, largest eig,&
              &smallest eig, acceptance"  
      end if
      write(unit_measurement,*)'#-----------------------------------------------'
@@ -156,6 +156,15 @@ SUBROUTINE output_header(myrank,data_output,temperature,flux,&
      open(unit=unit_CG_log,status='REPLACE',file=CG_log,&
           &action='WRITE')
   end if
+
+  !***************************
+  !*** Polyakov line phase ***
+  !***************************
+  if(myrank.eq.0)then
+     open(unit=unit_Polyakov_phase,status='REPLACE',file=Pol_phase,&
+          &action='WRITE')
+  end if
+  
 
   return
 END SUBROUTINE output_header

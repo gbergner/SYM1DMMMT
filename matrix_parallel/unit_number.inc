@@ -14,3 +14,5 @@ integer unit_intermediate_config
 parameter(unit_intermediate_config=16)
 integer unit_CG_log
 parameter(unit_CG_log=17)
+integer unit_Polyakov_phase
+parameter(unit_Polyakov_phase=18)

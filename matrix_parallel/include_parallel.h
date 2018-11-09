@@ -61,7 +61,7 @@ double precision flux
   integer nskip !measurement is performed every nskiptrajectories
   integer nacceptance !number of acceptance
   integer ntrial !number of trial
-character(1000) input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log
+character(1000) input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log,Pol_phase
 
 
 integer IERR,NPROCS,MYRANK
