@@ -65,8 +65,6 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
              &Pol,sum_trx2,&
              &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
              &com2,myers,dble(nacceptance)/dble(ntrial)
-
-        write(unit_Polyakov_phase,*)alpha
         
         write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
              &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
@@ -118,6 +116,8 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
              &com2,myers,largest_eig,smallest_eig,&
              &dble(nacceptance)/dble(ntrial)
      end if
+
+     write(unit_Polyakov_phase,*)alpha
      
   end if
 
