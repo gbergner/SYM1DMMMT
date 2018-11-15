@@ -8,7 +8,7 @@ SUBROUTINE Save_Acceleration_Parameters(fluctuation,imeasure,acc_output)
   implicit none
   
   include 'size_parallel.h'
-  include 'unit_number.inc'
+  include '../unit_number.inc'
   include 'mpif.h'
   !---------------------------------
   double complex xmat_mom(1:nmat_block,1:nmat_block,1:ndim,1:nsite_local) 

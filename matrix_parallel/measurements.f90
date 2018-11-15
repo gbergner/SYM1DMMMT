@@ -5,7 +5,7 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
 
   implicit none
   include 'size_parallel.h'
-  include 'unit_number.inc'
+  include '../unit_number.inc'
   !input
   double complex xmat(1:nmat_block,1:nmat_block,1:ndim,&
        &-(nmargin-1):nsite_local+nmargin)
@@ -23,13 +23,15 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
        &energy,ham_fin,ham_init
   double complex xmat_smeared(1:nmat_block,1:nmat_block,1:ndim,&
        &-(nmargin-1):nsite_local+nmargin)
-
   double precision acoeff_md(0:nremez_md),bcoeff_md(1:nremez_md)
   double precision acoeff_pf(0:nremez_pf),bcoeff_pf(1:nremez_pf)
+
+  double precision myers
+  
   !measurements. 
   call Calc_TrX2_each(xmat,sum_trx2,myrank,trx2)
   call Calc_Com2(xmat,com2,myrank)
-  call Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
+  call Calc_energy(temperature,xmat,alpha,energy,myers,myrank,nbmn,flux,&
        &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,&
        &nbc,max_err,max_iteration)
     
@@ -58,62 +60,64 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
   if(myrank.EQ.0)then
      if((neig_max.EQ.0).AND.(neig_min.EQ.0))then
         
-        write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,14(1x,f15.7))')&
+        write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
              &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
              &Pol,sum_trx2,&
              &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,dble(nacceptance)/dble(ntrial)
+             &com2,myers,dble(nacceptance)/dble(ntrial)
         
-        write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,14(1x,f15.7))')&
+        write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
              &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
              &Pol,sum_trx2,&
              &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,dble(nacceptance)/dble(ntrial)
+             &com2,myers,dble(nacceptance)/dble(ntrial)
         
      else  if((neig_max.GT.0).AND.(neig_min.EQ.0))then
         
-        write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
-             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
-             &Pol,sum_trx2,&
-             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&             
-             &com2,largest_eig,&
-             &dble(nacceptance)/dble(ntrial)
-        write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
-             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
-             &Pol,sum_trx2,&
-             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,largest_eig,&
-             &dble(nacceptance)/dble(ntrial)
-        
-     else  if((neig_max.EQ.0).AND.(neig_min.GT.0))then
-        
-        write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
-             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
-             &Pol,sum_trx2,&
-             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,smallest_eig,&
-             &dble(nacceptance)/dble(ntrial)
-        write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,15(1x,f15.7))')&
-             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
-             &Pol,sum_trx2,&
-             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,smallest_eig,&
-             &dble(nacceptance)/dble(ntrial)
-        
-     else  if((neig_max.GT.0).AND.(neig_min.GT.0))then
         write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,16(1x,f15.7))')&
              &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
              &Pol,sum_trx2,&
-             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,largest_eig,smallest_eig,&
+             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&             
+             &com2,myers,largest_eig,&
              &dble(nacceptance)/dble(ntrial)
         write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,16(1x,f15.7))')&
              &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
              &Pol,sum_trx2,&
              &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
-             &com2,largest_eig,smallest_eig,&
+             &com2,myers,largest_eig,&
+             &dble(nacceptance)/dble(ntrial)
+        
+     else  if((neig_max.EQ.0).AND.(neig_min.GT.0))then
+        
+        write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,16(1x,f15.7))')&
+             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
+             &Pol,sum_trx2,&
+             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
+             &com2,myers,smallest_eig,&
+             &dble(nacceptance)/dble(ntrial)
+        write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,16(1x,f15.7))')&
+             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
+             &Pol,sum_trx2,&
+             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
+             &com2,myers,smallest_eig,&
+             &dble(nacceptance)/dble(ntrial)
+        
+     else  if((neig_max.GT.0).AND.(neig_min.GT.0))then
+        write(unit_measurement,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,17(1x,f15.7))')&
+             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
+             &Pol,sum_trx2,&
+             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
+             &com2,myers,largest_eig,smallest_eig,&
+             &dble(nacceptance)/dble(ntrial)
+        write(*,'(I8,1x,f15.9,1x,I4,1x,I8,1x,I8,17(1x,f15.7))')&
+             &itraj,ham_fin-ham_init,ncv,n_bad_CG,iteration,energy,&
+             &Pol,sum_trx2,&
+             &trx2(1),trx2(2),trx2(3),trx2(4),trx2(5),trx2(6),trx2(7),trx2(8),trx2(9),&
+             &com2,myers,largest_eig,smallest_eig,&
              &dble(nacceptance)/dble(ntrial)
      end if
+
+     write(unit_Polyakov_phase,*)alpha
      
   end if
 

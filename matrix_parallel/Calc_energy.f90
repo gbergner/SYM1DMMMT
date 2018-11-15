@@ -1,4 +1,4 @@
-subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
+subroutine Calc_energy(temperature,xmat,alpha,energy,myers,myrank,nbmn,flux,&
      &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,&
      &nbc,max_err,max_iteration)
 
@@ -17,9 +17,9 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
   integer nbc,max_iteration
   double precision max_err
   !***** output *****
-  double precision energy
+  double precision energy,myers
   !******************
-  double precision action,kinetic,potential,potential_BMN,energy_local
+  double precision action,kinetic,potential,potential_BMN,energy_local,myers_local
   !double precision lattice_spacing
 
   double complex commutator(1:nmat_block,1:nmat_block)
@@ -144,6 +144,7 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
         end do
      end do
      potential_BMN=potential_BMN+dble((0d0,7.5d0)*(trx123-trx132))*flux
+     myers_local=dble((0d0,-1d0)*(trx123-trx132))/dble(nmat_block*nblock)/dble(nsite_local*nsublat)
   end if
 
   call calc_energy_fermion(temperature,xmat,xmat_row,xmat_column,&
@@ -153,6 +154,9 @@ subroutine Calc_energy(temperature,xmat,alpha,energy,myrank,nbmn,flux,&
        &+sum_pf
 
   call MPI_Reduce(energy_local,energy,1,MPI_DOUBLE_PRECISION,&
+       MPI_SUM,0,MPI_COMM_WORLD,IERR)
+
+  call MPI_Reduce(myers_local,myers,1,MPI_DOUBLE_PRECISION,&
        MPI_SUM,0,MPI_COMM_WORLD,IERR)
 
 

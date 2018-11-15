@@ -1,7 +1,7 @@
 'conN8S8T10M50.dat'	!input_config
 'conN8S8T10M50.dat'	!output_config
 'outN8S8T10M50.txt'	!data_output
-'phaseN8S8T10M50.txt'   !Pol_phase
+'phaseN8S8T10M50.txt'!Pol_phase
 'iconN8S8T10M50.dat'      !intermediate_config
 'acc_N8S8T10M50.dat'      !acc_input
 'acc_N8S8T10M50.dat'      !acc_output

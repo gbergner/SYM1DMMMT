@@ -8,7 +8,7 @@ SUBROUTINE Save_Final_Config(xmat,alpha,itraj,output_config)
   implicit none
   
   include 'size_parallel.h'
-  include 'unit_number.inc'
+  include '../unit_number.inc'
   include 'mpif.h'
   !***** input *****
   double precision alpha(1:nmat_block*nblock)
