@@ -11,7 +11,7 @@ SUBROUTINE initial_configuration(xmat,alpha,acceleration,itraj,init,iaccelerate,
 
   include 'size_parallel.h'
   include 'mpif.h'
-  include 'unit_number.inc'
+  include '../unit_number.inc'
   !****** input ******
   integer init,iaccelerate,nfuzzy,mersenne_seed
   character(1000) input_config,acc_input

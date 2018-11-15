@@ -5,7 +5,7 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,myrank,temperature,flux,&
 
   implicit none
   include 'size_parallel.h'
-  include 'unit_number.inc'
+  include '../unit_number.inc'
   !input
   double complex xmat(1:nmat_block,1:nmat_block,1:ndim,&
        &-(nmargin-1):nsite_local+nmargin)

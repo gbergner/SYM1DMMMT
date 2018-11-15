@@ -7,7 +7,7 @@ parameter(nsite_local=4)
 !     Size of matrices
 !     nmat=nmat_block*nblock
 integer nmat_block,nblock
-parameter(nmat_block=4)
+parameter(nmat_block=2)
 parameter(nblock=2)
 !----------------------------------------
 !     number of remez coefficients

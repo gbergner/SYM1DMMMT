@@ -10,8 +10,8 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
 
   include 'mpif.h'
   include 'size_parallel.h'
-  include 'Fourier.inc'
-  include 'unit_number.inc'
+  include '../Fourier.inc'
+  include '../unit_number.inc'
   !input
   integer nbc,nbmn,nsmear,ngauge
   double precision temperature,flux,s_smear

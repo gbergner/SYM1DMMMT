@@ -14,8 +14,8 @@ subroutine Molecular_Dynamics(nbc,temperature,&
 
   include 'mpif.h'
   include 'size_parallel.h'
-  include 'Fourier.inc'
-  include 'unit_number.inc'
+  include '../Fourier.inc'
+  include '../unit_number.inc'
   integer nbc,nbmn,nsmear,ngauge
   integer max_iteration
   double precision max_err 

@@ -9,7 +9,7 @@ SUBROUTINE output_header(myrank,data_output,temperature,flux,&
 
   implicit none
   include 'size_parallel.h'
-  include 'unit_number.inc'
+  include '../unit_number.inc'
   integer isave,nsave
   character(1000) data_output,input_config,output_config,&
        &acc_input,acc_output,intermediate_config,CG_log,Pol_phase

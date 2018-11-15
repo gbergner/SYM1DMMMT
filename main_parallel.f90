@@ -42,6 +42,8 @@
 !######            ver.10.2 Smearing has been introduced. Probably useless. ###
 !######            ver.10.3 Both gauged and ungauged can be studied.  #########
 !######                     Measurements for BMN added.               #########
+!######            ver.10.4 Some bugs in the BMN part removed,        #########
+!######                      some measurements added.                 #########
 !##############################################################################
 !Mersenne twister
 include 'mt19937.f90'
@@ -71,6 +73,7 @@ program BFSS
   read(unit_input_para,*) input_config
   read(unit_input_para,*) output_config
   read(unit_input_para,*) data_output
+  read(unit_input_para,*) Pol_phase
   read(unit_input_para,*) intermediate_config
   read(unit_input_para,*) acc_input
   read(unit_input_para,*) acc_output
@@ -139,7 +142,7 @@ program BFSS
   call output_header(myrank,data_output,temperature,flux,&
        &ntau,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
        &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
-       &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
+       &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,Pol_phase,&
        &isave,nsave,intermediate_config,imetropolis)
   
   !*******************************************************
@@ -218,6 +221,7 @@ program BFSS
   if(myrank.eq.0)then
      close(unit_measurement)
      close(unit_CG_log)
+     close(unit_Polyakov_phase)
      if(isave.EQ.0)then
         close(unit_intermediate_config)
      end if
