@@ -209,7 +209,7 @@ SUBROUTINE Multiply_Dirac(temperature,xmat_row_2,xmat_column_2,&
 !!$           end do
 !!$        end do
 !!$     end do
-      include 'multiplication_direct_1.f'
+      include 'multiplication_direct_2.f'
      tag=1
      call MPI_Isend(mat_send(1,1,1,1),&
           &nmat_block*nmat_block*nsite_local*nspin,&
@@ -266,7 +266,7 @@ SUBROUTINE Multiply_Dirac(temperature,xmat_row_2,xmat_column_2,&
 !!$        end do
 !!$     end do
 !!$  end do
-   include 'multiplication_direct_1.f'
+   include 'multiplication_direct_3.f'
   !#########################################
   !### MPI-communication for pf*xmat_row ###
   !#########################################
@@ -311,7 +311,7 @@ SUBROUTINE Multiply_Dirac(temperature,xmat_row_2,xmat_column_2,&
 !!$           end do
 !!$        end do
 !!$     end do
-     include 'multiplication_direct_1.f'
+     include 'multiplication_direct_4.f'
      call MPI_Isend(mat_send(1,1,1,1),&
           &nmat_block*nmat_block*nsite_local*nspin,&
           &MPI_DOUBLE_COMPLEX,&

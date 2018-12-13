@@ -16,12 +16,12 @@
 1	!isave; 0 -> save intermediate config, 1-> do not save
 1d0	!temperature
 5d0	!flux parameter mu; used only when nbmn=1
-2	!ntraj(total number of sweeps)
+10	!ntraj(total number of sweeps)
 1	!nskip
 10	!nsave
-5	!Ntau
-0.01d0	!Dtau for xmat
-0.01d0	!Dtau for alpha
+400	!Ntau
+0.00125d0	!Dtau for xmat
+0.00125d0	!Dtau for alpha
 1d5	!upper_approx; the largest eigenvalue of (M^dagger M)must be smaller than this. 
 1d-10 	!max_err; stopping condition for CG solver
 1000	!max_iteration; maximum number of CG-iteration
