@@ -61,7 +61,6 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     !**** Generate pseudo fermion. ****
     !**********************************
     !smear
-    print *,"test",purebosonic
     if(purebosonic.eq.0) then
         call smearing_xmat(xmat,xmat_smeared,s_smear,myrank,nsmear)
   
