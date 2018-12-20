@@ -186,7 +186,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
   end if
   !"info_accept" is broadcasted to all nodes.
   !if(ngauge.EQ.0)then
-     call MPI_Bcast(info_accept,1,MPI_INTEGER,0,MPI_COMM_WORLD,IERR)
+  call MPI_Bcast(info_accept,1,MPI_INTEGER,0,MPI_COMM_WORLD,IERR)
   !end if
   ! accept/reject at each node. 
   if(info_accept.EQ.0)then
