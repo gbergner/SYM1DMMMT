@@ -2,11 +2,12 @@ module RHMC_Updater
     implicit none
 contains
     SUBROUTINE check_ham_host(temperature,xmat,alpha,P_xmat,P_alpha,&
-        &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,nbc,nremez_md,gamma10d,bcoeff_md,max_err,max_iteration,iteration,hamold,gam123,phase)
+        &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,nbc,nremez_md,gamma10d,bcoeff_md,max_err,max_iteration,iteration,&
+        &hamold,gam123,phase,ngauge,purebosonic)
         use compiletimeconstants
         use hmc_molecular_dynamics
         implicit none
-        integer nbc,nbmn,nremez_md
+        integer nbc,nbmn,nremez_md,ngauge,purebosonic
         double precision temperature,flux
         double complex GAMMA10d(1:ndim,1:nspin,1:nspin)
         double precision max_err
@@ -45,13 +46,14 @@ contains
         P_alpha_h=P_alpha
         pf_h=pf
         !$acc end kernels
-
-        call solver_biCGm(nbc,nbmn,nremez_md,&
-            xmat,alpha,pf_h,chi,GAMMA10d,&
-            bcoeff_md,max_err,max_iteration,iteration,&
-            temperature,flux,info)
+        if(purebosonic.eq.0) then
+            call solver_biCGm(nbc,nbmn,nremez_md,&
+                xmat,alpha,pf_h,chi,GAMMA10d,&
+                bcoeff_md,max_err,max_iteration,iteration,&
+                temperature,flux,info)
+        end if
         call Calc_Ham(temperature,xmat,alpha,P_xmat_h,P_alpha_h,ham,pf_h,chi,&
-            &acoeff_md,g_R,RCUT,nbmn,flux)
+            &acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)
         print*,"host test ham ",ham
         if (abs(ham-hamold).GE.(0.010d0)) then
             print*, "WARNING: large miss device to host in Hamiltonian: ",ham, " ",hamold
@@ -63,7 +65,8 @@ contains
     end subroutine
 
     SUBROUTINE hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham,pf,&
-        &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG,max_err,max_iteration,iteration,gamma10d,gam123,nbc)
+        &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG,max_err,max_iteration,&
+        &iteration,gamma10d,gam123,nbc,ngauge,purebosonic)
         use compiletimeconstants
         use dirac_operator
         use cgm_solver
@@ -73,7 +76,7 @@ contains
         use timer
         implicit none
         !***** input *****
-        integer, intent(in) :: nbmn,nbc
+        integer, intent(in) :: nbmn,nbc,ngauge,purebosonic
         double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
         double precision, intent(in) :: alpha(1:nmat)
         double complex, intent(in) :: P_xmat(1:nmat,1:nmat,1:ndim,1:nsite)
@@ -108,7 +111,7 @@ contains
         !write(unit_CG_log,*)"ham_init",iteration
         ! requires summation and distribution
         call Calc_Ham_device(temperature,xmat,alpha,P_xmat,P_alpha,ham,pf,chi,&
-            &acoeff_md,g_R,RCUT,nbmn,flux,phase)
+            &acoeff_md,g_R,RCUT,nbmn,flux,phase,ngauge,purebosonic)
         if(rhmc_verbose.EQ.1) then
             !$acc kernels
             tmp=Sum(chi)
@@ -117,7 +120,8 @@ contains
         end if
         if(check_host_metropolis.EQ.1) then
             call  check_ham_host(temperature,xmat,alpha,P_xmat,P_alpha,&
-                &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,nbc,nremez_md,gamma10d,bcoeff_md,max_err,max_iteration,iteration,ham,gam123,phase)
+                &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,nbc,nremez_md,gamma10d,bcoeff_md,max_err,&
+                &max_iteration,iteration,ham,gam123,phase,ngauge,purebosonic)
         end if
         call print_time_step("hamilton calculation end")
     end SUBROUTINE hamilton_calculation
@@ -126,7 +130,7 @@ contains
         &temperature,flux,GAMMA10d,Gam123,ntau,nratio,dtau_xmat,dtau_alpha,&
         &acceleration,g_alpha,g_R,RCUT,&
         &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-        &ham_init,ham_fin,ntrial,imetropolis)
+        &ham_init,ham_fin,ntrial,imetropolis,ngauge,purebosonic)
         use compiletimeconstants
         use outputstreamnumbers
         use hmc_molecular_dynamics
@@ -138,7 +142,7 @@ contains
         implicit none
 
         !input
-        integer, intent(in):: nbc,nbmn
+        integer, intent(in):: nbc,nbmn,ngauge,purebosonic
         double precision, intent(in):: temperature,flux
         double complex, intent(in):: GAMMA10d(1:ndim,1:nspin,1:nspin)
         !$acc declare present(nbc,nbmn,temperature,flux,GAMMA10d)
@@ -189,9 +193,13 @@ contains
         !**** Generate pseudo fermion. ****
         !**********************************
         call print_time_step("pf generation start")
-        call generate_pseudo_fermion_SUN_device(pf,xmat,alpha,phase,&
-            &Gam123,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-            &nbc,nbmn,temperature,flux,info_pf)
+        if(purebosonic.eq.0) then
+            call generate_pseudo_fermion_SUN_device(pf,xmat,alpha,phase,&
+                &Gam123,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
+                &nbc,nbmn,temperature,flux,info_pf)
+        else
+            pf=0d0
+        end if
         call print_time_step("pf generation end")
         !info_pf=0 -> OK (CG solver converged)
         !info_pf=1 -> error (CG solver did not converge)
@@ -241,7 +249,8 @@ contains
         write(unit_CG_log,*)"ham_init",iteration
         ! requires summation and distribution
         call hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham_init,pf,&
-            &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_init,max_err,max_iteration,iteration,gamma10d,gam123,nbc)
+            &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_init,max_err,max_iteration,&
+            &iteration,gamma10d,gam123,nbc,ngauge,purebosonic)
         !call Calc_Ham_device(temperature,xmat,alpha,P_xmat,P_alpha,ham_init,pf,chi,&
          !    &acoeff_md,g_R,RCUT,nbmn,flux,phase)
         if(rhmc_verbose.EQ.1) then
@@ -256,19 +265,20 @@ contains
             call Molecular_Dynamics_device_SW(nbc,temperature,&
                 &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
                 &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
-                &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+                &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol,ngauge,purebosonic)
 
         else
             call Molecular_Dynamics_device(nbc,temperature,&
                 &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
                 &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
-                &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+                &gamma10d,Gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol,ngauge,purebosonic)
         end if
         !info_mol=0 -> OK (CG solver converged)
         !info_mol=1 -> error (CG solver did not converge)
         if(info_mol.EQ.0)then
             call hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham_fin,pf,&
-                &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_fin,max_err,max_iteration,iteration,gamma10d,gam123,nbc)
+                &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_fin,max_err,&
+                &max_iteration,iteration,gamma10d,gam123,nbc,ngauge,purebosonic)
             !calculate ham_fin
             !call update_data_device(alpha,phase)
             !call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&

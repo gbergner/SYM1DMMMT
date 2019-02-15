@@ -121,7 +121,7 @@ contains
         &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
         &acoeff_md,bcoeff_md,pf,max_iteration,max_err,&
         &iteration,gamma10d,gam123,g_alpha,g_R,RCUT,acceleration,&
-        &nbmn,flux,info_CG)
+        &nbmn,flux,info_CG,ngauge,purebosonic)
         use compiletimeconstants
         use dirac_operator
         use fourier_transform
@@ -131,7 +131,7 @@ contains
         use timer
         implicit none
         !***** input *****
-        integer, intent(in) :: nbc,nbmn
+        integer, intent(in) :: nbc,nbmn,ngauge,purebosonic
         integer, intent(in) :: max_iteration
         double precision, intent(in) :: max_err
         double precision, intent(in) :: g_alpha
@@ -215,7 +215,7 @@ contains
             !delh_xmat=dH/dX, delh_alpha=dH/(d alpha)
             call print_time_step("MD bos force calculation start")
             call Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,&
-                &g_alpha,g_R,RCUT,nbmn,flux,temperature)
+                &g_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
             call print_time_step("MD bos force calculation end")
             if(rhmc_force.EQ.1) then
                 !$acc kernels
@@ -226,14 +226,18 @@ contains
             if((mod(step,2*nratio+1).EQ.nratio+1).OR.(nratio.EQ.0))then
                 call update_data_device(alpha,phase)
                 call print_time_step("MD cgm solver start")
-                call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
-                    max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+                if(purebosonic.eq.0) then
+                    call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
+                        max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+                end if
                 call print_time_step("MD cgm solver end")
                 !Take CG_log
                 write(unit_CG_log,*)"molecular evolution",iteration
                 call print_time_step("MD ferm force calculation start")
-                call Add_Force_fermionic_device(dble(2*nratio+1),delh_xmat,delh_alpha,xmat,chi,&
-                    g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+                if(purebosonic.eq.0) then
+                    call Add_Force_fermionic_device(dble(2*nratio+1),delh_xmat,delh_alpha,xmat,chi,&
+                        g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
+                end if
                 if(rhmc_force.EQ.1) then
                     !$acc kernels
                     tmp=Sum(abs(delh_xmat))
@@ -297,19 +301,23 @@ contains
             !delh_xmat=dH/dX, delh_alpha=dH/(d alpha)
             call print_time_step("MD bos force calculation start")
             call Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,&
-                &g_alpha,g_R,RCUT,nbmn,flux,temperature)
+                &g_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
             call print_time_step("MD bos force calculation end")
             if(nratio.EQ.0)then
                 call update_data_device(alpha,phase)
                 call print_time_step("MD cgm solver start")
-                call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
-                    max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+                if(purebosonic.eq.0) then
+                    call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
+                        max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+                end if
                 call print_time_step("MD cgm solver end")
                 !Take CG_log
                 write(unit_CG_log,*)"molecular evolution",iteration
                 call print_time_step("MD ferm force calculation start")
-                call Add_Force_fermionic_device(dble(2*nratio+1),delh_xmat,delh_alpha,xmat,chi,&
-                    g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+                if(purebosonic.eq.0) then
+                    call Add_Force_fermionic_device(dble(2*nratio+1),delh_xmat,delh_alpha,xmat,chi,&
+                        g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
+                end if
                 call print_time_step("MD ferm force calculation end")
                 !delh_xmat=delh_xmat+delh_xmat_pf*dcmplx(2*nratio+1)
                 !delh_alpha=delh_alpha+delh_alpha_pf*dble(2*nratio+1)
@@ -362,7 +370,7 @@ contains
         &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,phase,P_xmat,P_alpha,&
         &acoeff_md,bcoeff_md,pf,max_iteration,max_err,&
         &iteration,gamma10d,gam123,g_alpha,g_R,RCUT,acceleration,&
-        &nbmn,flux,info_CG)
+        &nbmn,flux,info_CG,ngauge,purebosonic)
         use compiletimeconstants
         use dirac_operator
         use fourier_transform
@@ -372,7 +380,7 @@ contains
         use timer
         implicit none
         !***** input *****
-        integer, intent(in) :: nbc,nbmn
+        integer, intent(in) :: nbc,nbmn,ngauge,purebosonic
         integer, intent(in) :: max_iteration
         double precision, intent(in) :: max_err
         double precision, intent(in) :: g_alpha
@@ -430,8 +438,10 @@ contains
         call Adjust_margin_xmat_device(xmat)
         call update_data_device(alpha,phase)
         call print_time_step("MD cgm solver start")
-        call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
-            max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+        if(purebosonic.eq.0) then
+            call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
+                max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+        end if
         call print_time_step("MD cgm solver end")
         !Take CG_log
         write(unit_CG_log,*)"molecular evolution",iteration
@@ -440,8 +450,10 @@ contains
         delh_xmat=0d0
         delh_alpha=0d0
         !$acc end kernels
-        call Add_Force_fermionic_device(1.0d0,delh_xmat,delh_alpha,xmat,chi,&
-            g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+        if(purebosonic.eq.0) then
+            call Add_Force_fermionic_device(1.0d0,delh_xmat,delh_alpha,xmat,chi,&
+                g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
+        end if
         if(rhmc_force.EQ.1) then
             !$acc kernels
             tmp=Sum(abs(delh_xmat))
@@ -466,14 +478,16 @@ contains
             call Molecular_Dynamics_device_SW_inner(nbc,temperature,&
                 &nratio,0.5d0*dtau_xmat_bos,0.5d0*dtau_alpha_bos,xmat,xmat_mom,alpha,P_xmat_mom,P_alpha,&
                 &g_alpha,g_R,RCUT,acceleration,&
-                &nbmn,flux)
+                &nbmn,flux,ngauge,purebosonic)
             !call FTinv_xmat_device(xmat,xmat_mom)
 
             call Adjust_margin_xmat_device(xmat)
             call update_data_device(alpha,phase)
             call print_time_step("MD cgm solver start")
-            call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
-                max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+            if(purebosonic.eq.0) then
+                call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
+                    max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+            end if
             call print_time_step("MD cgm solver end")
             !Take CG_log
             write(unit_CG_log,*)"molecular evolution",iteration
@@ -482,8 +496,10 @@ contains
             delh_xmat=0d0
             delh_alpha=0d0
             !$acc end kernels
-            call Add_Force_fermionic_device(1.0d0,delh_xmat,delh_alpha,xmat,chi,&
-                g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+            if(purebosonic.eq.0) then
+                call Add_Force_fermionic_device(1.0d0,delh_xmat,delh_alpha,xmat,chi,&
+                    g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
+            end if
             if(rhmc_force.EQ.1) then
                 !$acc kernels
                 tmp=Sum(abs(xmat))
@@ -501,14 +517,16 @@ contains
             call Molecular_Dynamics_device_SW_inner(nbc,temperature,&
                 &nratio,0.5d0*dtau_xmat_bos,0.5d0*dtau_alpha_bos,xmat,xmat_mom,alpha,P_xmat_mom,P_alpha,&
                 &g_alpha,g_R,RCUT,acceleration,&
-                &nbmn,flux)
+                &nbmn,flux,ngauge,purebosonic)
             !call FTinv_xmat_device(xmat,xmat_mom)
 
             call Adjust_margin_xmat_device(xmat)
             call update_data_device(alpha,phase)
             call print_time_step("MD cgm solver start")
-            call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
-                max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+            if(purebosonic.eq.0) then
+                call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
+                    max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+            end if
             call print_time_step("MD cgm solver end")
             !Take CG_log
             write(unit_CG_log,*)"molecular evolution",iteration
@@ -517,8 +535,10 @@ contains
             delh_xmat=0d0
             delh_alpha=0d0
             !$acc end kernels
-            call Add_Force_fermionic_device(1.0d0,delh_xmat,delh_alpha,xmat,chi,&
-                g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+            if(purebosonic.eq.0) then
+                call Add_Force_fermionic_device(1.0d0,delh_xmat,delh_alpha,xmat,chi,&
+                    g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
+            end if
             if(rhmc_force.EQ.1) then
                 !$acc kernels
                 tmp=Sum(abs(delh_xmat))
@@ -545,7 +565,7 @@ contains
     subroutine Molecular_Dynamics_device_SW_inner(nbc,temperature,&
         &ntau,dtau_xmat,dtau_alpha,xmat,xmat_mom,alpha,P_xmat_mom,P_alpha,&
         &g_alpha,g_R,RCUT,acceleration,&
-        &nbmn,flux)
+        &nbmn,flux,ngauge,purebosonic)
         use compiletimeconstants
         use dirac_operator
         use fourier_transform
@@ -555,7 +575,7 @@ contains
         use timer
         implicit none
         !***** input *****
-        integer, intent(in) :: nbc,nbmn
+        integer, intent(in) :: nbc,nbmn,ngauge,purebosonic
         double precision, intent(in) :: g_alpha
         integer, intent(in) :: ntau
         double precision :: dtau_xmat,dtau_alpha
@@ -592,7 +612,7 @@ contains
         call print_time_step("MD bos force calculation start")
         call Adjust_margin_xmat_device(xmat)
         call Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,&
-            &g_alpha,g_R,RCUT,nbmn,flux,temperature)
+            &g_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
         call FT_P_xmat_device(delh_xmat,delh_xmat_mom)
         if(rhmc_force.EQ.1) then
             !$acc kernels
@@ -613,7 +633,7 @@ contains
             call print_time_step("MD bos force calculation start")
             call Adjust_margin_xmat_device(xmat)
             call Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,&
-                &g_alpha,g_R,RCUT,nbmn,flux,temperature)
+                &g_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
             call FT_P_xmat_device(delh_xmat,delh_xmat_mom)
             if(rhmc_force.EQ.1) then
                 !$acc kernels
@@ -638,7 +658,7 @@ contains
             call print_time_step("MD bos force calculation start")
             call Adjust_margin_xmat_device(xmat)
             call Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,&
-                &g_alpha,g_R,RCUT,nbmn,flux,temperature)
+                &g_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
             call FT_P_xmat_device(delh_xmat,delh_xmat_mom)
             if(rhmc_force.EQ.1) then
                 !$acc kernels

@@ -208,7 +208,7 @@ contains
         &temperature,flux,GAMMA10d,ntau,nratio,dtau_xmat,dtau_alpha,&
         &acceleration,g_alpha,g_R,RCUT,&
         &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-        &ham_init,ham_fin,ntrial,imetropolis)
+        &ham_init,ham_fin,ntrial,imetropolis,ngauge,purebosonic)
         use compiletimeconstants
         use dirac_operator
         use fourier_transform
@@ -227,7 +227,7 @@ contains
 
         ! Lots of variables are initialized here since we need sometimes separate host and
         ! device memory of the same object.
-        integer nbc,nbmn
+        integer nbc,nbmn,ngauge,purebosonic
         double precision temperature,flux
         double complex GAMMA10d(1:ndim,1:nspin,1:nspin)
         double precision max_err
@@ -331,7 +331,7 @@ contains
         call Molecular_Dynamics(nbc,temperature,&
             &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,P_xmat,P_alpha,&
             &acoeff_md,bcoeff_md,pf,5,max_err,iteration,&
-            &gamma10d,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+            &gamma10d,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol,ngauge,purebosonic)
        
         ! Now the real test part starts with a printout of the paramters.
         max_iteration=10000
@@ -423,11 +423,11 @@ contains
         xmat_d=(0d0,0d0)
         alpha_d=0d0
         call cpu_time(start_time)
-        call Calc_action(temperature,xmat,alpha,tmp1)
+        call Calc_action(temperature,xmat,alpha,tmp1,ngauge)
         call cpu_time(stop_time)
         time1=stop_time-start_time
         call cpu_time(start_time)
-        call Calc_action_device(temperature,xmat_d,alpha_d,tmp2,phase)
+        call Calc_action_device(temperature,xmat_d,alpha_d,tmp2,phase,ngauge)
         call cpu_time(stop_time)
         time2=stop_time-start_time
         print *,"difference action calculation", abs(tmp1-tmp2), " ", tmp1, " ",tmp2
@@ -437,7 +437,7 @@ contains
         write(*,*) "-----------------------------------------------------------"
         call cpu_time(start_time)
         call Calc_Ham(temperature,xmat,alpha,P_xmat,P_alpha,tmp1,pf,chi,&
-            &acoeff_md,g_R,RCUT,nbmn,flux)
+            &acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)
         call cpu_time(stop_time)
         time1=stop_time-start_time
         !$acc kernels
@@ -448,7 +448,7 @@ contains
         !$acc end kernels
         call cpu_time(start_time)
         call Calc_Ham_device(temperature,xmat_d,alpha_d,P_xmat_d,P_alpha_d,tmp2,pf,Chi_d,&
-            &acoeff_md,g_R,RCUT,nbmn,flux,phase)
+            &acoeff_md,g_R,RCUT,nbmn,flux,phase,ngauge,purebosonic)
         call cpu_time(stop_time)
         time2=stop_time-start_time
         print *,"difference ham calculation: ", abs(tmp1-tmp2), " ", tmp1, " ",tmp2
@@ -458,12 +458,12 @@ contains
         write(*,*) "-----------------------------------------------------------"
         call cpu_time(start_time)
         call Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
-            GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+            GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
         call cpu_time(stop_time)
         time1=stop_time-start_time
         call cpu_time(start_time)
         call Calc_Force_bosonic_device(delh_xmat_d,delh_alpha_d,xmat_d,alpha_d,&
-            &g_alpha,g_R,RCUT,nbmn,flux,temperature)
+            &g_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
         call cpu_time(stop_time)
         time2=stop_time-start_time
         !$acc kernels
@@ -483,12 +483,12 @@ contains
         !$acc end kernels
         call cpu_time(start_time)
         call Calc_Force_fermionic(delh_xmat,delh_alpha,xmat,alpha,chi,&
-            GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+            GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
         call cpu_time(stop_time)
         time1=stop_time-start_time
         call cpu_time(start_time)
         call Add_Force_fermionic_device(1d0,delh_xmat_d,delh_alpha_d,xmat_d,chi_d,&
-            g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+            g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
         call cpu_time(stop_time)
         time2=stop_time-start_time
         !$acc kernels
@@ -618,14 +618,14 @@ contains
         call Molecular_Dynamics(nbc,temperature,&
             &1,nratio,dtau_xmat,dtau_alpha,xmat,alpha,P_xmat,P_alpha,&
             &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
-            &gamma10d,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+            &gamma10d,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol,ngauge,purebosonic)
         call cpu_time(stop_time)
         time1=stop_time-start_time
         call cpu_time(start_time)
         call Molecular_Dynamics_device(nbc,temperature,&
             &1,nratio,dtau_xmat,dtau_alpha,xmat_d,alpha_d,phase,P_xmat_d,P_alpha_d,&
             &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
-            &gamma10d,gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+            &gamma10d,gam123,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol,ngauge,purebosonic)
         call cpu_time(stop_time)
         time2=stop_time-start_time
         !$acc update host(xmat_d,alpha_d)

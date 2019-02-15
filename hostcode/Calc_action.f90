@@ -2,12 +2,13 @@
 !*** Calculate the action at each MPI process. *********
 !*** Here, only kinetic+potential+FP is calculated. ****
 !*******************************************************
-subroutine Calc_action(temperature,xmat,alpha,action)
+subroutine Calc_action(temperature,xmat,alpha,action,ngauge)
   
   implicit none
 
   include '../staticparameters.f90'
   !***** input *****
+  integer ngauge
   double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
   double precision temperature
   double precision alpha(1:nmat)
@@ -130,7 +131,7 @@ subroutine Calc_action(temperature,xmat,alpha,action)
   !*** gauge-fixing term ***
   !*************************
   gauge_fixing=0d0
-  if(ngauge.EQ.1)then
+  if(ngauge.EQ.0)then
      do imat=1,nmat-1
         do jmat=imat+1,nmat
            gauge_fixing=gauge_fixing&

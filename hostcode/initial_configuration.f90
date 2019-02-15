@@ -4,7 +4,8 @@
   !*************************************
   !*************************************
 
-SUBROUTINE initial_configuration(xmat,alpha,acceleration,itraj,init,iaccelerate,nfuzzy,input_config,acc_input,flux,mersenne_seed)
+SUBROUTINE initial_configuration(xmat,alpha,acceleration,itraj,init,iaccelerate,&
+   &nfuzzy,input_config,acc_input,flux,mersenne_seed,ngauge)
 
   use mtmod !Mersenne twistor
   implicit none
@@ -12,7 +13,7 @@ SUBROUTINE initial_configuration(xmat,alpha,acceleration,itraj,init,iaccelerate,
   include '../staticparameters.f90'
   include '../unit_number.inc'
   !****** input ******
-  integer init,iaccelerate,nfuzzy,mersenne_seed
+  integer init,iaccelerate,nfuzzy,mersenne_seed,ngauge
   character(1000) input_config,acc_input
   double precision flux
   !****** output ******
@@ -83,7 +84,7 @@ SUBROUTINE initial_configuration(xmat,alpha,acceleration,itraj,init,iaccelerate,
         alpha(imat)=-1d0+2d0*dble(imat)/dble(nmat)
      end do
   end if
-  if(ngauge.EQ.0)then
+  if(ngauge.EQ.1)then
      alpha=0d0
   end if
   !**************************

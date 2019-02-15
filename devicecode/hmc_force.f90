@@ -15,14 +15,14 @@
 module hmc_force
     implicit none
 contains
-    SUBROUTINE Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature)
+    SUBROUTINE Calc_Force_bosonic_device(delh_xmat,delh_alpha,xmat,alpha,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,ngauge)
 
         use compiletimeconstants
         implicit none
 
 
         !****** input *****
-        integer, intent(in) :: nbmn
+        integer, intent(in) :: nbmn,ngauge
         double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
         double precision, intent(in) :: alpha(1:nmat)
         double precision, intent(in) :: gcoeff_alpha
@@ -60,7 +60,7 @@ contains
         !$acc kernels
         delh_alpha=0d0
         !$acc end kernels
-        if(ngauge.EQ.1)then
+        if(ngauge.EQ.0)then
             ! delh_xmat=(0d0,0d0)
             if(nimprove.EQ.0)then
                 !$acc kernels
@@ -151,7 +151,7 @@ contains
                 end do
             end do
            !$acc end kernels
-        end if
+        end if ! ngauge==0
 
         !***************************
         !*** calculate delh_xmat ***
@@ -295,7 +295,7 @@ contains
         !****************************
         !*** constraint for alpha ***
         !****************************
-        if(ngauge.EQ.1)then
+        if(ngauge.EQ.0)then
             imax=1
             imin=1
             alpha_max=0d0
@@ -417,7 +417,7 @@ contains
         !**********************************************************
         ! This severly reduces the memory requirements!!
     SUBROUTINE Add_Force_fermionic_device(prefact,delh_xmat,delh_alpha,xmat,chi,&
-        gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc)
+        gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,phase,Gam123,nbc,ngauge)
 
         use compiletimeconstants
         use dirac_operator
@@ -427,7 +427,7 @@ contains
 
 
         !****** input *****
-        integer nbmn,nbc
+        integer nbmn,nbc,ngauge
         double precision, intent(in) :: prefact
         double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
         double complex, intent(in) :: Chi(1:nmat,1:nmat,1:nspin,&
@@ -503,7 +503,7 @@ contains
                 !********************
                 !take into account both
                 !(M*chi)^dagger*(dM/d¥alpha)*chi and ((dM/d¥alpha)*chi)^dagger*(M*chi) --> factor 2
-                if(ngauge.EQ.1)then
+                if(ngauge.EQ.0)then
                     tmpfact=-dcmplx(prefact*acoeff_md(iremez))*(0d0,-2d0)/dcmplx(nsite)
                     if(nimprove.EQ.0)then
                            !aij=alpha(imat)-alpha(jmat)

@@ -90,7 +90,7 @@ subroutine Calc_Ham(temperature,xmat,alpha,&
     !****************************
     !*** constraint for alpha ***
     !****************************
-
+ if(ngauge.eq.0)then
     if(myrank.EQ.0)then
         alpha_max=alpha(1)
         alpha_min=alpha(1)
@@ -105,7 +105,7 @@ subroutine Calc_Ham(temperature,xmat,alpha,&
             ham=ham-dlog(2d0*pi-(alpha_max-alpha_min))
         end if
     end if
-  
+  end if
     !****************************
     !*** constraint for TrX^2 ***
     !****************************

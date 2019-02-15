@@ -2,7 +2,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     &temperature,flux,GAMMA10d,ntau,nratio,dtau_xmat,dtau_alpha,&
     &acceleration,g_alpha,g_R,RCUT,&
     &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-    &ham_init,ham_fin,ntrial,imetropolis)
+    &ham_init,ham_fin,ntrial,imetropolis,ngauge,purebosonic)
 
     use mtmod !Mersenne twistor
     implicit none
@@ -12,7 +12,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     include '../unit_number.inc'
 
     !input
-    integer nbc,nbmn
+    integer nbc,nbmn,ngauge,purebosonic
     double precision temperature,flux
     double complex GAMMA10d(1:ndim,1:nspin,1:nspin)
     double precision max_err
@@ -53,11 +53,11 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     !**** Generate pseudo fermion. ****
     !**********************************
     ! all input on device execute on device
-
-    call generate_pseudo_fermion_SUN(pf,xmat,alpha,&
-        &GAMMA10d,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-        &nbc,nbmn,temperature,flux,info_pf)
-
+    if(purebosonic.eq.0) then
+        call generate_pseudo_fermion_SUN(pf,xmat,alpha,&
+            &GAMMA10d,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
+            &nbc,nbmn,temperature,flux,info_pf)
+    end if
     !info_pf=0 -> OK (CG solver converged)
     !info_pf=1 -> error (CG solver did not converge)
   
@@ -84,10 +84,12 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     end if
 
     !Calculate ham_init
-    call solver_biCGm(nbc,nbmn,nremez_md,&
-        xmat,alpha,pf,chi,GAMMA10d,&
-        bcoeff_md,max_err,max_iteration,iteration,&
-        temperature,flux,info_CG_init)
+    if(purebosonic.eq.0) then
+        call solver_biCGm(nbc,nbmn,nremez_md,&
+            xmat,alpha,pf,chi,GAMMA10d,&
+            bcoeff_md,max_err,max_iteration,iteration,&
+            temperature,flux,info_CG_init)
+    end if
     !info_CG_init=0 -> OK (CG solver converged)
     !info_CG_init=1 -> error (CG solver did not converge)
   
@@ -95,7 +97,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     write(unit_CG_log,*)"ham_init",iteration
     ! requires summation and distribution
     call Calc_Ham(temperature,xmat,alpha,P_xmat,P_alpha,ham_init,pf,chi,&
-        &acoeff_md,g_R,RCUT,nbmn,flux)
+        &acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)
 
     if(rhmc_verbose.EQ.1) then
         print *,"check initial Ham ",ham_init," inverter res ",Sum(chi)
@@ -105,15 +107,17 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     call Molecular_Dynamics(nbc,temperature,&
         &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,P_xmat,P_alpha,&
         &acoeff_md,bcoeff_md,pf,max_iteration,max_err,iteration,&
-        &gamma10d,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol)
+        &gamma10d,g_alpha,g_R,RCUT,acceleration,nbmn,flux,info_mol,ngauge,purebosonic)
     !info_mol=0 -> OK (CG solver converged)
     !info_mol=1 -> error (CG solver did not converge)
     if(info_mol.EQ.0)then
         !calculate ham_fin
-        call solver_biCGm(nbc,nbmn,nremez_md,&
-            xmat,alpha,pf,chi,GAMMA10d,&
-            bcoeff_md,max_err,max_iteration,iteration,&
-            temperature,flux,info_CG_fin)
+        if(purebosonic.eq.0) then
+            call solver_biCGm(nbc,nbmn,nremez_md,&
+                xmat,alpha,pf,chi,GAMMA10d,&
+                bcoeff_md,max_err,max_iteration,iteration,&
+                temperature,flux,info_CG_fin)
+        end if
         !info_CG_fin=0 -> OK (CG solver converged)
         !info_CG_fin=1 -> error (CG solver did not converge)
      
@@ -121,7 +125,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
         write(unit_CG_log,*)"ham_fin",iteration
      
         call Calc_Ham(temperature,xmat,alpha,P_xmat,P_alpha,ham_fin,&
-            &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux)
+            &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)
      
     end if
   

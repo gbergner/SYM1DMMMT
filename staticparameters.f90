@@ -30,8 +30,8 @@ parameter(nmargin=nimprove+1)
 !----------------------------------------
 !  ngauge=1 -> gauged
 !  ngauge=0 -> ungauged
-integer ngauge
-parameter(ngauge=1)
+!integer ngauge
+!parameter(ngauge=1)
 double precision, parameter :: pi1=2d0*dasin(1d0)
 !----------------------------------------
 ! debugging switches

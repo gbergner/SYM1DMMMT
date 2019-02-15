@@ -1,6 +1,6 @@
 
 module hmc_hamiltonean
-implicit none
+    implicit none
 contains
     subroutine trace_Xmat2(xmat,trx2)
         use compiletimeconstants
@@ -33,13 +33,13 @@ contains
 
     subroutine Calc_Ham_device(temperature,&
         xmat,alpha,P_xmat,P_alpha,ham,pf,chi,&
-        acoeff_md,g_R,RCUT,nbmn,flux,phase)
+        acoeff_md,g_R,RCUT,nbmn,flux,phase,ngauge,purebosonic)
         use compiletimeconstants
         use lattice_action
         implicit none
 
         !***** input *****
-        integer, intent(in) :: nbmn
+        integer, intent(in) :: nbmn,ngauge,purebosonic
         double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
         double precision, intent(in) :: alpha(1:nmat)
         double complex, intent(in) :: P_xmat(1:nmat,1:nmat,1:ndim,1:nsite)
@@ -71,7 +71,7 @@ contains
         !**************************************
         !*** The bosonic part of the action ***
         !**************************************
-        call Calc_action_device(temperature,xmat,alpha,ham,phase)
+        call Calc_action_device(temperature,xmat,alpha,ham,phase,ngauge)
         !************************
         !*** 0.5*(momentum)^2 ***
         !************************
@@ -91,48 +91,52 @@ contains
             end do
         end do
         !$acc end kernels
-        !$acc kernels
-        do imat=1,nmat
-            ham=ham+dble(P_alpha(imat)*P_alpha(imat))*0.5d0
-        end do
+        if(ngauge.eq.0)then
+            !$acc kernels
+            do imat=1,nmat
+                ham=ham+dble(P_alpha(imat)*P_alpha(imat))*0.5d0
+            end do
         !$acc end kernels
+        end if
         if(rhmc_verbose.EQ.1) then
             print*, "hamilton momentum dev ",ham
         end if
-        !***************************
-        !*** pseudo-fermion part ***
-        !***************************
-
-        do ipf=1,npf
-            do iremez=1,nremez_md
-                !$acc kernels
-                do isite=1,nsite
-                    do ispin=1,nspin
-                        do imat=1,nmat
-                            do jmat=1,nmat
-                                ham=ham+acoeff_md(iremez)*&
-                                    dble(Chi(imat,jmat,ispin,isite,iremez,ipf)*&
-                                    dconjg(pf(imat,jmat,ispin,isite,ipf)))
+                !***************************
+                !*** pseudo-fermion part ***
+                !***************************
+        if(purebosonic.eq.0) then
+            do ipf=1,npf
+                do iremez=1,nremez_md
+                    !$acc kernels
+                    do isite=1,nsite
+                        do ispin=1,nspin
+                            do imat=1,nmat
+                                do jmat=1,nmat
+                                    ham=ham+acoeff_md(iremez)*&
+                                        dble(Chi(imat,jmat,ispin,isite,iremez,ipf)*&
+                                        dconjg(pf(imat,jmat,ispin,isite,ipf)))
+                                end do
                             end do
                         end do
                     end do
+                     !$acc end kernels
                 end do
-                 !$acc end kernels
             end do
-        end do
-
+        end if
         if(rhmc_verbose.EQ.1) then
             print*, "hamilton fermion dev ",ham
         end if
         !****************************
         !*** constraint for alpha ***
         !****************************
-        !$acc kernels
-        alpha_max=Maxval(alpha)
-        alpha_min=Minval(alpha)
-        !$acc end kernels
-        if(alpha_max-alpha_min.LT.2d0*pi)then
-            ham=ham-dlog(2d0*pi-(alpha_max-alpha_min))
+        if(ngauge.eq.0)then
+            !$acc kernels
+            alpha_max=Maxval(alpha)
+            alpha_min=Minval(alpha)
+            !$acc end kernels
+            if(alpha_max-alpha_min.LT.2d0*pi)then
+                ham=ham-dlog(2d0*pi-(alpha_max-alpha_min))
+            end if
         end if
         if(rhmc_verbose.EQ.1) then
             print*, "hamilton constraint alpha dev ",ham

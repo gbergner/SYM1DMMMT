@@ -8,7 +8,7 @@ subroutine Molecular_Dynamics(nbc,temperature,&
     &ntau,nratio,dtau_xmat,dtau_alpha,xmat,alpha,P_xmat,P_alpha,&
     &acoeff_md,bcoeff_md,pf,max_iteration,max_err,&
     &iteration,gamma10d,g_alpha,g_R,RCUT,acceleration,&
-    &nbmn,flux,info_CG)
+    &nbmn,flux,info_CG,ngauge,purebosonic)
 
     implicit none
 
@@ -16,7 +16,7 @@ subroutine Molecular_Dynamics(nbc,temperature,&
   include '../Fourier.inc'
   include '../unit_number.inc'
     !***** input *****
-    integer nbc,nbmn
+    integer nbc,nbmn,ngauge,purebosonic
     integer max_iteration
     double precision max_err
     double precision g_alpha
@@ -57,7 +57,8 @@ subroutine Molecular_Dynamics(nbc,temperature,&
     !dtau_alpha_pf=dtau_alpha
     dtau_xmat_bos=dtau_xmat/dble(2*nratio+1)
     dtau_alpha_bos=dtau_alpha/dble(2*nratio+1)
-  
+    delh_xmat_pf=0d0
+    delh_alpha_pf=0d0
     !*******************************
     !*** first step of leap frog ***
     !*******************************
@@ -97,16 +98,20 @@ subroutine Molecular_Dynamics(nbc,temperature,&
         !calculate the force term in the coordinate space.
         !delh_xmat=dH/dX, delh_alpha=dH/(d alpha)
         call Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
-            &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+            &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
         if((mod(step,2*nratio+1).EQ.nratio+1).OR.(nratio.EQ.0))then
-            call solver_biCGm(nbc,nbmn,nremez_md,&
-                &xmat,alpha,pf,chi,GAMMA10d,&
-                &bcoeff_md,max_err,max_iteration,iteration,&
-                &temperature,flux,info_CG)
+            if(purebosonic.eq.0) then
+                call solver_biCGm(nbc,nbmn,nremez_md,&
+                    &xmat,alpha,pf,chi,GAMMA10d,&
+                    &bcoeff_md,max_err,max_iteration,iteration,&
+                    &temperature,flux,info_CG)
+            end if
             !Take CG_log
             write(unit_CG_log,*)"molecular evolution",iteration
-            call Calc_Force_fermionic(delh_xmat_pf,delh_alpha_pf,xmat,alpha,chi,&
-                &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+            if(purebosonic.eq.0) then
+                call Calc_Force_fermionic(delh_xmat_pf,delh_alpha_pf,xmat,alpha,chi,&
+                    &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
+            end if
             !end if
             !if(mod(step,2*nratio+1).EQ.0)then
             delh_xmat=delh_xmat+delh_xmat_pf*dcmplx(2*nratio+1)
@@ -177,21 +182,25 @@ subroutine Molecular_Dynamics(nbc,temperature,&
         !calculate the force term in the coordinate space.
         !delh_xmat=dH/dX, delh_alpha=dH/(d alpha)
         call Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
-            &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+            &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
         if(nratio.EQ.0)then
-            call solver_biCGm(nbc,nbmn,nremez_md,&
-                &xmat,alpha,pf,chi,GAMMA10d,&
-                &bcoeff_md,max_err,max_iteration,iteration,&
-                &temperature,flux,info_CG)
+            if(purebosonic.eq.0) then
+                call solver_biCGm(nbc,nbmn,nremez_md,&
+                    &xmat,alpha,pf,chi,GAMMA10d,&
+                    &bcoeff_md,max_err,max_iteration,iteration,&
+                    &temperature,flux,info_CG)
+            end if
             !Take CG_log
             write(unit_CG_log,*)"molecular evolution",iteration
-            call Calc_Force_fermionic(delh_xmat_pf,delh_alpha_pf,xmat,alpha,chi,&
-                &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+            if(purebosonic.eq.0) then
+                call Calc_Force_fermionic(delh_xmat_pf,delh_alpha_pf,xmat,alpha,chi,&
+                    &GAMMA10d,g_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
+            end if
             !end if
             !if(mod(step,2*nratio+1).EQ.0)then
             delh_xmat=delh_xmat+delh_xmat_pf*dcmplx(2*nratio+1)
             delh_alpha=delh_alpha+delh_alpha_pf*dble(2*nratio+1)
-             if(rhmc_verbose.EQ.1) then
+            if(rhmc_verbose.EQ.1) then
                 print*,"md h s ",step," fermion force ",Sum(abs(delh_xmat_pf))
             end if
         end if

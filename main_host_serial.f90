@@ -76,6 +76,7 @@ program BFSS
   read(unit_input_para,*) CG_log
   read(unit_input_para,*) nbc
   read(unit_input_para,*) nbmn
+  read(unit_input_para,*) ngauge
   read(unit_input_para,*) init
   read(unit_input_para,*) iaccelerate
   read(unit_input_para,*) isave
@@ -99,12 +100,11 @@ program BFSS
   read(unit_input_para,*) nfuzzy
   read(unit_input_para,*) mersenne_seed
   read(unit_input_para,*) imetropolis
+  read(unit_input_para,*) purebosonic
   close(unit_input_para)
   !Construc Gamma matrices. 
   call MakeGamma(Gamma10d)
-  if(ngauge.EQ.0)then
-     dtau_alpha=0d0
-  end if
+
   !***************************************
   !*** Rescaling of Remez coefficients ***
   !***************************************
@@ -134,8 +134,13 @@ program BFSS
   !*** Set the initial configuration ***
   !*************************************
   call initial_configuration(xmat,alpha,acceleration,itraj,init,&
-       &iaccelerate,nfuzzy,input_config,acc_input,flux,mersenne_seed)
+       &iaccelerate,nfuzzy,input_config,acc_input,flux,mersenne_seed,ngauge)
 
+  if(ngauge.EQ.1)then
+     !ungauged
+     alpha=0d0
+     dtau_alpha=0d0
+  end if
   !***********************************
   !******  Make the output file ******
   !***********************************
@@ -143,7 +148,7 @@ program BFSS
        &ntau,nratio,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
        &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
        &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
-       &isave,nsave,intermediate_config,imetropolis)
+       &isave,nsave,intermediate_config,imetropolis,ngauge,purebosonic)
 
   !*******************************************************
   !******  Make the intermediate configuration file ******
@@ -182,7 +187,7 @@ program BFSS
      &temperature,flux,GAMMA10d,ntau,nratio,dtau_xmat,dtau_alpha,&
      &acceleration,g_alpha,g_R,RCUT,&
      &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-     &ham_init,ham_fin,ntrial,imetropolis)
+     &ham_init,ham_fin,ntrial,imetropolis,ngauge,purebosonic)
 
      !**************************
      !**** measurements etc ****
@@ -194,7 +199,7 @@ program BFSS
         !measurements.
         call measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
              &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
-             iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance)
+             iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,ngauge)
         !optimization of the Fourier acceleration parameters.
         call Fourier_transform_xmat(xmat,&
              xmat_mom,x2p)

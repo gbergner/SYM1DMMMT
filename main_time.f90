@@ -325,7 +325,6 @@ SUBROUTINE reorder_fields_pf2(pfin,pfout)
     end do
 !$acc end kernels
 END SUBROUTINE reorder_fields_pf2
-
 SUBROUTINE inv_reorder_fields_pf2(pfin,pfout)
     use compiletimeconstants
     use gammamatrix
@@ -346,6 +345,74 @@ SUBROUTINE inv_reorder_fields_pf2(pfin,pfout)
     end do
 !$acc end kernels
 END SUBROUTINE inv_reorder_fields_pf2
+
+SUBROUTINE reorder_fields_xmat3(xmatin,xmatout)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+    integer, parameter :: blocksize=4
+    integer, parameter :: numblocks=nmat/blocksize
+    double complex,intent(in) :: xmatin(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
+    double complex,intent(out) :: xmatout(1:blocksize,1:blocksize,-(nmargin-1):nsite+nmargin,1:numblocks,1:numblocks,1:ndim)
+    !$acc declare present(xmatin,xmatout)
+    integer :: imat,jmat,idim, isite
+    !$acc kernels
+    do isite=-(nmargin-1),nsite+nmargin
+        do idim=1,ndim
+            do imat=1,nmat
+                do jmat=1,nmat
+                    xmatout(mod(imat,blocksize),mod(jmat,blocksize),isite,imat/blocksize,jmat/blocksize,idim)=xmatin(imat,jmat,idim,isite)
+                end do
+            end do
+        end do
+    end do
+!$acc end kernels
+END SUBROUTINE reorder_fields_xmat3
+
+SUBROUTINE reorder_fields_pf3(pfin,pfout)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+    integer, parameter :: blocksize=4
+    integer, parameter :: numblocks=nmat/blocksize
+    double complex,intent(in):: pfin(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex,intent(out) :: pfout(1:blocksize,1:blocksize,-(nmargin-1):nsite+nmargin,1:numblocks,1:numblocks,1:nspin)
+        !$acc declare present(pfin,pfout)
+    integer :: imat,jmat,idim, isite
+    !$acc kernels
+    do isite=-(nmargin-1),nsite+nmargin
+        do idim=1,nspin
+            do imat=1,nmat
+                do jmat=1,nmat
+                    pfout(mod(imat,blocksize),mod(jmat,blocksize),isite,imat/blocksize,jmat/blocksize,idim)=pfin(imat,jmat,idim,isite)
+                end do
+            end do
+        end do
+    end do
+!$acc end kernels
+END SUBROUTINE reorder_fields_pf3
+SUBROUTINE inv_reorder_fields_pf3(pfin,pfout)
+    use compiletimeconstants
+    use gammamatrix
+    implicit none
+    integer, parameter :: blocksize=4
+    integer, parameter :: numblocks=nmat/blocksize
+    double complex,intent(out):: pfout(1:nmat,1:nmat,1:nspin,-(nmargin-1):nsite+nmargin)
+    double complex,intent(in) :: pfin(1:blocksize,1:blocksize,-(nmargin-1):nsite+nmargin,1:numblocks,1:numblocks,1:nspin)
+        !$acc declare present(pfin,pfout)
+    integer :: imat,jmat,idim, isite
+    !$acc kernels
+    do isite=-(nmargin-1),nsite+nmargin
+        do idim=1,nspin
+            do imat=1,nmat
+                do jmat=1,nmat
+                    pfout(imat,jmat,idim,isite)=pfin(mod(imat,blocksize),mod(jmat,blocksize),isite,imat/blocksize,jmat/blocksize,idim)
+                end do
+            end do
+        end do
+    end do
+!$acc end kernels
+END SUBROUTINE inv_reorder_fields_pf3
 
 SUBROUTINE Test_Multiply_Dirac_dagger_device_reorg1(xmat,pf1,pf2)
     use compiletimeconstants

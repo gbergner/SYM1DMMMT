@@ -4,12 +4,12 @@
 !*******************************************************
 module lattice_action
 contains
-subroutine Calc_action_device(temperature,xmat,alpha,action,phase)
+subroutine Calc_action_device(temperature,xmat,alpha,action,phase,ngauge)
 
   use compiletimeconstants
   implicit none
 
-
+  integer, intent(in):: ngauge
   double complex, intent(in) :: xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
   double precision, intent(in) :: temperature
   double complex, intent(in) :: phase(1:nmat,1:nmat,1:2)
@@ -109,7 +109,7 @@ subroutine Calc_action_device(temperature,xmat,alpha,action,phase)
   !*** gauge-fixing term ***
   !*************************
   gauge_fixing=0d0
-  if(ngauge.EQ.1)then
+  if(ngauge.EQ.0)then
     !$acc kernels
      do imat=1,nmat-1
         do jmat=imat+1,nmat

@@ -387,27 +387,27 @@ contains
         call mtsaveu(42)
         write(42,*) itraj
         flush(42)
-!        close(42)
-!        open(UNIT=42, File = "chp.dat", STATUS = "REPLACE", ACTION = "WRITE",ACCESS='direct',recl=)
+        !        close(42)
+        !        open(UNIT=42, File = "chp.dat", STATUS = "REPLACE", ACTION = "WRITE",ACCESS='direct',recl=)
         do isite=1,nsite
-             do idim=1,ndim
-                 do jmat=1,nmat
-                     do imat=1,nmat
-                       write(42,'(E22.16)') xmat(imat,jmat,idim,isite)%re
-                       write(42,'(E22.16)') xmat(imat,jmat,idim,isite)%im
-                 end do
-               end do
+            do idim=1,ndim
+                do jmat=1,nmat
+                    do imat=1,nmat
+                        write(42,'(E22.16)') xmat(imat,jmat,idim,isite)%re
+                        write(42,'(E22.16)') xmat(imat,jmat,idim,isite)%im
+                    end do
+                end do
             end do
         end do
         do imat=1,nmat
-          write(42,'(E22.16)') alpha(imat)
+            write(42,'(E22.16)') alpha(imat)
         end do
         flush(42)
         close(42)
         return
     END SUBROUTINE save_checkpoint
 
-    SUBROUTINE read_checkpoint(xmat,alpha,itraj)
+    SUBROUTINE read_checkpoint(xmat,alpha,itraj,init,mersenne_seed)
         use compiletimeconstants
         use mtmod !Mersenne twistor
         implicit none
@@ -416,25 +416,31 @@ contains
         double precision alpha(1:nmat)
         double precision tmp1,tmp2
         integer itraj,isite,idim,imat,jmat
-        integer stat
+        integer stat,init
+        integer mersenne_seed
         open(UNIT=42, File = "chp.dat", STATUS = "OLD", ACTION = "READ")
         call mtgetu(42)
         read(42,*) itraj
         do isite=1,nsite
-             do idim=1,ndim
-                 do jmat=1,nmat
-                     do imat=1,nmat
-                       read(42,'(E22.16)') tmp1
-                       read(42,'(E22.16)') tmp2
-                       xmat(imat,jmat,idim,isite)=CMPLX(tmp1,tmp2)
-                 end do
-               end do
+            do idim=1,ndim
+                do jmat=1,nmat
+                    do imat=1,nmat
+                        read(42,'(E22.16)') tmp1
+                        read(42,'(E22.16)') tmp2
+                        xmat(imat,jmat,idim,isite)=CMPLX(tmp1,tmp2)
+                    end do
+                end do
             end do
         end do
         do imat=1,nmat
-          read(42,'(E22.16)') alpha(imat)
+            read(42,'(E22.16)') alpha(imat)
         end do
         close(42)
+
+        if(init.NE.4)then
+            call sgrnd(mersenne_seed)
+            print*,"Reset random seed."
+        end if
 
     END SUBROUTINE read_checkpoint
 

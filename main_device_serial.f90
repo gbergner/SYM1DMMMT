@@ -17,6 +17,8 @@ program BFSS_DEVICE
 
     integer nbc !boundary condition for fermions; 0 -> pbc, 1 -> apbc
     integer nbmn ! 0 -> BFSS, 1 -> BMN
+    integer ngauge ! 0 -> gauged, 1 -> ungauged
+    integer purebosonic ! 0 -> full theory, 1 -> pure bosonic part
     integer init !initial condition; 0 -> continue, 1 -> new
     integer isave !0 -> save intermediate config, 1 -> do not save
     integer nsave!saved every nsave trajectories
@@ -126,6 +128,7 @@ program BFSS_DEVICE
     read(unit_input_para,*) CG_log
     read(unit_input_para,*) nbc
     read(unit_input_para,*) nbmn
+    read(unit_input_para,*) ngauge
     read(unit_input_para,*) init
     read(unit_input_para,*) iaccelerate
     read(unit_input_para,*) isave
@@ -149,12 +152,11 @@ program BFSS_DEVICE
     read(unit_input_para,*) nfuzzy
     read(unit_input_para,*) mersenne_seed
     read(unit_input_para,*) imetropolis
+    read(unit_input_para,*) purebosonic
     close(unit_input_para)
     !Construc Gamma matrices.
     call MakeGamma(Gamma10d)
-    if(ngauge.EQ.0)then
-        dtau_alpha=0d0
-    end if
+
     !***************************************
     !*** Rescaling of Remez coefficients ***
     !***************************************
@@ -184,10 +186,15 @@ program BFSS_DEVICE
     !*** Set the initial configuration ***
     !*************************************
     call initial_configuration(xmat,alpha,acceleration,itraj,init,&
-        &iaccelerate,nfuzzy,input_config,acc_input,flux,mersenne_seed)
-     if(init.EQ.4) then
-      call read_checkpoint(xmat,alpha,itraj)
+        &iaccelerate,nfuzzy,input_config,acc_input,flux,mersenne_seed,ngauge)
+     if((init.EQ.4).or.(init.EQ.5)) then
+      call read_checkpoint(xmat,alpha,itraj,init,mersenne_seed)
      end if
+    if(ngauge.EQ.1)then
+     !ungauged
+     alpha=0d0
+     dtau_alpha=0d0
+    end if
     !***********************************
     !******  Make the output file ******
     !***********************************
@@ -195,7 +202,7 @@ program BFSS_DEVICE
         &ntau,nratio,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
         &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
         &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
-        &isave,nsave,intermediate_config,imetropolis)
+        &isave,nsave,intermediate_config,imetropolis,ngauge,purebosonic)
 
     !*******************************************************
     !******  Make the intermediate configuration file ******
@@ -245,7 +252,7 @@ program BFSS_DEVICE
             &temperature,flux,GAMMA10d,Gam123,ntau,nratio,dtau_xmat,dtau_alpha,&
             &acceleration,g_alpha,g_R,RCUT,&
             &acoeff_md,bcoeff_md,acoeff_pf,bcoeff_pf,max_err,max_iteration,iteration,&
-            &ham_init,ham_fin,ntrial,imetropolis)
+            &ham_init,ham_fin,ntrial,imetropolis,ngauge,purebosonic)
         if(rhmc_verbose.EQ.1) then
             print*, "RHMC finished traj=",itraj
         end if
@@ -270,7 +277,7 @@ program BFSS_DEVICE
             ! These are the measurements on hostcode and device code
             call measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
                 &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
-                iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,phase,Gam123)
+                iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,phase,Gam123,ngauge)
            !call measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
             !    &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
              !   iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance)

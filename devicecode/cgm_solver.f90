@@ -1,4 +1,4 @@
-! This is a multishift-CG, it is considerably differenent from the code in the
+! This is a multishift-CG, it is considerably different from the code in the
 ! serial host branch, but the result should be compatible.
 ! Despite the name in the serial host branch, the code is also a CG and not a BiCG.
 ! Georg Bergner

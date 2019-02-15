@@ -1,6 +1,6 @@
 SUBROUTINE measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
      &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,iteration,&
-     &max_err,max_iteration,ncv,n_bad_CG,nacceptance)
+     &max_err,max_iteration,ncv,n_bad_CG,nacceptance,ngauge)
 
   implicit none
   include '../staticparameters.f90'
@@ -8,7 +8,7 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
   !input
   double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
   double precision alpha(1:nmat)
-  integer nbc,nbmn,ntrial,iteration,itraj,nacceptance
+  integer nbc,nbmn,ntrial,iteration,itraj,nacceptance,ngauge
   integer ncv,n_bad_CG
   integer neig_max,neig_min
   double precision temperature,flux

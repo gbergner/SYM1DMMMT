@@ -11,13 +11,13 @@
 ! P_xmat -> P_xmat - delh_xmat*dtau_xmat
 
 SUBROUTINE Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
-     GAMMA10d,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+     GAMMA10d,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
 
   implicit none
 
   include '../staticparameters.f90'
   !****** input *****
-  integer nbmn
+  integer nbmn,ngauge
   double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
   double precision alpha(1:nmat)
   double complex Chi(1:nremez_md,1:nmat,1:nmat,1:nspin,&
@@ -52,7 +52,7 @@ SUBROUTINE Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
   !*** calculate delh_alpha ****
   !*****************************
   delh_alpha=0d0
-  if(ngauge.EQ.1)then
+  if(ngauge.EQ.0)then
      ! delh_xmat=(0d0,0d0)
      if(nimprove.EQ.0)then
         do isite=1,nsite
@@ -269,7 +269,7 @@ SUBROUTINE Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
   !****************************  
   !*** constraint for alpha ***
   !****************************
-  if(ngauge.EQ.1)then
+  if(ngauge.EQ.0)then
      imax=1
      imin=1
      alpha_max=alpha(1)
@@ -379,13 +379,13 @@ SUBROUTINE Calc_Force_bosonic(delh_xmat,delh_alpha,xmat,alpha,chi,&
 END SUBROUTINE Calc_Force_Bosonic
 !**********************************************************
 SUBROUTINE Calc_Force_fermionic(delh_xmat,delh_alpha,xmat,alpha,chi,&
-     GAMMA10d,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md)
+     GAMMA10d,gcoeff_alpha,g_R,RCUT,nbmn,flux,temperature,acoeff_md,ngauge)
 
   implicit none
 
   include '../staticparameters.f90'
   !****** input *****
-  integer nbmn
+  integer nbmn,ngauge
   double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
   double precision alpha(1:nmat)
   double complex Chi(1:nremez_md,1:nmat,1:nmat,1:nspin,&
@@ -426,7 +426,7 @@ SUBROUTINE Calc_Force_fermionic(delh_xmat,delh_alpha,xmat,alpha,chi,&
   !*******************************
   !***** pseudo-fermion part *****
   !*******************************
-  if(ngauge.EQ.1)then
+  if(ngauge.EQ.0)then
      !(dM/d¥alpha)*chi
      call Derivative_Dirac_alpha(alpha,&
           chi,Deriv_Mchi_alpha)
@@ -482,7 +482,7 @@ SUBROUTINE Calc_Force_fermionic(delh_xmat,delh_alpha,xmat,alpha,chi,&
         end do
      end do
   end do
-  if(ngauge.EQ.1)then
+  if(ngauge.EQ.0)then
      !-acoeff*(M*chi)^dagger*(dM/alpha)*chi
      do iremez=1,nremez_md
         do ipf=1,npf
