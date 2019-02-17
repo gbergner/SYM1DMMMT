@@ -101,8 +101,10 @@ contains
         call print_time_step("hamilton calculation start")
         call update_data_device(alpha,phase)
         call print_time_step("hamilton cgm inverter start")
-        call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
-            max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+        if(purebosonic.eq.0) then
+            call cgm_solver_device(nremez_md,bcoeff_md,nbmn,nbc,temperature,&
+                max_err,max_iteration,xmat,phase,Gam123,pf,chi,info_CG,iteration)
+        end if
         call print_time_step("hamilton cgm inverter end")
         !info_CG_init=0 -> OK (CG solver converged)
         !info_CG_init=1 -> error (CG solver did not converge)
@@ -189,6 +191,12 @@ contains
         info_mol=1
         info_CG_init=1
         info_CG_fin=1
+        if(purebosonic.eq.1) then
+            info_pf=0
+            info_mol=0
+            info_CG_init=0
+            info_CG_fin=0
+        end if
         !**********************************
         !**** Generate pseudo fermion. ****
         !**********************************

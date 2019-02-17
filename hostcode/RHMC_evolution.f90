@@ -49,6 +49,12 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
     info_mol=1
     info_CG_init=1
     info_CG_fin=1
+    if(purebosonic.eq.1) then
+       info_pf=0
+       info_mol=0
+       info_CG_init=0
+       info_CG_fin=0
+    end if
     !**********************************
     !**** Generate pseudo fermion. ****
     !**********************************

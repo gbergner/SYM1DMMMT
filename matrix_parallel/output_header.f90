@@ -52,7 +52,7 @@ SUBROUTINE output_header(myrank,data_output,temperature,flux,&
      else
         write(unit_measurement,*)"#ungauged theory"
      end if
-     if(purebosonic.eq.0) then
+     if(purebosonic.eq.1) then
         write(unit_measurement,*)"#pure bosonic theory"
      else
         write(unit_measurement,*)"#full theory"
