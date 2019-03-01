@@ -199,7 +199,7 @@ program BFSS
         !measurements.
         call measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
              &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
-             iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,ngauge)
+             iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,ngauge,purebosonic)
         !optimization of the Fourier acceleration parameters.
         call Fourier_transform_xmat(xmat,&
              xmat_mom,x2p)

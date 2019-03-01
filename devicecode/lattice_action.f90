@@ -149,7 +149,7 @@ SUBROUTINE check_alpha_constraint_device(alpha,info)
   else
      info=1
   end if
-
+!  print *, "constraint ",mmax-mmin,mmax,mmin
   return
 
 END SUBROUTINE check_alpha_constraint_device

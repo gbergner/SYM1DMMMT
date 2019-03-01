@@ -346,7 +346,7 @@ contains
             metropolis=-1d0 !Then, it is always accepted.
             print*, "no metropolis test"
         end if
-     
+
         !####################################
         !#### check constraint for alpha ####
         !####################################

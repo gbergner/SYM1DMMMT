@@ -277,7 +277,8 @@ program BFSS_DEVICE
             ! These are the measurements on hostcode and device code
             call measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
                 &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
-                iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,phase,Gam123,ngauge)
+                iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance,phase,Gam123,&
+                &ngauge,purebosonic)
            !call measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
             !    &GAMMA10d,neig_max,neig_min,ham_init,ham_fin,itraj,ntrial,&
              !   iteration,max_err,max_iteration,ncv,n_bad_CG,nacceptance)
