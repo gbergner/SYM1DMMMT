@@ -233,6 +233,7 @@ contains
             tmp=Sum(pf)
             !$acc end kernels
             print*, "check  device pseudofermion initial ", tmp
+            call Adjust_margin_xmat_device(xmat)
             !$acc kernels
             tmp=Sum(xmat)
             !$acc end kernels
@@ -256,6 +257,7 @@ contains
         !Take CG_log
         write(unit_CG_log,*)"ham_init",iteration
         ! requires summation and distribution
+        call Adjust_margin_xmat_device(xmat)
         call hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham_init,pf,&
             &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_init,max_err,max_iteration,&
             &iteration,gamma10d,gam123,nbc,ngauge,purebosonic)
@@ -284,6 +286,7 @@ contains
         !info_mol=0 -> OK (CG solver converged)
         !info_mol=1 -> error (CG solver did not converge)
         if(info_mol.EQ.0)then
+            call Adjust_margin_xmat_device(xmat)
             call hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham_fin,pf,&
                 &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_fin,max_err,&
                 &max_iteration,iteration,gamma10d,gam123,nbc,ngauge,purebosonic)
@@ -317,6 +320,7 @@ contains
             tmp=Maxval(abs(P_alpha))
             !$acc end kernels
             print*, "check device momenta alpha final ", tmp
+            print *,"check final Ham ",ham_fin
         end if
          !if(check_host_metropolis.EQ.1) then
          !     call  check_ham_host(temperature,xmat,alpha,P_xmat,P_alpha,&

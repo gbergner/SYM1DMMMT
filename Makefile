@@ -42,7 +42,7 @@ bfss_host_serial: ${HLIB} main_host_serial.o
 
 bfss_device_serial: ${HLIB} ${DLIB} measure_host_device.o main_device_serial.o 
 	${FC} ${FCFLAGS} main_device_serial.o measure_host_device.o ${DLIB} ${HLIB}  -o $@
-	
+
 bfss_device_serial_hyst: ${HLIB} ${DLIB} measure_host_device.o main_device_serial_hyst.o 
 	${FC} ${FCFLAGS} main_device_serial_hyst.o measure_host_device.o ${DLIB} ${HLIB}  -o $@
 

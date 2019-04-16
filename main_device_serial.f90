@@ -218,6 +218,7 @@ program BFSS_DEVICE
     ntrial=0 !number of trial
     ncv=0 !number of the constraint violation.
     n_bad_CG=0 !count how many times CG solver failed to converge.
+    iteration=0
   
     !************************************************************************
     !**** initialize the variables for optimizeing Fourier acceleration. ****

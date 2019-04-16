@@ -71,6 +71,7 @@ contains
         !**************************************
         !*** The bosonic part of the action ***
         !**************************************
+        ham=0.0d0
         call Calc_action_device(temperature,xmat,alpha,ham,phase,ngauge)
         !************************
         !*** 0.5*(momentum)^2 ***

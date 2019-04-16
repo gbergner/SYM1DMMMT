@@ -35,7 +35,6 @@ SUBROUTINE measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
   if(neig_min.GT.0)then
      call Smallest_eigenvalue_device(temperature,xmat,phase,Gam123,nbmn,neig_min,smallest_eig,nbc,max_err,max_iteration)
   end if
-
   !**************
   !*** output ***
   !**************

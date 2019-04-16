@@ -1,7 +1,7 @@
 !----------------------------------------
 !     Number of sites along t-direction
 integer nsite
-parameter(nsite=4)
+parameter(nsite=8)
 !----------------------------------------
 !     Size of matrices
 integer nmat
@@ -37,7 +37,7 @@ double precision, parameter :: pi1=2d0*dasin(1d0)
 ! debugging switches
 ! solver: 0,1,2,3
 integer,parameter :: solver_verbose=0
-integer,parameter :: rhmc_verbose=0
+integer,parameter :: rhmc_verbose=1
 integer,parameter :: rhmc_force=0
 integer,parameter :: check_host_metropolis=0
 integer,parameter :: cublasstream=0

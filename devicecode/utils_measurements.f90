@@ -418,30 +418,38 @@ contains
         integer itraj,isite,idim,imat,jmat
         integer stat,init
         integer mersenne_seed
-        open(UNIT=42, File = "chp.dat", STATUS = "OLD", ACTION = "READ")
-        call mtgetu(42)
-        read(42,*) itraj
-        do isite=1,nsite
-            do idim=1,ndim
-                do jmat=1,nmat
-                    do imat=1,nmat
-                        read(42,'(E22.16)') tmp1
-                        read(42,'(E22.16)') tmp2
-                        xmat(imat,jmat,idim,isite)=CMPLX(tmp1,tmp2)
+        logical exist
+
+        inquire(file="chp.dat",exist=exist)
+        if(exist) then
+            open(UNIT=42, File = "chp.dat", STATUS = "OLD", ACTION = "READ")
+            call mtgetu(42)
+            read(42,*) itraj
+            do isite=1,nsite
+                do idim=1,ndim
+                    do jmat=1,nmat
+                        do imat=1,nmat
+                            read(42,'(E22.16)') tmp1
+                            read(42,'(E22.16)') tmp2
+                            xmat(imat,jmat,idim,isite)=CMPLX(tmp1,tmp2)
+                        end do
                     end do
                 end do
             end do
-        end do
-        do imat=1,nmat
-            read(42,'(E22.16)') alpha(imat)
-        end do
-        close(42)
+            do imat=1,nmat
+                read(42,'(E22.16)') alpha(imat)
+            end do
+            close(42)
 
-        if(init.NE.4)then
+            if(init.NE.4)then
+                call sgrnd(mersenne_seed)
+                print*,"Reset random seed."
+            end if
+        else
+            print*, "WARNING: FILE chp.dat DOES NOT EXIST, NO CHECKPOINT"
+            print*, "RESTART WITH MERSENNE SEED FROM CONFIG FILE"
             call sgrnd(mersenne_seed)
-            print*,"Reset random seed."
         end if
-
     END SUBROUTINE read_checkpoint
 
 end module utils_measurements

@@ -39,7 +39,7 @@ SUBROUTINE initial_configuration(xmat,alpha,acceleration,itraj,init,iaccelerate,
      read(unit_input_config,*) xmat_init
      read(unit_input_config,*) alpha
      close(unit_input_config)
-  else if(init.EQ.1)then
+  else if((init.EQ.1).OR.(init.GE.4))then
      !new config, cold start  
      itraj=1
      xmat_init=(0d0,0d0)
