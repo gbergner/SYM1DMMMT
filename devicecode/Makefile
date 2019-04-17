@@ -2,7 +2,7 @@ ALLSOURCE=$(wildcard *.f90)
 LIBDEVICE_OBJ=$(patsubst %.f90,%.o,$(ALLSOURCE))
 # be careful with the order of the module files
 BASEMODFILES=compiletimeconstants.mod outputstreamnumbers.mod gammamatrix.mod cublasinterface.mod
-MODFILES=timer.mod dirac_operator.mod cgm_solver.mod fourier_transform.mod rand_fermion_fields.mod  utils_measurements.mod lattice_action.mod hmc_hamiltonean.mod hmc_force.mod hmc_molecular_dynamics.mod rhmc_updater.mod
+MODFILES=timer.mod adjust_margins.mod dirac_operator.mod cgm_solver.mod fourier_transform.mod rand_fermion_fields.mod  utils_measurements.mod lattice_action.mod hmc_hamiltonean.mod hmc_force.mod hmc_molecular_dynamics.mod rhmc_updater.mod
 DEPENDALL=${BASEMODFILES}
 include ../Makefile.inc
 
@@ -24,6 +24,9 @@ cublasinterface.mod: cublasinterface.f90
 	${FC} -c ${FCFLAGS} $<
 
 timer.mod: timer.f90
+	${FC} -c ${FCFLAGS} $<
+	
+adjust_margins.mod: adjust_margins.f90 ${BASEMODFILES}
 	${FC} -c ${FCFLAGS} $<
 
 hmc_molecular_dynamics.mod: hmc_molecular_dynamics.f90 ${BASEMODFILES}

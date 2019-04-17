@@ -219,6 +219,7 @@ contains
         use hmc_molecular_dynamics
         use hmc_hamiltonean
         use lattice_action
+        use adjust_margins
         use hmc_force
         use utils_measurements
         implicit none

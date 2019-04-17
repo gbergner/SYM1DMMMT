@@ -5,44 +5,6 @@
 ! delh_xmat(imat,jmat)=dH/dxmat(jmat,imat)
 MODULE HMC_Molecular_Dynamics
 contains
-    SUBROUTINE Adjust_margin_xmat_device(xmat)
-
-        use compiletimeconstants
-        implicit none
-
-        !***** input & output *****
-        double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
-        !$acc declare device_resident(xmat)
-        !**************************
-        integer imat,jmat
-        integer idim
-        integer isite
-  
-        !$acc kernels
-        do isite=-(nmargin-1),0
-            do idim=1,ndim
-                do imat=1,nmat
-                    do jmat=1,nmat
-                        xmat(imat,jmat,idim,isite)=xmat(imat,jmat,idim,nsite+isite)
-                    end do
-                end do
-            end do
-        end do
-        !$acc end kernels
-        !$acc kernels
-        do isite=nsite+1,nsite+nmargin
-            do idim=1,ndim
-                do imat=1,nmat
-                    do jmat=1,nmat
-                        xmat(imat,jmat,idim,isite)=xmat(imat,jmat,idim,isite-nsite)
-                    end do
-                end do
-            end do
-        end do
-        !$acc end kernels
-        return
-  
-    END SUBROUTINE Adjust_margin_xmat_device
 
     SUBROUTINE Field_step(xmat_mom,P_xmat_mom,alpha,P_alpha,dtau_xmat,dtau_alpha,acceleration)
 
@@ -128,6 +90,7 @@ contains
         use cgm_solver
         use outputstreamnumbers
         use hmc_force
+        use Adjust_margins
         use timer
         implicit none
         !***** input *****
@@ -377,6 +340,7 @@ contains
         use cgm_solver
         use outputstreamnumbers
         use hmc_force
+        use Adjust_margins
         use timer
         implicit none
         !***** input *****
@@ -572,6 +536,7 @@ contains
         use cgm_solver
         use outputstreamnumbers
         use hmc_force
+        use Adjust_margins
         use timer
         implicit none
         !***** input *****
@@ -675,6 +640,7 @@ contains
             end if
         end do
         call FTinv_xmat_device(xmat,xmat_mom)
+        ! This might not be needed.
         call Adjust_margin_xmat_device(xmat)
         call print_time_step("MDSW Inner evolution end")
         return

@@ -410,6 +410,7 @@ contains
     SUBROUTINE read_checkpoint(xmat,alpha,itraj,init,mersenne_seed)
         use compiletimeconstants
         use mtmod !Mersenne twistor
+        use Adjust_margins
         implicit none
         !****** output ******
         double complex xmat(1:nmat,1:nmat,1:ndim,-(nmargin-1):nsite+nmargin)
@@ -450,6 +451,7 @@ contains
             print*, "RESTART WITH MERSENNE SEED FROM CONFIG FILE"
             call sgrnd(mersenne_seed)
         end if
+        !call Adjust_margin_xmat_device(xmat) This must be called after update of device
     END SUBROUTINE read_checkpoint
 
 end module utils_measurements

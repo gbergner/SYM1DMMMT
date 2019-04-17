@@ -11,6 +11,7 @@ program BFSS_DEVICE
     use outputstreamnumbers
     use RHMC_Updater
     use timer
+    use Adjust_margins
     use utils_measurements
     implicit none
   
@@ -233,6 +234,8 @@ program BFSS_DEVICE
 
     call print_time_step("finished copy to device")
     call  setup_data_device(alpha,flux,GAMMA10d,phase,Gam123,temperature)
+    ! be careful this is important if the xmat is not updated after reading.
+    call Adjust_margin_xmat_device(xmat)
     !*************************************
     !*************************************
     !***  Loop of molecular evolutions ***
