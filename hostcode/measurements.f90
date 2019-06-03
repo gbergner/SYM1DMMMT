@@ -13,14 +13,16 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
   integer neig_max,neig_min
   double precision temperature,flux
   double complex Gamma10d(1:ndim,1:nspin,1:nspin)
+  double complex eigval(1:ndim)
   double precision max_err
   integer max_iteration
-
+  integer ivec
   double precision trx2,com2,Pol,largest_eig,smallest_eig,energy,ham_fin,ham_init
 
 
   !measurements. 
   call Calc_TrX2(xmat,trx2)
+  call Calc_TrX2_eigenvalues(xmat,eigval)
   call Calc_Com2(xmat,com2)
   call Calc_energy(temperature,xmat,alpha,energy,nbmn,flux)
   call Calc_Polyakov(alpha,Pol)
@@ -84,7 +86,24 @@ SUBROUTINE measurements(xmat,alpha,nbc,nbmn,temperature,flux,&
           &dble(nacceptance)/dble(ntrial)
   end if
   
+
+  write(unit_Polyakov_phase,"(I)",advance="no") itraj
+  do ivec=1,nmat
+    write(unit_Polyakov_phase,"(G)",advance="no") alpha(ivec)
+  end do
+  write(unit_Polyakov_phase,*) ""
+
+  write(unit_Eigenval,"(I)",advance="no") itraj
+  do ivec=1,ndim
+    write(unit_Eigenval,"(G)",advance="no") dble(eigval(ivec))
+  end do
+  write(unit_Eigenval,*) ""
+  ! print out the imag part, intendet for checks
+  !write(unit_Eigenval,*) eigval
+
   flush(unit_measurement)
+  flush(unit_Polyakov_phase)
+  flush(unit_Eigenval)
 
   return 
 

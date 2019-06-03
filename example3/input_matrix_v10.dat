@@ -11,12 +11,12 @@
 0	!ngauge; 0 -> gauged, 1-> ungauged 
 0	!nsmear; number of smearing.
 0d0	!s_smear
-1	!init; 0 -> old config, 1 -> new config, 2 -> fuzzy sphere
+0	!init; 0 -> old config, 1 -> new config, 2 -> fuzzy sphere
 1	!iaccelerate; 0 -> read from acc_input, 1-> naive
 1	!isave; 0 -> save intermediate config, 1-> do not save
 1d0	!temperature
 5d0	!flux parameter mu; used only when nbmn=1
-2	!ntraj(total number of sweeps)
+60	!ntraj(total number of sweeps)
 1	!nskip
 10	!nsave
 10	!Ntau

@@ -1,26 +1,26 @@
 
 DEPENDALL=staticparameters.f90
 include Makefile.inc
-
+BASELIB=-llapack -lblas
 ifeq ($(NODEVICE),1)
 ifeq ($(MPARALLEL),1)
  HDIR=matrix_parallel
  DIRS=matrix_parallel
  DLIB=
  HLIB=matrix_parallel/libmparallel.a
- EXE=bfss_mparallel
+ EXE=bfss_mparallel bfss_mparallel_input
 else
  HDIR=hostcode
  DIRS=hostcode
  DLIB=
- HLIB=hostcode/libhost.a
+ HLIB=hostcode/libhost.a $(BASELIB)
  EXE=bfss_host_serial
 endif
 else
  HDIR=hostcode
  DIRS=devicecode hostcode
  DLIB=devicecode/libdevice.a
- HLIB=hostcode/libhost.a
+ HLIB=hostcode/libhost.a $(BASELIB)
  EXE=testprogram test_timing bfss_host_serial bfss_device_serial test_timing_inverter bfss_device_serial_hyst
 endif
 
@@ -57,6 +57,9 @@ test_timing_inverter: main_time_inverter.o ${HLIB} ${DLIB}
 
 bfss_mparallel: ${HLIB} main_parallel.o
 	${FC} ${FCFLAGS} main_parallel.o ${DLIB} ${HLIB}  -o $@
+
+bfss_mparallel_input: ${HLIB} main_parallel_input.o
+	${FC} ${FCFLAGS} main_parallel_input.o ${DLIB} ${HLIB}  -o $@
 
 .PHONY: clean
 

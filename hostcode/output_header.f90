@@ -5,7 +5,7 @@
 SUBROUTINE output_header(data_output,temperature,flux,&
     &ntau,nratio,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
     &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
-    &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
+    &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,Pol_phase,Eigval,&
     &isave,nsave,intermediate_config,imetropolis,ngauge,purebosonic)
 
     implicit none
@@ -13,7 +13,7 @@ SUBROUTINE output_header(data_output,temperature,flux,&
   include '../unit_number.inc'
     integer isave,nsave,ngauge,purebosonic
     character(1000) data_output,input_config,output_config,acc_input,acc_output,&
-        &intermediate_config,CG_log
+        &intermediate_config,CG_log,Pol_phase,Eigval
     character(100)input_config_short,output_config_short,&
         &acc_input_short,acc_output_short,intermediate_config_short,CG_log_short
     double precision temperature
@@ -174,5 +174,24 @@ SUBROUTINE output_header(data_output,temperature,flux,&
     end if
 
     call flush(unit_measurement)
+
+    inquire(file=Pol_phase,exist=exist)
+    if(exist) then
+        open(unit=unit_Polyakov_phase,status='OLD',file=Pol_phase,&
+            &action='WRITE',position='APPEND')
+    else
+        open(unit=unit_Polyakov_phase,status='REPLACE',file=Pol_phase,&
+            &action='WRITE')
+    end if
+
+    inquire(file=Eigval,exist=exist)
+    if(exist) then
+        open(unit=unit_Eigenval,status='OLD',file=Eigval,&
+            &action='WRITE',position='APPEND')
+    else
+        open(unit=unit_Eigenval,status='REPLACE',file=Eigval,&
+            &action='WRITE')
+    end if
+
     return
 END SUBROUTINE output_header

@@ -54,7 +54,7 @@ double complex Gamma10d(1:ndim,1:nspin,1:nspin)
   integer nacceptance !number of acceptance
   integer ntrial !number of trial
   character(1000) input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log
-
+  character(1000) Eigenval,Pol_phase
 
 ! For MPI
 !integer IERR,NPROCS,MYRANK

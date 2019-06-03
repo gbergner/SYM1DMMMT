@@ -32,3 +32,5 @@
 4357    !mersenne_seed; seed for mersenne twistor, when init is not zero.
 0	!imetropolis; 1 -> no Metropolis test (For thermalization)
 0	!purebosonic; 0 -> full theory, 1 -> only bosonic part
+'phasePL.dat'	      ! printout for PL phases
+'eigenvaluesX2.dat'   ! printout for the eigenvalue distribution of Y= Sum_t Z_mu nu / Nt

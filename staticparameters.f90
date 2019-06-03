@@ -1,7 +1,7 @@
 !----------------------------------------
 !     Number of sites along t-direction
 integer nsite
-parameter(nsite=8)
+parameter(nsite=12)
 !----------------------------------------
 !     Size of matrices
 integer nmat
@@ -40,7 +40,7 @@ integer,parameter :: solver_verbose=0
 integer,parameter :: rhmc_verbose=0
 integer,parameter :: rhmc_force=0
 integer,parameter :: check_host_metropolis=0
-integer,parameter :: cublasstream=0
-integer,parameter :: cublascgm=0
+integer,parameter :: cublasstream=1
+integer,parameter :: cublascgm=1
 integer,parameter :: usetimer=0
 

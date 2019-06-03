@@ -1,3 +1,4810 @@
  molecular evolution            5
  molecular evolution           82
  molecular evolution           82
+ itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           34
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           35
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           36
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           37
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           38
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           39
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           40
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           41
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           42
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           43
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           44
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           45
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           46
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           47
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           48
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           49
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           50
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           51
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           52
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           53
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           54
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           55
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           56
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           57
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           58
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           59
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           60
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           61
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           62
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           63
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           64
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           65
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution         itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           34
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           35
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           36
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           37
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           38
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           39
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           40
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           41
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           42
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           43
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           44
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           45
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           46
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           47
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           48
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           49
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           50
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           51
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           52
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           53
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           54
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           55
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           56
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           57
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           58
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           59
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           60
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           61
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           62
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           63
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           64
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           65
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           66
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           67
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           68
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           69
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           70
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           71
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           72
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           73
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           74
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           75
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           76
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           77
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           78
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           79
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           80
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           81
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           82
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           83
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           84
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           85
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           86
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           87
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           88
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           89
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           90
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           91
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           92
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           93
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           94
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           95
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           96
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           97
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           98
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           99
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          100
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          101
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          102
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          103
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          104
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          105
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          106
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          107
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          108
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=          109
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evoluti itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           34
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           35
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           36
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           37
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           38
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           39
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           40
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           41
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           42
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           43
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           44
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular e itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molec itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molec itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molec itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molec itraj=            1
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            2
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            3
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            4
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            5
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            6
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            7
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            8
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=            9
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           10
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           11
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           12
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           13
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           14
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           15
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           16
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           17
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           18
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           19
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           20
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           21
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           22
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           23
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           24
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           25
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           26
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           27
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           28
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           29
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           30
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           31
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           32
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ ham_fin            0
+ itraj=           33
+ pseudo-fermion generation            0
+ ham_init            0
+ molecular evolution            0
+ molecular evolution            0
+ molecular evolution            0
+ molec

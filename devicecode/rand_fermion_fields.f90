@@ -147,6 +147,7 @@ contains
         &nbc,nbmn,temperature,flux,info)
         use compiletimeconstants
         use cgm_solver
+        use timer
         !use mtmod !Mersenne twistor
         implicit none
 
@@ -178,13 +179,14 @@ contains
         integer iremez
         integer i
         integer ipf
-
+        call print_time_step("random number generation on cpu and transfer start")
         !**************************************************************************
         !**** we must be careful about the normalization of the Gaussian term. ****
         !**************************************************************************
         call generate_rand_vect(phi)
-
-        !$acc kernels
+        call print_time_step("random number generation on cpu and transfer end")
+        call print_time_step("random vector preparation start")
+        !$acc parallel loop collapse(3)
         do ipf=1,npf
             !****************************
             !*** traceless projection ***
@@ -202,7 +204,8 @@ contains
                 end do
             end do
         end do
-        !$acc end kernels
+        !$acc end parallel
+        call print_time_step("random vector preparation end")
         !*********************************
         !*** adjust the margin and b.c.***
         !*********************************

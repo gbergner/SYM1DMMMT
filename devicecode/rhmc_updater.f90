@@ -262,7 +262,7 @@ contains
         !Take CG_log
         write(unit_CG_log,*)"ham_init",iteration
         ! This might not be requires since the boudaries are always updated
-        ! call Adjust_margin_xmat_device(xmat)
+        !call Adjust_margin_xmat_device(xmat)
         ! requires summation and distribution
         call hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham_init,pf,&
             &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_init,max_err,max_iteration,&
@@ -293,7 +293,7 @@ contains
         !info_mol=1 -> error (CG solver did not converge)
         if(info_mol.EQ.0)then
             ! This might not be requires since the boudaries are always updated
-            ! call Adjust_margin_xmat_device(xmat)
+            !call Adjust_margin_xmat_device(xmat)
             call hamilton_calculation(temperature,xmat,alpha,P_xmat,P_alpha,ham_fin,pf,&
                 &acoeff_md,g_R,RCUT,nbmn,flux,phase,bcoeff_md,info_CG_fin,max_err,&
                 &max_iteration,iteration,gamma10d,gam123,nbc,ngauge,purebosonic)

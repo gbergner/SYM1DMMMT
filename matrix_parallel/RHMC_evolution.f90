@@ -104,7 +104,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
         !Take CG_log
         write(unit_CG_log,*)"ham_init",iteration
     end if
-
+ !   call Adjust_margin_xmat(xmat,myrank)
     call Calc_Ham(temperature,xmat,alpha,&
         &P_xmat,P_alpha,ham_init_local,myrank,pf,chi,&
         &acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)
@@ -134,7 +134,7 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
             !Take CG_log
             write(unit_CG_log,*)"ham_fin",iteration
         end if
-     
+   !     call Adjust_margin_xmat(xmat,myrank)
         call Calc_Ham(temperature,&
             &xmat,alpha,P_xmat,P_alpha,ham_fin_local,myrank,&
             &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)

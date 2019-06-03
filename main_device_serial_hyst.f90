@@ -84,6 +84,7 @@ program BFSS_DEVICE
     integer ntrial !number of trial
     character(1000) input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log,checkpointn
     character(1000) data_output_n
+    character(1000) Eigenval,Pol_phase
     !character,dimension(:),allocatable :: input_config,data_output,output_config,acc_input,acc_output,intermediate_config,CG_log
     ! For MPI
     !integer IERR,NPROCS,MYRANK
@@ -160,6 +161,8 @@ program BFSS_DEVICE
     read(unit_input_para,*) Tmin
     read(unit_input_para,*) Tstep
     read(unit_input_para,*) Tmax
+    read(unit_input_para,*) Pol_phase
+    read(unit_input_para,*) Eigenval
     close(unit_input_para)
     !Construc Gamma matrices.
     call MakeGamma(Gamma10d)
@@ -208,7 +211,7 @@ program BFSS_DEVICE
     call output_header(data_output,temperature,flux,&
         &ntau,nratio,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
         &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
-        &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
+        &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,Pol_phase,Eigenval,&
         &isave,nsave,intermediate_config,imetropolis,ngauge,purebosonic)
 
     !*******************************************************

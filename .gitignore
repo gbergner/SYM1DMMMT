@@ -3,9 +3,11 @@
 *.mod
 test_timing
 testprogram
+test_timing_inverter
 bfss_device_serial
 bfss_host_serial
 bfss_mparallel
+bfss_device_serial_hyst
 Makefile.inc
 .cproject
 .project

@@ -134,7 +134,6 @@ SUBROUTINE RHMC_evolution(xmat,alpha,ncv,n_bad_CG,nacceptance,nbc,nbmn,&
             &pf,chi,acoeff_md,g_R,RCUT,nbmn,flux,ngauge,purebosonic)
      
     end if
-  
     if(rhmc_verbose.EQ.1) then
         print*, "check  device pseudofermion final ", Sum(pf)
         print*, "check device xmat final ", Sum(xmat)

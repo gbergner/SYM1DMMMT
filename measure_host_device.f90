@@ -15,6 +15,7 @@ SUBROUTINE measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
   double complex Gamma10d(1:ndim,1:nspin,1:nspin)
   double precision max_err
   integer max_iteration
+  double complex eigval(1:ndim)
 
   double precision trx2,com2,Pol,largest_eig,smallest_eig,energy,ham_fin,ham_init
   double complex, intent(in) :: phase(1:nmat,1:nmat,1:2)
@@ -23,6 +24,7 @@ SUBROUTINE measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
 
   !measurements on host (make sure that update host is called before!)
   call Calc_TrX2(xmat,trx2)
+  call Calc_TrX2_eigenvalues(xmat,eigval)
   call Calc_Com2(xmat,com2)
   call Calc_energy(temperature,xmat,alpha,energy,nbmn,flux)
   call Calc_Polyakov(alpha,Pol)
@@ -81,7 +83,11 @@ SUBROUTINE measure_host_device(xmat,alpha,nbc,nbmn,temperature,flux,&
           &dble(nacceptance)/dble(ntrial)
   end if
   
+  write(unit_Polyakov_phase,*) alpha
+  write(unit_Eigenval,*) eigval
   flush(unit_measurement)
+  flush(unit_Polyakov_phase)
+  flush(unit_Eigenval)
 
   return 
 

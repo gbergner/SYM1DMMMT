@@ -101,6 +101,8 @@ program BFSS
   read(unit_input_para,*) mersenne_seed
   read(unit_input_para,*) imetropolis
   read(unit_input_para,*) purebosonic
+  read(unit_input_para,*) Pol_phase
+  read(unit_input_para,*) Eigenval
   close(unit_input_para)
   !Construc Gamma matrices. 
   call MakeGamma(Gamma10d)
@@ -147,7 +149,7 @@ program BFSS
   call output_header(data_output,temperature,flux,&
        &ntau,nratio,dtau_xmat,dtaU_alpha,neig_max,neig_min,nbc,nbmn,&
        &init,input_config,output_config,iaccelerate,acc_input,acc_output,&
-       &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,&
+       &g_alpha,g_R,RCUT,upper_approx,max_err,max_iteration,CG_log,Pol_phase,Eigenval,&
        &isave,nsave,intermediate_config,imetropolis,ngauge,purebosonic)
 
   !*******************************************************
