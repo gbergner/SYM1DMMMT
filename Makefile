@@ -21,7 +21,7 @@ else
  DIRS=devicecode hostcode
  DLIB=devicecode/libdevice.a
  HLIB=hostcode/libhost.a $(BASELIB)
- EXE=testprogram test_timing bfss_host_serial bfss_device_serial test_timing_inverter bfss_device_serial_hyst
+ EXE=testprogram bfss_host_serial_read test_timing bfss_host_serial bfss_device_serial test_timing_inverter bfss_device_serial_hyst
 endif
 
 all: $(EXE)
@@ -39,6 +39,9 @@ compare_host_device.mod: compare_host_device.f90
 
 bfss_host_serial: ${HLIB} main_host_serial.o 
 	${FC} ${FCFLAGS} main_host_serial.o ${HLIB} -o $@
+
+bfss_host_serial_read: ${HLIB} main_host_serial_readintermediate.o 
+	${FC} ${FCFLAGS} main_host_serial_readintermediate.o ${HLIB} -o $@
 
 bfss_device_serial: ${HLIB} ${DLIB} measure_host_device.o main_device_serial.o 
 	${FC} ${FCFLAGS} main_device_serial.o measure_host_device.o ${DLIB} ${HLIB}  -o $@

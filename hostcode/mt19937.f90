@@ -243,6 +243,30 @@
     return
   end subroutine mtgetu
 
+    !subroutine mtgetu( unum, forma )
+  subroutine mtgetus( unum,status)
+    integer, intent(in)    :: unum
+    integer :: status
+   ! character, intent(in)  :: forma
+
+   ! select case (forma)
+   !   case('u','U')
+   !    read(unum)mti
+   !    read(unum)mt
+
+   !   case default
+       if(status.EQ.0) then
+        read(unum,*,IOSTAT=status)mti
+       end if
+       if(status.EQ.0) then
+        read(unum,*,IOSTAT=status)mt
+       end if
+
+  !    end select
+
+    return
+  end subroutine mtgetus
+
  end module mtmod
 
 !!$ program main

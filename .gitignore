@@ -8,6 +8,7 @@ bfss_device_serial
 bfss_host_serial
 bfss_mparallel
 bfss_device_serial_hyst
+bfss_host_serial_read
 Makefile.inc
 .cproject
 .project

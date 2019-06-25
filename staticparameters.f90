@@ -1,11 +1,11 @@
 !----------------------------------------
 !     Number of sites along t-direction
 integer nsite
-parameter(nsite=12)
+parameter(nsite=24)
 !----------------------------------------
 !     Size of matrices
 integer nmat
-parameter(nmat=4)
+parameter(nmat=8)
 !----------------------------------------
 !     Number of pseudo fermions
 integer npf !(1,2 at this moment)
@@ -24,7 +24,7 @@ parameter(nspin=16)
 !   nimprove=0 -> no improvement
 !   nimprove=1 -> O(a^2) improvement. Note that communication cost increases.
 integer nimprove
-parameter(nimprove=1)
+parameter(nimprove=0)
 integer nmargin!size of the margin
 parameter(nmargin=nimprove+1)
 !----------------------------------------
